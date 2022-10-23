@@ -1,0 +1,51 @@
+{
+  "loader": "forge:obj",
+  "flip_v": true,
+  "model": "magical_obsession:models/block/crystal.obj",
+  "textures": {
+    "texture0": "magical_obsession:block/crystal",
+    "particle": "magical_obsession:block/crystal"
+  },
+  "display": {
+    "thirdperson_righthand": {
+      "translation": [0, 2, 0],
+      "scale": [0.32, 0.32, 0.32]
+    },
+    "thirdperson_lefthand": {
+      "translation": [0, 2, 0],
+      "scale": [0.32, 0.32, 0.32]
+    },
+    "firstperson_righthand": {
+      "translation": [0, 2, 0],
+      "scale": [0.32, 0.32, 0.32]
+    },
+    "firstperson_lefthand": {
+      "translation": [0, 2, 0],
+      "scale": [0.32, 0.32, 0.32]
+    },
+    "ground": {
+      "translation": [0, 1, 0],
+      "scale": [0.3, 0.3, 0.3]
+    },
+    "gui": {
+      "translation": [3.5, 0, 0],
+      "rotation": [0, 0, -45],
+      "scale": [0.35, 0.35, 0.35]
+    },
+    "head": {
+      "translation": [0, 9.25, 0],
+      "scale": [0.35, 0.35, 0.35]
+    },
+    "fixed": {
+      "scale": [0.35, 0.35, 0.35]
+    }
+  },
+  "groups": [
+    {
+      "name": "main",
+      "origin": [0, 0, 0],
+      "color": 0,
+      "children": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
+    }
+  ]
+}

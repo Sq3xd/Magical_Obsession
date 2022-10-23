@@ -1,0 +1,12 @@
+{
+  "item.magical_obsession.magic_dust": "Magic Dust",
+  "item.magical_obsession.crystal": "Crystal",
+  "item.magical_obsession.sphere": "Sphere",
+
+  "tooltip.magical_obsession.magic_dust": "§5No one knows how to use this, maybe i should try cauldron?",
+  "tooltip.magical_obsession.shift": "§eHold §lSHIFT §r§efor more info",
+
+  "block.magical_obsession.special_cauldron": "Special Cauldron",
+
+  "itemGroup.magical_obsession": "Magical Obsession"
+}
