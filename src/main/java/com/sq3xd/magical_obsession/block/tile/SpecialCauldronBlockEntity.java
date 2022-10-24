@@ -1,6 +1,7 @@
 package com.sq3xd.magical_obsession.block.tile;
 
 import com.sq3xd.magical_obsession.init.ModBlockEntities;
+import com.sq3xd.magical_obsession.recipe.SpecialCauldronRecipe;
 import com.sq3xd.magical_obsession.tags.ModTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -9,6 +10,7 @@ import net.minecraft.network.Connection;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -16,6 +18,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.items.ItemStackHandler;
+
+import java.util.Optional;
 
 public class SpecialCauldronBlockEntity extends BlockEntity {
     public static Direction direction;
@@ -31,7 +35,7 @@ public class SpecialCauldronBlockEntity extends BlockEntity {
     private int sphere = 0;
 
     private int progress = 0;
-    private int maxProgress = 320;
+    private int maxProgress = 75;
     private int maxAdvancedProgress = 790;
 
     // Initialisation
@@ -113,11 +117,18 @@ public class SpecialCauldronBlockEntity extends BlockEntity {
     }
 
     public static void tick(Level level, BlockPos pos, BlockState state, SpecialCauldronBlockEntity entity) {
+        SimpleContainer inventory = new SimpleContainer(entity.itemStackHandler.getStackInSlot(0));
+
+        Optional<SpecialCauldronRecipe> recipe = level.getRecipeManager()
+                .getRecipeFor(SpecialCauldronRecipe.Type.INSTANCE, inventory, level);
+
         if (level.isClientSide) {
-            if (entity.itemStackHandler.getStackInSlot(0).is(ModTags.Items.SPECIAL_CAULDRON_CRAFT_LOW_ITEMS) && !entity.itemStackHandler.getStackInSlot(0).is(ItemStack.EMPTY.getItem())) {
+            if (!entity.itemStackHandler.getStackInSlot(0).is(ItemStack.EMPTY.getItem()) && hasRecipe(entity, level)) {
                 entity.progress++;
                 if (entity.progress >= entity.maxProgress) {
-                    entity.itemStackHandler.setStackInSlot(0, Items.DIAMOND.getDefaultInstance());
+                    //entity.itemStackHandler.setStackInSlot(0, Items.DIAMOND.getDefaultInstance());
+                    craftItem(entity, level);
+                    System.out.println(recipe.isPresent());
                     level.playLocalSound(pos.getX(), pos.getY(), pos.getZ(), SoundEvents.END_PORTAL_SPAWN, SoundSource.BLOCKS, 1.0f, 1.0f, true);
                     entity.resetProgress();
                 }
@@ -127,15 +138,36 @@ public class SpecialCauldronBlockEntity extends BlockEntity {
         }
 
         if (!level.isClientSide) {
-            if (entity.itemStackHandler.getStackInSlot(0).is(ModTags.Items.SPECIAL_CAULDRON_CRAFT_LOW_ITEMS) && !entity.itemStackHandler.getStackInSlot(0).is(ItemStack.EMPTY.getItem())) {
+            if (!entity.itemStackHandler.getStackInSlot(0).is(ItemStack.EMPTY.getItem()) && hasRecipe(entity, level)) {
                 entity.progress++;
                 if (entity.progress >= entity.maxProgress) {
-                    entity.itemStackHandler.setStackInSlot(0, Items.DIAMOND.getDefaultInstance());
+                    //entity.itemStackHandler.setStackInSlot(0, Items.DIAMOND.getDefaultInstance());
+                    craftItem(entity, level);
                     entity.resetProgress();
                 }
             } else {
                 entity.resetProgress();
             }
         }
+    }
+
+     // Craft
+     private static void craftItem(SpecialCauldronBlockEntity entity, Level level) {
+         SimpleContainer inventory = new SimpleContainer(entity.itemStackHandler.getStackInSlot(0));
+
+         Optional<SpecialCauldronRecipe> recipe = level.getRecipeManager()
+                 .getRecipeFor(SpecialCauldronRecipe.Type.INSTANCE, inventory, level);
+
+         if (hasRecipe(entity, level))
+            entity.itemStackHandler.setStackInSlot(0, new ItemStack(recipe.get().getResultItem().getItem()));
+     }
+
+    private static boolean hasRecipe(SpecialCauldronBlockEntity entity, Level level) {
+        SimpleContainer inventory = new SimpleContainer(entity.itemStackHandler.getStackInSlot(0));
+
+        Optional<SpecialCauldronRecipe> recipe = level.getRecipeManager()
+                .getRecipeFor(SpecialCauldronRecipe.Type.INSTANCE, inventory, level);
+
+        return recipe.isPresent();
     }
 }
