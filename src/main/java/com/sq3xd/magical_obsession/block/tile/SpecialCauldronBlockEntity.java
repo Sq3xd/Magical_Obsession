@@ -112,11 +112,11 @@ public class SpecialCauldronBlockEntity extends BlockEntity {
         this.progress = 0;
     }
 
-    public static void tick(Level level, BlockPos pos, BlockState state, SpecialCauldronBlockEntity entity){
-        if (level.isClientSide){
-            if (entity.itemStackHandler.getStackInSlot(0).is(ModTags.Items.SPECIAL_CAULDRON_CRAFT_LOW_ITEMS) && !entity.itemStackHandler.getStackInSlot(0).is(ItemStack.EMPTY.getItem())){
+    public static void tick(Level level, BlockPos pos, BlockState state, SpecialCauldronBlockEntity entity) {
+        if (level.isClientSide) {
+            if (entity.itemStackHandler.getStackInSlot(0).is(ModTags.Items.SPECIAL_CAULDRON_CRAFT_LOW_ITEMS) && !entity.itemStackHandler.getStackInSlot(0).is(ItemStack.EMPTY.getItem())) {
                 entity.progress++;
-                if (entity.progress >= entity.maxProgress){
+                if (entity.progress >= entity.maxProgress) {
                     entity.itemStackHandler.setStackInSlot(0, Items.DIAMOND.getDefaultInstance());
                     level.playLocalSound(pos.getX(), pos.getY(), pos.getZ(), SoundEvents.END_PORTAL_SPAWN, SoundSource.BLOCKS, 1.0f, 1.0f, true);
                     entity.resetProgress();
@@ -126,10 +126,10 @@ public class SpecialCauldronBlockEntity extends BlockEntity {
             }
         }
 
-        if (!level.isClientSide){
-            if (entity.itemStackHandler.getStackInSlot(0).is(ModTags.Items.SPECIAL_CAULDRON_CRAFT_LOW_ITEMS) && !entity.itemStackHandler.getStackInSlot(0).is(ItemStack.EMPTY.getItem())){
+        if (!level.isClientSide) {
+            if (entity.itemStackHandler.getStackInSlot(0).is(ModTags.Items.SPECIAL_CAULDRON_CRAFT_LOW_ITEMS) && !entity.itemStackHandler.getStackInSlot(0).is(ItemStack.EMPTY.getItem())) {
                 entity.progress++;
-                if (entity.progress >= entity.maxProgress){
+                if (entity.progress >= entity.maxProgress) {
                     entity.itemStackHandler.setStackInSlot(0, Items.DIAMOND.getDefaultInstance());
                     entity.resetProgress();
                 }
@@ -137,80 +137,5 @@ public class SpecialCauldronBlockEntity extends BlockEntity {
                 entity.resetProgress();
             }
         }
-        //System.out.println("YES");
-        /*if (!level.isClientSide){
-            System.out.println("SERVER SIDE - " + entity.itemStackHandler.getStackInSlot(0));
-        }
-
-        if (level.isClientSide){
-            System.out.println("CLIENT SIDE - " + entity.itemStackHandler.getStackInSlot(0));
-        }*/
-        //entity.itemStackHandler.setStackInSlot(0, entity.itemStackHandler.getStackInSlot(0));
-        /*ItemStack item = entity.itemStackHandler.getStackInSlot(0);
-
-        if (!level.isClientSide){
-            item = entity.itemStackHandler.getStackInSlot(0);
-        }
-
-        if (level.isClientSide){
-            entity.itemStackHandler.setStackInSlot(0, item);
-            System.out.println(item);
-        }/*
-        /*if (level.isClientSide){
-            entity.itemStackHandler.setStackInSlot(0, entity.itemStackHandler.getStackInSlot(0));
-        }*/
-        /*if (!level.isClientSide){
-            System.out.println("Yes " + entity.getCorruption());
-            entity.setCorruption(1);
-            if (entity.getCorruption() >= 300){
-                state.setValue(BlockStateProperties.ENABLED, true);
-            }
-        }*/
     }
-
-    /*public static void tick(Level level, BlockPos pos, BlockState state, SpecialCauldronBlockEntity entity){
-        if(level.isClientSide()) {
-            return;
-        }
-
-        if(hasRecipe(entity)) {
-            this.progress++;
-            setChanged(level, pos, state);
-
-            if(entity.progress >= entity.maxProgress) {
-                craftItem(entity);
-            }
-        } else {
-            entity.resetProgress();
-            setChanged(level, pos, state);
-        }
-    }
-
-    private static void craftItem(SpecialCauldronBlockEntity entity) {
-
-        if(hasRecipe(entity)) {
-            entity.
-            entity.resetProgress();
-        }
-    }
-
-    private static boolean hasRecipe(SpecialCauldronBlockEntity entity) {
-        SimpleContainer inventory = new SimpleContainer(entity.itemStackHandler.getSlots());
-        for (int i = 0; i < entity.itemStackHandler.getSlots(); i++) {
-            inventory.setItem(i, entity.itemStackHandler.getStackInSlot(i));
-        }
-
-        boolean hasItemInFirstSlot = entity.itemStackHandler.getStackInSlot(1).getItem() == ModItems.TIN_ORE_ITEM.get();
-
-        return hasItemInFirstSlot && canInsertAmountIntoOutputSlot(inventory) &&
-                canInsertItemIntoOutputSlot(inventory, new ItemStack(ModItems.TIN_INGOT.get(), 1));
-    }
-
-    private static boolean canInsertItemIntoOutputSlot(SimpleContainer inventory, ItemStack stack) {
-        return inventory.getItem(2).getItem() == stack.getItem() || inventory.getItem(2).isEmpty();
-    }
-
-    private static boolean canInsertAmountIntoOutputSlot(SimpleContainer inventory) {
-        return inventory.getItem(2).getMaxStackSize() > inventory.getItem(2).getCount();
-    }*/
 }
