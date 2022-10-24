@@ -1,0 +1,31 @@
+{
+  "display": {
+    "icon": {
+      "item": "magical_obsession:crystal"
+    },
+    "title": {
+      "translate": "advancements.magical_obsession.magical_obsession.title"
+    },
+    "description": {
+      "translate": "advancements.magical_obsession.magical_obsession.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "background": "minecraft:textures/block/deepslate_bricks.png"
+  },
+  "criteria": {
+    "requirement": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "magical_obsession:magic_dust"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

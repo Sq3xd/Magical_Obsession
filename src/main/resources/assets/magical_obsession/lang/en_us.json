@@ -3,10 +3,23 @@
   "item.magical_obsession.crystal": "Crystal",
   "item.magical_obsession.sphere": "Sphere",
 
+  "block.magical_obsession.special_cauldron": "Special Cauldron",
+
   "tooltip.magical_obsession.magic_dust": "§5No one knows how to use this, maybe i should try cauldron?",
   "tooltip.magical_obsession.shift": "§eHold §lSHIFT §r§efor more info",
 
-  "block.magical_obsession.special_cauldron": "Special Cauldron",
+  "gui.jei.description.magic_dust": "I don't know how to use this, but maybe i should try to do something with cauldron? i need to be careful..",
+  "gui.jei.description.special_cauldron": "The Power of this cauldron is not revealed yet, be aware before you use it.",
+
+  "advancements.magical_obsession.magical_obsession.title": "Magical Obsession",
+  "advancements.magical_obsession.special_cauldron.title": "The first one!",
+  "advancements.magical_obsession.magic_dust.title": "Big step!",
+
+  "advancements.magical_obsession.magical_obsession.description": "Your magic road!",
+  "advancements.magical_obsession.special_cauldron.description": "Find a way to obtain your first magical stuff!",
+  "advancements.magical_obsession.magic_dust.description": "Finally, you can start making some magical stuff!",
+
+  "message.player.tip": "§5I fell asleep and had a dream about this strange cauldron. I putted some §omagic powder§r§5 in it. I can't remember what happened next, should i try and repeat it?",
 
   "itemGroup.magical_obsession": "Magical Obsession"
 }
