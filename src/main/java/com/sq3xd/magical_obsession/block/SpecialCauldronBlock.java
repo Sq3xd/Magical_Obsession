@@ -77,7 +77,7 @@ public class SpecialCauldronBlock extends Block implements EntityBlock {
 
     @Override
     public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult result) {
-        // Explode if placed on not correct block
+         // Explode if placed on not correct block
         if (!level.isClientSide){
             if (level.getBlockEntity(pos) instanceof SpecialCauldronBlockEntity entity) {
                 if (level.getBlockState(pos.below()).is(ModTags.Blocks.SPECIAL_CAULDRON_EXPLODES)) {
@@ -86,7 +86,7 @@ public class SpecialCauldronBlock extends Block implements EntityBlock {
             }
         }
 
-        // Interaction - Server Side
+         // Interaction - Server Side
         if (!level.isClientSide) {
             if (level.getBlockEntity(pos) instanceof SpecialCauldronBlockEntity entity) {
                 if (entity.itemStackHandler.getStackInSlot(0).is(ItemStack.EMPTY.getItem()) && !player.getMainHandItem().is(ItemStack.EMPTY.getItem())) {
@@ -106,7 +106,7 @@ public class SpecialCauldronBlock extends Block implements EntityBlock {
             }
         }
 
-        // Interaction - Client Side
+         // Interaction - Client Side
         if (level.isClientSide) {
             if (level.getBlockEntity(pos) instanceof SpecialCauldronBlockEntity entity) {
                 if (entity.itemStackHandler.getStackInSlot(0).is(ItemStack.EMPTY.getItem()) && !player.getMainHandItem().is(ItemStack.EMPTY.getItem())) {
