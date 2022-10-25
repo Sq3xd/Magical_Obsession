@@ -1,6 +1,7 @@
-package com.sq3xd.magical_obsession.recipe;
+package com.sq3xd.magical_obsession.init;
 
 import com.sq3xd.magical_obsession.MagicalObsession;
+import com.sq3xd.magical_obsession.recipe.SpecialCauldronRecipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;

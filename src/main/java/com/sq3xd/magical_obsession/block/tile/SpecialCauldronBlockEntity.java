@@ -19,6 +19,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraftforge.items.ItemStackHandler;
 
 import java.util.Optional;
@@ -89,7 +90,7 @@ public class SpecialCauldronBlockEntity extends BlockEntity {
     }
 
     @Override
-    public void load(CompoundTag nbt) { // TODO FIX MODEL RENDERING FOR CLIENT SIDE
+    public void load(CompoundTag nbt) {
         super.load(nbt);
         itemStackHandler.deserializeNBT(nbt.getCompound("inventory"));
     }
@@ -120,7 +121,7 @@ public class SpecialCauldronBlockEntity extends BlockEntity {
 
      // Tick
     public static void tick(Level level, BlockPos pos, BlockState state, SpecialCauldronBlockEntity entity) {
-        int rs = RandomSource.create().nextInt(1, 219); // Get random additional recipe tick
+        int rs = RandomSource.create().nextInt(1, 279); // Get random additional recipe tick
 
         SimpleContainer inventory = new SimpleContainer(entity.itemStackHandler.getStackInSlot(0));
 
@@ -131,12 +132,13 @@ public class SpecialCauldronBlockEntity extends BlockEntity {
         if (level.isClientSide) {
             if (!entity.itemStackHandler.getStackInSlot(0).is(ItemStack.EMPTY.getItem()) && hasRecipe(entity, level)) {
                 entity.progress++;
-                if (entity.progress == RandomSource.create().nextInt(entity.progress, entity.progress + 87)){
+                if (entity.progress == RandomSource.create().nextInt(entity.progress, entity.progress + 77)){
                     spawnParticles(level, pos);
                 }
 
                 if (entity.progress >= entity.maxProgress + rs) {
                     craftItem(entity, level);
+                    entity.setSphere(rs);
                     level.playLocalSound(pos.getX(), pos.getY(), pos.getZ(), SoundEvents.BREWING_STAND_BREW, SoundSource.BLOCKS, 1.0f, 1.0f, true);
                     entity.resetProgress();
                 }
@@ -150,8 +152,8 @@ public class SpecialCauldronBlockEntity extends BlockEntity {
             if (!entity.itemStackHandler.getStackInSlot(0).is(ItemStack.EMPTY.getItem()) && hasRecipe(entity, level)) {
                 entity.progress++;
                 if (entity.progress >= entity.maxProgress + rs) {
-                    //entity.itemStackHandler.setStackInSlot(0, Items.DIAMOND.getDefaultInstance());
                     craftItem(entity, level);
+                    entity.setSphere(rs);
                     entity.resetProgress();
                 }
             } else {
@@ -191,7 +193,7 @@ public class SpecialCauldronBlockEntity extends BlockEntity {
                 double d1 = direction$axis == Direction.Axis.X ? 0.5D + 0.5625D * (double)direction.getStepX() : (double)randomsource.nextFloat();
                 double d2 = direction$axis == Direction.Axis.Y ? 0.59D + 0.5625D * (double)direction.getStepY() : (double)randomsource.nextFloat();
                 double d3 = direction$axis == Direction.Axis.Z ? 0.5D + 0.5625D * (double)direction.getStepZ() : (double)randomsource.nextFloat();
-                level.addParticle(ParticleTypes.SMOKE, (double)pos.getX() + d1, (double)pos.getY() + d2 + 1.59D, (double)pos.getZ() + d3, 0.0D, 0.0D, 0.0D);
+                level.addParticle(ParticleTypes.SMOKE, (double)pos.getX() + d1, (double)pos.getY() + d2 + 1.29D, (double)pos.getZ() + d3, 0.0D, 0.0D, 0.0D);
             }
         }
     }

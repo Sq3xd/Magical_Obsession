@@ -1,0 +1,11 @@
+{
+  "type": "magical_obsession:special_cauldron",
+  "ingredients": [
+    {
+      "item": "minecraft:lantern"
+    }
+  ],
+  "output": {
+    "item": "minecraft:soul_lantern"
+  }
+}

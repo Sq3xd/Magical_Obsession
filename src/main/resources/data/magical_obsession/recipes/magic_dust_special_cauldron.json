@@ -1,0 +1,11 @@
+{
+  "type": "magical_obsession:special_cauldron",
+  "ingredients": [
+    {
+      "item": "minecraft:blaze_powder"
+    }
+  ],
+  "output": {
+    "item": "magical_obsession:magic_dust"
+  }
+}

@@ -4,15 +4,11 @@ import com.mojang.logging.LogUtils;
 import com.sq3xd.magical_obsession.init.ModBlockEntities;
 import com.sq3xd.magical_obsession.init.ModBlocks;
 import com.sq3xd.magical_obsession.init.ModItems;
-import com.sq3xd.magical_obsession.recipe.ModRecipes;
+import com.sq3xd.magical_obsession.init.ModRecipes;
 import com.sq3xd.magical_obsession.render.block.SpecialCauldronRenderer;
-import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
 import net.minecraftforge.event.entity.player.PlayerWakeUpEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -46,7 +42,6 @@ public class MagicalObsession
         @SubscribeEvent
         public void wakeUpEvent(PlayerWakeUpEvent event) {
             if (!event.getEntity().getLevel().isClientSide) {
-                Player player = event.getEntity();
                 if (!event.getEntity().getTags().contains("get_tip")){
                     event.getEntity().sendSystemMessage(Component.translatable("message.player.tip"));
                     event.getEntity().addTag("get_tip");

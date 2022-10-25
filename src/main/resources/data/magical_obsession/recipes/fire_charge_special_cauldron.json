@@ -1,0 +1,11 @@
+{
+  "type": "magical_obsession:special_cauldron",
+  "ingredients": [
+    {
+      "item": "minecraft:magma_cream"
+    }
+  ],
+  "output": {
+    "item": "minecraft:fire_charge"
+  }
+}

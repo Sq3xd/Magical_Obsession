@@ -15,6 +15,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.block.BlockRenderDispatcher;
+import net.minecraft.client.renderer.block.ModelBlockRenderer;
 import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderDispatcher;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
@@ -24,6 +25,7 @@ import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.util.Mth;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
@@ -53,9 +55,10 @@ public class SpecialCauldronRenderer implements BlockEntityRenderer<SpecialCauld
         BlockState state = entity.getBlockState();
 
         // Render Sphere
-        if (state.getValue(BlockStateProperties.ENABLED).equals(true)){
+
+        if (entity.getSphere() >= 3200){
             stack.pushPose();
-            stack.translate(3.15d, 3.15d, 3.15d);
+            stack.translate(3.125d, 3.125d, 3.125d);
             stack.scale(15, 15, 15);
             stack.mulPose(Vector3f.YN.rotationDegrees(0));
             item_renderer.renderStatic(Minecraft.getInstance().player, ModItems.SPHERE_ITEM.get().getDefaultInstance(), ItemTransforms.TransformType.FIXED, false, stack, buffer,
@@ -88,7 +91,7 @@ public class SpecialCauldronRenderer implements BlockEntityRenderer<SpecialCauld
 
         if (!entity.itemStackHandler.getStackInSlot(0).is(ItemStack.EMPTY.getItem())) {
             stack.pushPose();
-            stack.translate(0.65d, 1.75d, 0.65d);
+            stack.translate(0.65d, 2.07d, 0.65d);
             stack.scale(0.75f, 0.75f, 0.75f);
             stack.mulPose(Vector3f.YN.rotation(0));
             item_renderer.renderStatic(Minecraft.getInstance().player, ModItems.CRYSTAL_ITEM.get().getDefaultInstance(), ItemTransforms.TransformType.FIXED, false, stack, buffer,

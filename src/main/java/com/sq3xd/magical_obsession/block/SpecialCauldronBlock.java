@@ -44,11 +44,10 @@ public class SpecialCauldronBlock extends Block implements EntityBlock {
             INSIDE), BooleanOp.ONLY_FIRST);
 
     public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
-    public static BooleanProperty SPHERE = BlockStateProperties.ENABLED;
 
     public SpecialCauldronBlock(Properties properties) {
         super(properties);
-        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(SPHERE, Boolean.valueOf(false))); // FACING AND SPHERE PROPERTIES
+        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH)); // FACING AND SPHERE PROPERTIES
     }
     // Direction
 
@@ -65,7 +64,7 @@ public class SpecialCauldronBlock extends Block implements EntityBlock {
     }
 
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> p_48725_) {
-        p_48725_.add(FACING, SPHERE);
+        p_48725_.add(FACING);
     }
 
     // Using
@@ -126,13 +125,18 @@ public class SpecialCauldronBlock extends Block implements EntityBlock {
 
     // Entity
 
+
     @Override
-    public void onRemove(BlockState state1, Level level, BlockPos pos, BlockState state, boolean a) {
+    public boolean onDestroyedByPlayer(BlockState state, Level level, BlockPos pos, Player player, boolean willHarvest, FluidState fluid) {
         if (!level.isClientSide()){
             if (level.getBlockEntity(pos) instanceof SpecialCauldronBlockEntity entity){
+                if (entity.getSphere() >= 3200) {
+                    entity.itemStackHandler.setStackInSlot(0, ItemStack.EMPTY);
+                    level.explode(null, DamageSource.MAGIC, null, pos.getX(), pos.getY(), pos.getZ(), 5.5f, false, Explosion.BlockInteraction.DESTROY);
+                }
+
                 if (entity.itemStackHandler.getStackInSlot(0).is(ModTags.Items.SPECIAL_CAULDRON_DANGEROUS_ITEMS)){
                     level.explode(null, DamageSource.MAGIC, null, pos.getX(), pos.getY(), pos.getZ(), 3.5f, false, Explosion.BlockInteraction.DESTROY);
-                    entity.itemStackHandler.setStackInSlot(0, ItemStack.EMPTY);
                 } else {
                     if (!entity.itemStackHandler.getStackInSlot(0).is(ItemStack.EMPTY.getItem())) {
                         if (entity.itemStackHandler.getStackInSlot(0).isStackable()){
@@ -143,10 +147,12 @@ public class SpecialCauldronBlock extends Block implements EntityBlock {
                             level.addFreshEntity(itemEntity);
                         }
                     }
-                    entity.itemStackHandler.setStackInSlot(0, ItemStack.EMPTY);
                 }
+                entity.setSphere(-entity.getSphere());
+                entity.itemStackHandler.setStackInSlot(0, ItemStack.EMPTY);
             }
         }
+        return super.onDestroyedByPlayer(state, level, pos, player, willHarvest, fluid);
     }
 
     @Nullable
@@ -165,18 +171,6 @@ public class SpecialCauldronBlock extends Block implements EntityBlock {
     @javax.annotation.Nullable
     protected static <E extends BlockEntity, A extends BlockEntity> BlockEntityTicker<A> createTickerHelper(BlockEntityType<A> p_152133_, BlockEntityType<E> p_152134_, BlockEntityTicker<? super E> p_152135_) {
         return p_152134_ == p_152133_ ? (BlockEntityTicker<A>)p_152135_ : null;
-    }
-
-    @Override
-    public boolean onDestroyedByPlayer(BlockState state, Level level, BlockPos pos, Player player, boolean willHarvest, FluidState fluid) {
-        if (!level.isClientSide){
-            if (level.getBlockEntity(pos) instanceof SpecialCauldronBlockEntity entity){
-                if (state.getValue(BlockStateProperties.ENABLED).equals(true)){
-                    level.explode(null, DamageSource.MAGIC, null, pos.getX(), pos.getY(), pos.getZ(), 11.5f, false, Explosion.BlockInteraction.DESTROY);
-                }
-            }
-        }
-        return super.onDestroyedByPlayer(state, level, pos, player, willHarvest, fluid);
     }
 
     // Shape

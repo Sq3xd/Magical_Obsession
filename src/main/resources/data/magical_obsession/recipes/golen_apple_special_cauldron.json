@@ -2,10 +2,10 @@
   "type": "magical_obsession:special_cauldron",
   "ingredients": [
     {
-      "item": "minecraft:grass_block"
+      "item": "minecraft:golden_carrot"
     }
   ],
   "output": {
-    "item": "minecraft:diamond_block"
+    "item": "minecraft:golden_apple"
   }
 }

@@ -1,0 +1,11 @@
+{
+  "type": "magical_obsession:special_cauldron",
+  "ingredients": [
+    {
+      "item": "minecraft:melon_slice"
+    }
+  ],
+  "output": {
+    "item": "minecraft:glistering_melon_slice"
+  }
+}
