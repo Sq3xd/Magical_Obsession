@@ -5,11 +5,13 @@ import com.sq3xd.magical_obsession.recipe.SpecialCauldronRecipe;
 import com.sq3xd.magical_obsession.tags.ModTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.Connection;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
@@ -35,7 +37,7 @@ public class SpecialCauldronBlockEntity extends BlockEntity {
     private int sphere = 0;
 
     private int progress = 0;
-    private int maxProgress = 75;
+    private int maxProgress = 320;
     private int maxAdvancedProgress = 790;
 
     // Initialisation
@@ -116,20 +118,26 @@ public class SpecialCauldronBlockEntity extends BlockEntity {
         this.progress = 0;
     }
 
+     // Tick
     public static void tick(Level level, BlockPos pos, BlockState state, SpecialCauldronBlockEntity entity) {
+        int rs = RandomSource.create().nextInt(1, 219); // Get random additional recipe tick
+
         SimpleContainer inventory = new SimpleContainer(entity.itemStackHandler.getStackInSlot(0));
 
         Optional<SpecialCauldronRecipe> recipe = level.getRecipeManager()
                 .getRecipeFor(SpecialCauldronRecipe.Type.INSTANCE, inventory, level);
 
+         // Craft for client side
         if (level.isClientSide) {
             if (!entity.itemStackHandler.getStackInSlot(0).is(ItemStack.EMPTY.getItem()) && hasRecipe(entity, level)) {
                 entity.progress++;
-                if (entity.progress >= entity.maxProgress) {
-                    //entity.itemStackHandler.setStackInSlot(0, Items.DIAMOND.getDefaultInstance());
+                if (entity.progress == RandomSource.create().nextInt(entity.progress, entity.progress + 87)){
+                    spawnParticles(level, pos);
+                }
+
+                if (entity.progress >= entity.maxProgress + rs) {
                     craftItem(entity, level);
-                    System.out.println(recipe.isPresent());
-                    level.playLocalSound(pos.getX(), pos.getY(), pos.getZ(), SoundEvents.END_PORTAL_SPAWN, SoundSource.BLOCKS, 1.0f, 1.0f, true);
+                    level.playLocalSound(pos.getX(), pos.getY(), pos.getZ(), SoundEvents.BREWING_STAND_BREW, SoundSource.BLOCKS, 1.0f, 1.0f, true);
                     entity.resetProgress();
                 }
             } else {
@@ -137,10 +145,11 @@ public class SpecialCauldronBlockEntity extends BlockEntity {
             }
         }
 
+         // Craft for server side
         if (!level.isClientSide) {
             if (!entity.itemStackHandler.getStackInSlot(0).is(ItemStack.EMPTY.getItem()) && hasRecipe(entity, level)) {
                 entity.progress++;
-                if (entity.progress >= entity.maxProgress) {
+                if (entity.progress >= entity.maxProgress + rs) {
                     //entity.itemStackHandler.setStackInSlot(0, Items.DIAMOND.getDefaultInstance());
                     craftItem(entity, level);
                     entity.resetProgress();
@@ -169,5 +178,21 @@ public class SpecialCauldronBlockEntity extends BlockEntity {
                 .getRecipeFor(SpecialCauldronRecipe.Type.INSTANCE, inventory, level);
 
         return recipe.isPresent();
+    }
+
+    public static void spawnParticles(Level level, BlockPos pos) {
+        double d0 = 0.5625D;
+        RandomSource randomsource = level.random;
+
+        for(Direction direction : Direction.values()) {
+            BlockPos blockpos = pos.relative(direction);
+            if (!level.getBlockState(blockpos).isSolidRender(level, blockpos)) {
+                Direction.Axis direction$axis = direction.getAxis();
+                double d1 = direction$axis == Direction.Axis.X ? 0.5D + 0.5625D * (double)direction.getStepX() : (double)randomsource.nextFloat();
+                double d2 = direction$axis == Direction.Axis.Y ? 0.59D + 0.5625D * (double)direction.getStepY() : (double)randomsource.nextFloat();
+                double d3 = direction$axis == Direction.Axis.Z ? 0.5D + 0.5625D * (double)direction.getStepZ() : (double)randomsource.nextFloat();
+                level.addParticle(ParticleTypes.SMOKE, (double)pos.getX() + d1, (double)pos.getY() + d2 + 1.59D, (double)pos.getZ() + d3, 0.0D, 0.0D, 0.0D);
+            }
+        }
     }
 }
