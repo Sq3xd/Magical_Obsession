@@ -7,14 +7,17 @@ import com.sq3xd.magical_obsession.recipe.SpecialCauldronRecipe;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.recipe.RecipeType;
+import mezz.jei.api.registration.IRecipeCatalystRegistration;
 import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.RecipeManager;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -28,8 +31,13 @@ public class JeiPlugin implements IModPlugin {
         return new ResourceLocation(MagicalObsession.MOD_ID, "jei_plugin");
     }
 
-    public static RecipeType<SpecialCauldronRecipe> INFUSION_TYPE =
+    public static RecipeType<SpecialCauldronRecipe> SPECIAL_CAULDRON_TYPE =
             new RecipeType<>(SpecialCauldronRecipeCategory.UID, SpecialCauldronRecipe.class);
+
+    @Override
+    public void registerRecipeCatalysts(IRecipeCatalystRegistration registration) {
+        registration.addRecipeCatalyst(ModBlocks.SPECIAL_CAULDRON_ITEM.get().asItem().getDefaultInstance(), SPECIAL_CAULDRON_TYPE);
+    }
 
     @Override
     public void registerRecipes(IRecipeRegistration registration) {
@@ -38,8 +46,8 @@ public class JeiPlugin implements IModPlugin {
 
         RecipeManager rm = Objects.requireNonNull(Minecraft.getInstance().level).getRecipeManager();
 
-        List<SpecialCauldronRecipe> recipesInfusing = rm.getAllRecipesFor(SpecialCauldronRecipe.Type.INSTANCE);
-        registration.addRecipes(INFUSION_TYPE, recipesInfusing);
+        List<SpecialCauldronRecipe> recipesSpecialCauldron = rm.getAllRecipesFor(SpecialCauldronRecipe.Type.INSTANCE);
+        registration.addRecipes(SPECIAL_CAULDRON_TYPE, recipesSpecialCauldron);
     }
 
     @Override
