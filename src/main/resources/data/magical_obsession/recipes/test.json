@@ -1,0 +1,11 @@
+{
+  "type": "magical_obsession:special_cauldron_campfire",
+  "ingredients": [
+    {
+      "item": "minecraft:diamond_sword"
+    }
+  ],
+  "output": {
+    "item": "minecraft:arrow"
+  }
+}

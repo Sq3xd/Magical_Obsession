@@ -1,24 +1,18 @@
 package com.sq3xd.magical_obsession.item;
 
 import com.sq3xd.magical_obsession.init.ModBlocks;
-import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.particle.Particle;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.particles.DustParticleOptions;
-import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LightningBolt;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -26,15 +20,12 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
 import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Random;
-import java.util.UUID;
 
 public class MagicDustItem extends Item {
     public MagicDustItem(Properties properties){
@@ -75,6 +66,9 @@ public class MagicDustItem extends Item {
             if (state.is(Blocks.CAULDRON) && !player.isShiftKeyDown()){
                 if (random.nextInt(8) != 1){
                     level.destroyBlock(pos, false);
+                    LightningBolt lb = new LightningBolt(EntityType.LIGHTNING_BOLT, level);
+                    lb.setPos(pos.getX(), pos.getY(), pos.getZ());
+                    level.addFreshEntity(lb);
                     level.setRainLevel(1.5f);
                     setBlock(level, pos);
                 } else {
@@ -91,7 +85,7 @@ public class MagicDustItem extends Item {
     }
 
     public static void spawnParticles(Level level, BlockPos pos) {
-        double d0 = 0.5625D;
+        double d0 = 0.5725D;
         RandomSource randomsource = level.random;
 
         for(Direction direction : Direction.values()) {

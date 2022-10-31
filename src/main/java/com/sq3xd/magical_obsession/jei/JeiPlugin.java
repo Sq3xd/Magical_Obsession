@@ -3,6 +3,7 @@ package com.sq3xd.magical_obsession.jei;
 import com.sq3xd.magical_obsession.MagicalObsession;
 import com.sq3xd.magical_obsession.init.ModBlocks;
 import com.sq3xd.magical_obsession.init.ModItems;
+import com.sq3xd.magical_obsession.recipe.SpecialCauldronCampfireRecipe;
 import com.sq3xd.magical_obsession.recipe.SpecialCauldronRecipe;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.constants.VanillaTypes;
@@ -14,10 +15,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.RecipeManager;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -31,12 +30,17 @@ public class JeiPlugin implements IModPlugin {
         return new ResourceLocation(MagicalObsession.MOD_ID, "jei_plugin");
     }
 
+     // Recipe Types
     public static RecipeType<SpecialCauldronRecipe> SPECIAL_CAULDRON_TYPE =
             new RecipeType<>(SpecialCauldronRecipeCategory.UID, SpecialCauldronRecipe.class);
+
+    public static RecipeType<SpecialCauldronCampfireRecipe> SPECIAL_CAULDRON_CAMPFIRE_TYPE =
+            new RecipeType<>(SpecialCauldronCampfireRecipeCategory.UID, SpecialCauldronCampfireRecipe.class);
 
     @Override
     public void registerRecipeCatalysts(IRecipeCatalystRegistration registration) {
         registration.addRecipeCatalyst(ModBlocks.SPECIAL_CAULDRON_ITEM.get().asItem().getDefaultInstance(), SPECIAL_CAULDRON_TYPE);
+        registration.addRecipeCatalyst(ModBlocks.SPECIAL_CAULDRON_ITEM.get().asItem().getDefaultInstance(), SPECIAL_CAULDRON_CAMPFIRE_TYPE);
     }
 
     @Override
@@ -48,11 +52,17 @@ public class JeiPlugin implements IModPlugin {
 
         List<SpecialCauldronRecipe> recipesSpecialCauldron = rm.getAllRecipesFor(SpecialCauldronRecipe.Type.INSTANCE);
         registration.addRecipes(SPECIAL_CAULDRON_TYPE, recipesSpecialCauldron);
+
+        List<SpecialCauldronCampfireRecipe> recipesSpecialCauldronCampfire = rm.getAllRecipesFor(SpecialCauldronCampfireRecipe.Type.INSTANCE);
+        registration.addRecipes(SPECIAL_CAULDRON_CAMPFIRE_TYPE, recipesSpecialCauldronCampfire);
     }
 
     @Override
     public void registerCategories(IRecipeCategoryRegistration registration) {
         registration.addRecipeCategories(new
                 SpecialCauldronRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
+
+        registration.addRecipeCategories(new
+                SpecialCauldronCampfireRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
     }
 }

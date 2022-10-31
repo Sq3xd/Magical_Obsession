@@ -4,7 +4,6 @@ import com.sq3xd.magical_obsession.MagicalObsession;
 import com.sq3xd.magical_obsession.block.SpecialCauldronBlock;
 import com.sq3xd.magical_obsession.item.tab.ModTabs;
 import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.level.block.Block;
