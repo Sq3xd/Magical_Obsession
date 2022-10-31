@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "#forge:nuggets/terra",
+    "#forge:nuggets/diamond",
+    "#forge:nuggets/emerald",
+    "#forge:nuggets/lapis",
+    "#forge:nuggets/coal"
+  ]
+}

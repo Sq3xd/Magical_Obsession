@@ -1,0 +1,6 @@
+{
+	"parent": "minecraft:block/leaves",
+	"textures": {
+		"all": "magical_obsession:block/terra_ore"
+	}
+}

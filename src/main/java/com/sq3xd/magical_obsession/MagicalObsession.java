@@ -6,6 +6,8 @@ import com.sq3xd.magical_obsession.init.ModBlocks;
 import com.sq3xd.magical_obsession.init.ModItems;
 import com.sq3xd.magical_obsession.init.ModRecipes;
 import com.sq3xd.magical_obsession.render.block.SpecialCauldronRenderer;
+import com.sq3xd.magical_obsession.world.feature.ModConfiguredFeatures;
+import com.sq3xd.magical_obsession.world.feature.ModPlacedFeatures;
 import net.minecraft.network.chat.Component;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.common.MinecraftForge;
@@ -32,6 +34,8 @@ public class MagicalObsession
         ModBlocks.register(eventBus);
         ModBlockEntities.register(eventBus);
         ModRecipes.register(eventBus);
+        ModConfiguredFeatures.register(eventBus);
+        ModPlacedFeatures.register(eventBus);
 
         MinecraftForge.EVENT_BUS.register(new MyForgeEventHandler());
         MinecraftForge.EVENT_BUS.register(MyStaticClientOnlyEventHandler.class);

@@ -26,6 +26,23 @@ public class ModItems {
     public static RegistryObject<Item> MAGIC_DUST = ITEMS.register("magic_dust", () ->
             new MagicDustItem(new Item.Properties().rarity(Rarity.RARE).tab(ModTabs.MAGICAL_OBSESSION)));
 
+     // Nuggets
+    public static RegistryObject<Item> TERRA_NUGGET = ITEMS.register("terra_nugget", () ->
+            new Item(new Item.Properties().fireResistant().tab(ModTabs.MAGICAL_OBSESSION)));
+
+    public static RegistryObject<Item> DIAMOND_NUGGET = ITEMS.register("diamond_nugget", () ->
+            new Item(new Item.Properties().tab(ModTabs.MAGICAL_OBSESSION)));
+
+    public static RegistryObject<Item> EMERALD_NUGGET = ITEMS.register("emerald_nugget", () ->
+            new Item(new Item.Properties().tab(ModTabs.MAGICAL_OBSESSION)));
+
+    public static RegistryObject<Item> LAPIS_NUGGET = ITEMS.register("lapis_nugget", () ->
+            new Item(new Item.Properties().tab(ModTabs.MAGICAL_OBSESSION)));
+
+    public static RegistryObject<Item> COAL_NUGGET = ITEMS.register("coal_nugget", () ->
+            new Item(new Item.Properties().tab(ModTabs.MAGICAL_OBSESSION)));
+
+
     public static void register(IEventBus eventBus){
         ITEMS.register(eventBus);
     }

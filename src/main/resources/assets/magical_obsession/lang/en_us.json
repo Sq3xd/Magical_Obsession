@@ -3,14 +3,22 @@
   "item.magical_obsession.crystal": "Crystal",
   "item.magical_obsession.sphere": "Sphere",
   "item.magical_obsession.special_cauldron_campfire": "Special Cauldron",
+  "item.magical_obsession.terra_nugget": "Terra Nugget",
+  "item.magical_obsession.diamond_nugget": "Diamond Nugget",
+  "item.magical_obsession.emerald_nugget": "Emerald Nugget",
+  "item.magical_obsession.lapis_nugget": "Lapis Nugget",
+  "item.magical_obsession.coal_nugget": "Coal Nugget",
 
   "block.magical_obsession.special_cauldron": "Special Cauldron",
+  "block.magical_obsession.terra_ore": "Terra Ore",
+  "block.magical_obsession.deepslate_terra_ore": "Deepslate Terra Ore",
 
   "tooltip.magical_obsession.magic_dust": "§5No one knows how to use this, maybe i should try cauldron?",
   "tooltip.magical_obsession.shift": "§eHold §lSHIFT §r§efor more info",
 
   "gui.jei.description.magic_dust": "I don't know how to use this, but maybe i should try to do something with cauldron? i need to be careful..",
   "gui.jei.description.special_cauldron": "The power of this cauldron is not revealed yet, be aware before you use it.",
+  "gui.jei.description.nugget": "Nuggets can be obtained by destroying Terra Ore.",
 
   "advancements.magical_obsession.magical_obsession.title": "Magical Obsession",
   "advancements.magical_obsession.special_cauldron.title": "The first one!",

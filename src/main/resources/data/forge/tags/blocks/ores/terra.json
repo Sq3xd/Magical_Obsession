@@ -1,6 +1,6 @@
 {
-  "values": [
-    "magical_obsession:special_cauldron",
+  "replace": false,
+  "values":[
     "magical_obsession:terra_ore",
     "magical_obsession:deepslate_terra_ore"
   ]

@@ -21,11 +21,28 @@ public class ModBlocks {
 
      // Register
     public static RegistryObject<Block> SPECIAL_CAULDRON = BLOCKS.register("special_cauldron", () ->
-             new SpecialCauldronBlock(BlockBehaviour.Properties.of(Material.HEAVY_METAL, MaterialColor.STONE).requiresCorrectToolForDrops()
+             new SpecialCauldronBlock(BlockBehaviour.Properties.of(Material.HEAVY_METAL, MaterialColor.METAL).requiresCorrectToolForDrops()
                      .explosionResistance(2f).destroyTime(2f).noOcclusion()));
 
     public static RegistryObject<Item> SPECIAL_CAULDRON_ITEM = ITEMS.register("special_cauldron", () ->
             new BlockItem(SPECIAL_CAULDRON.get(), new Item.Properties().rarity(Rarity.RARE)
+                    .tab(ModTabs.MAGICAL_OBSESSION)));
+
+     // Ores
+     public static RegistryObject<Block> TERRA_ORE = BLOCKS.register("terra_ore", () ->
+             new Block(BlockBehaviour.Properties.of(Material.STONE, MaterialColor.STONE).requiresCorrectToolForDrops()
+                     .explosionResistance(3.5f).destroyTime(3.5f)));
+
+    public static RegistryObject<Item> TERRA_ORE_ITEM = ITEMS.register("terra_ore", () ->
+            new BlockItem(TERRA_ORE.get(), new Item.Properties()
+                    .tab(ModTabs.MAGICAL_OBSESSION)));
+
+    public static RegistryObject<Block> DEEPSLATE_TERRA_ORE = BLOCKS.register("deepslate_terra_ore", () ->
+            new Block(BlockBehaviour.Properties.of(Material.STONE, MaterialColor.STONE).requiresCorrectToolForDrops()
+                    .explosionResistance(5f).destroyTime(5f)));
+
+    public static RegistryObject<Item> DEEPSLATE_TERRA_ORE_ITEM = ITEMS.register("deepslate_terra_ore", () ->
+            new BlockItem(DEEPSLATE_TERRA_ORE.get(), new Item.Properties()
                     .tab(ModTabs.MAGICAL_OBSESSION)));
 
     /*

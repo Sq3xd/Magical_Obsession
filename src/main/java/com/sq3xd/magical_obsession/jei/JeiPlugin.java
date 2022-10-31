@@ -5,6 +5,7 @@ import com.sq3xd.magical_obsession.init.ModBlocks;
 import com.sq3xd.magical_obsession.init.ModItems;
 import com.sq3xd.magical_obsession.recipe.SpecialCauldronCampfireRecipe;
 import com.sq3xd.magical_obsession.recipe.SpecialCauldronRecipe;
+import com.sq3xd.magical_obsession.tags.ModTags;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.recipe.RecipeType;
@@ -24,6 +25,7 @@ import java.util.Objects;
 public class JeiPlugin implements IModPlugin {
     Component magic_dust = Component.translatable("gui.jei.description.magic_dust");
     Component special_cauldron = Component.translatable("gui.jei.description.special_cauldron");
+    Component nugget = Component.translatable("gui.jei.description.nugget");
 
     @Override
     public ResourceLocation getPluginUid() {
@@ -47,6 +49,13 @@ public class JeiPlugin implements IModPlugin {
     public void registerRecipes(IRecipeRegistration registration) {
         registration.addIngredientInfo(new ItemStack(ModItems.MAGIC_DUST.get()), VanillaTypes.ITEM_STACK, magic_dust);
         registration.addIngredientInfo(new ItemStack(ModBlocks.SPECIAL_CAULDRON_ITEM.get()), VanillaTypes.ITEM_STACK, special_cauldron);
+        registration.addIngredientInfo(new ItemStack(ModItems.TERRA_NUGGET.get()), VanillaTypes.ITEM_STACK, nugget);
+        registration.addIngredientInfo(new ItemStack(ModItems.DIAMOND_NUGGET.get()), VanillaTypes.ITEM_STACK, nugget);
+        registration.addIngredientInfo(new ItemStack(ModItems.EMERALD_NUGGET.get()), VanillaTypes.ITEM_STACK, nugget);
+        registration.addIngredientInfo(new ItemStack(ModItems.LAPIS_NUGGET.get()), VanillaTypes.ITEM_STACK, nugget);
+        registration.addIngredientInfo(new ItemStack(ModItems.COAL_NUGGET.get()), VanillaTypes.ITEM_STACK, nugget);
+
+        // Recipe Category
 
         RecipeManager rm = Objects.requireNonNull(Minecraft.getInstance().level).getRecipeManager();
 
