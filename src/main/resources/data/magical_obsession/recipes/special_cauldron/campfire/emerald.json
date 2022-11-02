@@ -1,0 +1,11 @@
+{
+  "type": "magical_obsession:special_cauldron_campfire",
+  "ingredients": [
+    {
+      "tag": "forge:nuggets/emerald"
+    }
+  ],
+  "output": {
+    "item": "minecraft:emerald"
+  }
+}

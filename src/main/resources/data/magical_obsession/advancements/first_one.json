@@ -5,14 +5,15 @@
       "item": "magical_obsession:special_cauldron"
     },
     "title": {
-      "translate": "advancements.magical_obsession.special_cauldron.title"
+      "translate": "advancements.magical_obsession.first_one.title"
     },
     "description": {
-      "translate": "advancements.magical_obsession.special_cauldron.description"
+      "translate": "advancements.magical_obsession.first_one.description"
     },
     "frame": "task",
     "show_toast": true,
-    "announce_to_chat": true
+    "announce_to_chat": true,
+    "hidden": false
   },
   "criteria": {
     "requirement": {

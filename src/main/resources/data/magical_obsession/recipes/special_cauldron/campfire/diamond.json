@@ -2,10 +2,10 @@
   "type": "magical_obsession:special_cauldron_campfire",
   "ingredients": [
     {
-      "item": "minecraft:diamond_sword"
+      "tag": "forge:nuggets/diamond"
     }
   ],
   "output": {
-    "item": "minecraft:arrow"
+    "item": "minecraft:diamond"
   }
 }

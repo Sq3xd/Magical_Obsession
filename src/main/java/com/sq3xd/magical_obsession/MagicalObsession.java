@@ -1,6 +1,7 @@
 package com.sq3xd.magical_obsession;
 
 import com.mojang.logging.LogUtils;
+import com.sq3xd.magical_obsession.event.ModEvents;
 import com.sq3xd.magical_obsession.init.ModBlockEntities;
 import com.sq3xd.magical_obsession.init.ModBlocks;
 import com.sq3xd.magical_obsession.init.ModItems;
@@ -37,21 +38,21 @@ public class MagicalObsession
         ModConfiguredFeatures.register(eventBus);
         ModPlacedFeatures.register(eventBus);
 
-        MinecraftForge.EVENT_BUS.register(new MyForgeEventHandler());
+        MinecraftForge.EVENT_BUS.register(new ModEvents());
         MinecraftForge.EVENT_BUS.register(MyStaticClientOnlyEventHandler.class);
         MinecraftForge.EVENT_BUS.register(this);
     }
 
     public class MyForgeEventHandler {
-        @SubscribeEvent
-        public void wakeUpEvent(PlayerWakeUpEvent event) {
-            if (!event.getEntity().getLevel().isClientSide) {
-                if (!event.getEntity().getTags().contains("get_tip")){
-                    event.getEntity().sendSystemMessage(Component.translatable("message.player.tip"));
-                    event.getEntity().addTag("get_tip");
-                }
-            }
-        }
+//        @SubscribeEvent
+//        public void wakeUpEvent(PlayerWakeUpEvent event) {
+//            if (!event.getEntity().getLevel().isClientSide) {
+//                if (!event.getEntity().getTags().contains("get_tip")){
+//                    event.getEntity().sendSystemMessage(Component.translatable("message.player.tip"));
+//                    event.getEntity().addTag("get_tip");
+//                }
+//            }
+//        }
     }
 
     @Mod.EventBusSubscriber(modid = MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)

@@ -1,0 +1,74 @@
+{
+  "parent": "magical_obsession:big_step",
+  "display": {
+    "icon": {
+      "item": "magical_obsession:diamond_nugget"
+    },
+    "title": {
+      "translate": "advancements.magical_obsession.collectioner.title"
+    },
+    "description": {
+      "translate": "advancements.magical_obsession.collectioner.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "requirement": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "magical_obsession:terra_nugget"
+            ]
+          }
+        ],
+        "items": [
+          {
+            "items": [
+              "magical_obsession:diamond_nugget"
+            ]
+          }
+        ],
+        "items": [
+          {
+            "items": [
+              "magical_obsession:emerald_nugget"
+            ]
+          }
+        ],
+        "items": [
+          {
+            "items": [
+              "magical_obsession:lapis_nugget"
+            ]
+          }
+        ],
+        "items": [
+          {
+            "items": [
+              "magical_obsession:coal_nugget"
+            ]
+          }
+        ],
+        "items": [
+          {
+            "items": [
+              "minecraft:golden_nugget"
+            ]
+          }
+        ],
+        "items": [
+          {
+            "items": [
+              "minecraft:iron_nugget"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

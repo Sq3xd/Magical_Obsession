@@ -5,26 +5,25 @@
       "item": "magical_obsession:magic_dust"
     },
     "title": {
-      "translate": "advancements.magical_obsession.magic_dust.title"
+      "translate": "advancements.magical_obsession.big_step.title"
     },
     "description": {
-      "translate": "advancements.magical_obsession.magic_dust.description"
+      "translate": "advancements.magical_obsession.big_step.description"
     },
     "frame": "task",
     "show_toast": true,
-    "announce_to_chat": true
+    "announce_to_chat": true,
+    "hidden": false
   },
   "criteria": {
     "requirement": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
-        "items": [
-          {
-            "items": [
-              "magical_obsession:magic_dust"
-            ]
-          }
-        ]
+        "item": {
+          "items": [
+            "magical_obsession:magic_dust"
+          ]
+        }
       }
     }
   }
