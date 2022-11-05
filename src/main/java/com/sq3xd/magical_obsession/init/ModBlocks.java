@@ -1,6 +1,8 @@
 package com.sq3xd.magical_obsession.init;
 
 import com.sq3xd.magical_obsession.MagicalObsession;
+import com.sq3xd.magical_obsession.block.MagicalCauldronBlock;
+import com.sq3xd.magical_obsession.block.PipeBlock;
 import com.sq3xd.magical_obsession.block.SpecialCauldronBlock;
 import com.sq3xd.magical_obsession.item.tab.ModTabs;
 import net.minecraft.world.item.BlockItem;
@@ -26,6 +28,23 @@ public class ModBlocks {
 
     public static RegistryObject<Item> SPECIAL_CAULDRON_ITEM = ITEMS.register("special_cauldron", () ->
             new BlockItem(SPECIAL_CAULDRON.get(), new Item.Properties().rarity(Rarity.RARE)
+                    .tab(ModTabs.MAGICAL_OBSESSION)));
+
+    public static RegistryObject<Block> MAGICAL_CAULDRON = BLOCKS.register("magical_cauldron", () ->
+            new MagicalCauldronBlock(BlockBehaviour.Properties.of(Material.HEAVY_METAL, MaterialColor.METAL).requiresCorrectToolForDrops()
+                    .explosionResistance(2.5f).destroyTime(2.15f).noOcclusion()));
+
+    public static RegistryObject<Item> MAGICAL_CAULDRON_ITEM = ITEMS.register("magical_cauldron", () ->
+            new BlockItem(MAGICAL_CAULDRON.get(), new Item.Properties().rarity(Rarity.RARE)
+                    .tab(ModTabs.MAGICAL_OBSESSION)));
+
+     // Pipes
+     public static RegistryObject<Block> MAGIC_PIPE = BLOCKS.register("magic_pipe", () ->
+             new PipeBlock(BlockBehaviour.Properties.of(Material.GLASS, MaterialColor.SNOW)
+                     .explosionResistance(0.5f).destroyTime(0.15f)));
+
+    public static RegistryObject<Item> MAGIC_PIPE_ITEM = ITEMS.register("magic_pipe", () ->
+            new BlockItem(MAGIC_PIPE.get(), new Item.Properties()
                     .tab(ModTabs.MAGICAL_OBSESSION)));
 
      // Ores

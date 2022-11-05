@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=west": {
+      "model": "magical_obsession:block/magical_cauldron",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "magical_obsession:block/magical_cauldron"
+    },
+    "facing=south": {
+      "model": "magical_obsession:block/magical_cauldron",
+      "y": 180
+    },
+    "facing=east": {
+      "model": "magical_obsession:block/magical_cauldron",
+      "y": 270
+    }
+  }
+}

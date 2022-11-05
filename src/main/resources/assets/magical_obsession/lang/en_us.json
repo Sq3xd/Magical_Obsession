@@ -10,24 +10,28 @@
   "item.magical_obsession.coal_nugget": "Coal Nugget",
 
   "block.magical_obsession.special_cauldron": "Special Cauldron",
+  "block.magical_obsession.magical_cauldron": "Magical Cauldron",
   "block.magical_obsession.terra_ore": "Terra Ore",
   "block.magical_obsession.deepslate_terra_ore": "Deepslate Terra Ore",
 
   "tooltip.magical_obsession.magic_dust": "§5No one knows how to use this, pink colored powder..",
   "tooltip.magical_obsession.shift": "§eHold §lSHIFT §r§efor more info",
 
-  "gui.jei.description.magic_dust": "I don't know how to use this, but maybe i should try to do something with cauldron?",
   "gui.jei.description.special_cauldron": "The power of this cauldron is not revealed yet, be aware before you use it.",
+  "gui.jei.description.magical_cauldron": "Cauldron covered by gold stripe, probably gonna be danger than last one.",
+  "gui.jei.description.magic_dust": "I don't know how to use this, but maybe i should try to do something with cauldron?",
   "gui.jei.description.nugget": "Nuggets can be obtained by destroying Terra Ore.",
 
   "advancements.magical_obsession.magical_obsession.title": "Magical Obsession",
   "advancements.magical_obsession.collectioner.title": "Collectioner",
   "advancements.magical_obsession.first_one.title": "The First One!",
+  "advancements.magical_obsession.absolute_progression.title": "Absolute Progression",
   "advancements.magical_obsession.big_step.title": "Big Step!",
 
   "advancements.magical_obsession.magical_obsession.description": "Your magic road!",
   "advancements.magical_obsession.collectioner.description": "Collect all types of nuggets!",
   "advancements.magical_obsession.first_one.description": "Find a way to obtain your first magical stuff!",
+  "advancements.magical_obsession.absolute_progression.description": "Acquire advanced wizard legacy.",
   "advancements.magical_obsession.big_step.description": "Finally, you can start making some magical stuff!",
 
   "message.player.tip": "§5I fell asleep and had a dream about some strange cauldron. I put some §omagic powder§r§5 in it. I can't remember what happened next, should i try and repeat it?",

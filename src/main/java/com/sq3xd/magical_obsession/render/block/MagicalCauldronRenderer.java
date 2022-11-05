@@ -2,7 +2,7 @@ package com.sq3xd.magical_obsession.render.block;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector3f;
-import com.sq3xd.magical_obsession.block.tile.SpecialCauldronBlockEntity;
+import com.sq3xd.magical_obsession.block.tile.MagicalCauldronBlockEntity;
 import com.sq3xd.magical_obsession.init.ModItems;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -17,14 +17,14 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.state.BlockState;
 
-public class SpecialCauldronRenderer implements BlockEntityRenderer<SpecialCauldronBlockEntity> {
+public class MagicalCauldronRenderer implements BlockEntityRenderer<MagicalCauldronBlockEntity> {
     private final BlockEntityRendererProvider.Context context;
-    public SpecialCauldronRenderer(BlockEntityRendererProvider.Context context) {
+    public MagicalCauldronRenderer(BlockEntityRendererProvider.Context context) {
         this.context = context;
     }
 
     @Override
-    public void render(SpecialCauldronBlockEntity entity, float pticks, PoseStack stack, MultiBufferSource buffer, int coverlay, int plight) {
+    public void render(MagicalCauldronBlockEntity entity, float pticks, PoseStack stack, MultiBufferSource buffer, int coverlay, int plight) {
         final BlockRenderDispatcher block_renderer = this.context.getBlockRenderDispatcher();
 
         //ItemStack item = Minecraft.getInstance().player.getMainHandItem();
@@ -35,7 +35,7 @@ public class SpecialCauldronRenderer implements BlockEntityRenderer<SpecialCauld
 
         // Render Sphere
 
-        if (entity.getSphere() >= 3200){
+        if (entity.getSphere() >= 3700){
             stack.pushPose();
             stack.translate(3.125d, 3.125d, 3.125d);
             stack.scale(15, 15, 15);

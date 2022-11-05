@@ -6,9 +6,12 @@ import com.sq3xd.magical_obsession.init.ModBlockEntities;
 import com.sq3xd.magical_obsession.init.ModBlocks;
 import com.sq3xd.magical_obsession.init.ModItems;
 import com.sq3xd.magical_obsession.init.ModRecipes;
+import com.sq3xd.magical_obsession.render.block.MagicalCauldronRenderer;
 import com.sq3xd.magical_obsession.render.block.SpecialCauldronRenderer;
 import com.sq3xd.magical_obsession.world.feature.ModConfiguredFeatures;
 import com.sq3xd.magical_obsession.world.feature.ModPlacedFeatures;
+import net.minecraft.client.renderer.ItemBlockRenderTypes;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.network.chat.Component;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.common.MinecraftForge;
@@ -31,9 +34,9 @@ public class MagicalObsession
         IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();;
 
          // Register
-        ModItems.register(eventBus);
         ModBlocks.register(eventBus);
         ModBlockEntities.register(eventBus);
+        ModItems.register(eventBus);
         ModRecipes.register(eventBus);
         ModConfiguredFeatures.register(eventBus);
         ModPlacedFeatures.register(eventBus);
@@ -60,6 +63,7 @@ public class MagicalObsession
         @SubscribeEvent
         public static void registerRenderers(EntityRenderersEvent.RegisterRenderers event){
             event.registerBlockEntityRenderer(ModBlockEntities.SPECIAL_CAULDRON.get(), SpecialCauldronRenderer::new);
+            event.registerBlockEntityRenderer(ModBlockEntities.MAGICAL_CAULDRON.get(), MagicalCauldronRenderer::new);
         }
     }
 

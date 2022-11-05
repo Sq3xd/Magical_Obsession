@@ -1,14 +1,14 @@
 {
-  "parent": "magical_obsession:magical_obsession",
+  "parent": "magical_obsession:first_one",
   "display": {
     "icon": {
-      "item": "magical_obsession:magic_dust"
+      "item": "magical_obsession:magical_cauldron"
     },
     "title": {
-      "translate": "advancements.magical_obsession.big_step.title"
+      "translate": "advancements.magical_obsession.absolute_progression.title"
     },
     "description": {
-      "translate": "advancements.magical_obsession.big_step.description"
+      "translate": "advancements.magical_obsession.absolute_progression.description"
     },
     "frame": "task",
     "show_toast": true,
@@ -22,7 +22,7 @@
         "items": [
           {
             "items": [
-              "magical_obsession:magic_dust"
+              "magical_obsession:magical_cauldron"
             ]
           }
         ]

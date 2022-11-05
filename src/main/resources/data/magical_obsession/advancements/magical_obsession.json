@@ -18,11 +18,13 @@
     "requirement": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
-        "item": {
-          "items": [
-            "magical_obsession:magic_dust"
-          ]
-        }
+        "items": [
+          {
+            "items": [
+              "magical_obsession:magic_dust"
+            ]
+          }
+        ]
       }
     }
   }

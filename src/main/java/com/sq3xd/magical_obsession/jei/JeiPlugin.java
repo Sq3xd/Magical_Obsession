@@ -3,9 +3,9 @@ package com.sq3xd.magical_obsession.jei;
 import com.sq3xd.magical_obsession.MagicalObsession;
 import com.sq3xd.magical_obsession.init.ModBlocks;
 import com.sq3xd.magical_obsession.init.ModItems;
+import com.sq3xd.magical_obsession.recipe.MagicalCauldronRecipe;
 import com.sq3xd.magical_obsession.recipe.SpecialCauldronCampfireRecipe;
 import com.sq3xd.magical_obsession.recipe.SpecialCauldronRecipe;
-import com.sq3xd.magical_obsession.tags.ModTags;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.recipe.RecipeType;
@@ -23,8 +23,9 @@ import java.util.Objects;
 
 @mezz.jei.api.JeiPlugin
 public class JeiPlugin implements IModPlugin {
-    Component magic_dust = Component.translatable("gui.jei.description.magic_dust");
     Component special_cauldron = Component.translatable("gui.jei.description.special_cauldron");
+    Component magical_cauldron = Component.translatable("gui.jei.description.magical_cauldron");
+    Component magic_dust = Component.translatable("gui.jei.description.magic_dust");
     Component nugget = Component.translatable("gui.jei.description.nugget");
 
     @Override
@@ -39,16 +40,21 @@ public class JeiPlugin implements IModPlugin {
     public static RecipeType<SpecialCauldronCampfireRecipe> SPECIAL_CAULDRON_CAMPFIRE_TYPE =
             new RecipeType<>(SpecialCauldronCampfireRecipeCategory.UID, SpecialCauldronCampfireRecipe.class);
 
+    public static RecipeType<MagicalCauldronRecipe> MAGICAL_CAULDRON_TYPE =
+            new RecipeType<>(MagicalCauldronRecipeCategory.UID, MagicalCauldronRecipe.class);
+
     @Override
     public void registerRecipeCatalysts(IRecipeCatalystRegistration registration) {
         registration.addRecipeCatalyst(ModBlocks.SPECIAL_CAULDRON_ITEM.get().asItem().getDefaultInstance(), SPECIAL_CAULDRON_TYPE);
         registration.addRecipeCatalyst(ModBlocks.SPECIAL_CAULDRON_ITEM.get().asItem().getDefaultInstance(), SPECIAL_CAULDRON_CAMPFIRE_TYPE);
+        registration.addRecipeCatalyst(ModBlocks.MAGICAL_CAULDRON_ITEM.get().asItem().getDefaultInstance(), MAGICAL_CAULDRON_TYPE);
     }
 
     @Override
     public void registerRecipes(IRecipeRegistration registration) {
-        registration.addIngredientInfo(new ItemStack(ModItems.MAGIC_DUST.get()), VanillaTypes.ITEM_STACK, magic_dust);
         registration.addIngredientInfo(new ItemStack(ModBlocks.SPECIAL_CAULDRON_ITEM.get()), VanillaTypes.ITEM_STACK, special_cauldron);
+        registration.addIngredientInfo(new ItemStack(ModBlocks.MAGICAL_CAULDRON_ITEM.get()), VanillaTypes.ITEM_STACK, magical_cauldron);
+        registration.addIngredientInfo(new ItemStack(ModItems.MAGIC_DUST.get()), VanillaTypes.ITEM_STACK, magic_dust);
         registration.addIngredientInfo(new ItemStack(ModItems.TERRA_NUGGET.get()), VanillaTypes.ITEM_STACK, nugget);
         registration.addIngredientInfo(new ItemStack(ModItems.DIAMOND_NUGGET.get()), VanillaTypes.ITEM_STACK, nugget);
         registration.addIngredientInfo(new ItemStack(ModItems.EMERALD_NUGGET.get()), VanillaTypes.ITEM_STACK, nugget);
@@ -64,6 +70,9 @@ public class JeiPlugin implements IModPlugin {
 
         List<SpecialCauldronCampfireRecipe> recipesSpecialCauldronCampfire = rm.getAllRecipesFor(SpecialCauldronCampfireRecipe.Type.INSTANCE);
         registration.addRecipes(SPECIAL_CAULDRON_CAMPFIRE_TYPE, recipesSpecialCauldronCampfire);
+
+        List<MagicalCauldronRecipe> recipesMagicalCauldron = rm.getAllRecipesFor(MagicalCauldronRecipe.Type.INSTANCE);
+        registration.addRecipes(MAGICAL_CAULDRON_TYPE, recipesMagicalCauldron);
     }
 
     @Override
@@ -73,5 +82,8 @@ public class JeiPlugin implements IModPlugin {
 
         registration.addRecipeCategories(new
                 SpecialCauldronCampfireRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
+
+        registration.addRecipeCategories(new
+                MagicalCauldronRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
     }
 }
