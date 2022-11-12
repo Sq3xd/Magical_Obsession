@@ -2,10 +2,10 @@
   "type": "magical_obsession:magical_cauldron",
   "ingredients": [
     {
-      "item": "minecraft:stick"
+      "item": "magical_obsession:magic_dust"
     }
   ],
   "output": {
-    "item": "minecraft:diamond_sword"
+    "item": "minecraft:blaze_powder"
   }
 }

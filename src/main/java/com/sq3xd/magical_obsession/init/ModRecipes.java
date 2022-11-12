@@ -1,6 +1,7 @@
 package com.sq3xd.magical_obsession.init;
 
 import com.sq3xd.magical_obsession.MagicalObsession;
+import com.sq3xd.magical_obsession.recipe.MagicalCatallyzatorRecipe;
 import com.sq3xd.magical_obsession.recipe.MagicalCauldronRecipe;
 import com.sq3xd.magical_obsession.recipe.SpecialCauldronCampfireRecipe;
 import com.sq3xd.magical_obsession.recipe.SpecialCauldronRecipe;
@@ -23,6 +24,10 @@ public class ModRecipes {
 
     public static final RegistryObject<RecipeSerializer<MagicalCauldronRecipe>> MAGICAL_CAULDRON_SERIALIZER =
             SERIALIZERS.register("magical_cauldron", () -> MagicalCauldronRecipe.Serializer.INSTANCE);
+
+    public static final RegistryObject<RecipeSerializer<MagicalCatallyzatorRecipe>> MAGICAL_CATALLYZATOR_SERIALIZER =
+            SERIALIZERS.register("magical_catallyzator", () -> MagicalCatallyzatorRecipe.Serializer.INSTANCE);
+
     public static void register(IEventBus eventBus) {
         SERIALIZERS.register(eventBus);
     }

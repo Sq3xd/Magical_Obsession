@@ -1,9 +1,7 @@
 package com.sq3xd.magical_obsession.init;
 
 import com.sq3xd.magical_obsession.MagicalObsession;
-import com.sq3xd.magical_obsession.block.MagicalCauldronBlock;
-import com.sq3xd.magical_obsession.block.PipeBlock;
-import com.sq3xd.magical_obsession.block.SpecialCauldronBlock;
+import com.sq3xd.magical_obsession.block.*;
 import com.sq3xd.magical_obsession.item.tab.ModTabs;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
@@ -38,9 +36,25 @@ public class ModBlocks {
             new BlockItem(MAGICAL_CAULDRON.get(), new Item.Properties().rarity(Rarity.RARE)
                     .tab(ModTabs.MAGICAL_OBSESSION)));
 
+    public static RegistryObject<Block> MAGICAL_CATALLYZATOR = BLOCKS.register("magical_catallyzator", () ->
+            new MagicalCatallyzatorBlock(BlockBehaviour.Properties.of(Material.HEAVY_METAL, MaterialColor.METAL).requiresCorrectToolForDrops()
+                    .explosionResistance(1.5f).destroyTime(1.25f).noOcclusion()));
+
+    public static RegistryObject<Item> MAGICAL_CATALLYZATOR_ITEM = ITEMS.register("magical_catallyzator", () ->
+            new BlockItem(MAGICAL_CATALLYZATOR.get(), new Item.Properties().rarity(Rarity.RARE)
+                    .tab(ModTabs.MAGICAL_OBSESSION)));
+
+    public static RegistryObject<Block> MAGICAL_FIELD_SHIELD = BLOCKS.register("magical_field_shield", () ->
+            new MagicalFieldShieldBlock(BlockBehaviour.Properties.of(Material.HEAVY_METAL, MaterialColor.METAL).requiresCorrectToolForDrops()
+                    .explosionResistance(1.5f).destroyTime(1.25f).noOcclusion()));
+
+    public static RegistryObject<Item> MAGICAL_FIELD_SHIELD_ITEM = ITEMS.register("magical_field_shield", () ->
+            new BlockItem(MAGICAL_FIELD_SHIELD.get(), new Item.Properties().rarity(Rarity.RARE)
+                    .tab(ModTabs.MAGICAL_OBSESSION)));
+
      // Pipes
      public static RegistryObject<Block> MAGIC_PIPE = BLOCKS.register("magic_pipe", () ->
-             new PipeBlock(BlockBehaviour.Properties.of(Material.GLASS, MaterialColor.SNOW)
+             new MagicPipeBlock(BlockBehaviour.Properties.of(Material.GLASS, MaterialColor.SNOW)
                      .explosionResistance(0.5f).destroyTime(0.15f)));
 
     public static RegistryObject<Item> MAGIC_PIPE_ITEM = ITEMS.register("magic_pipe", () ->

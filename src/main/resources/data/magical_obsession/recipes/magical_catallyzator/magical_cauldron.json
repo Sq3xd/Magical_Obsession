@@ -1,0 +1,11 @@
+{
+  "type": "magical_obsession:magical_catallyzator",
+  "ingredients": [
+    {
+      "item": "magical_obsession:special_cauldron"
+    }
+  ],
+  "output": {
+    "item": "magical_obsession:magical_cauldron"
+  }
+}

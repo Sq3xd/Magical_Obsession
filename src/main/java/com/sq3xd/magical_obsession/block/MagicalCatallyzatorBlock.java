@@ -1,6 +1,6 @@
 package com.sq3xd.magical_obsession.block;
 
-import com.sq3xd.magical_obsession.block.tile.SpecialCauldronBlockEntity;
+import com.sq3xd.magical_obsession.block.tile.MagicalCatallyzatorBlockEntity;
 import com.sq3xd.magical_obsession.init.ModBlockEntities;
 import com.sq3xd.magical_obsession.tags.ModTags;
 import net.minecraft.core.BlockPos;
@@ -12,9 +12,11 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.*;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
-import net.minecraft.world.level.*;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Explosion;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
@@ -23,6 +25,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.material.FluidState;
+import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.CollisionContext;
@@ -30,19 +33,16 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
-public class SpecialCauldronBlock extends Block implements EntityBlock {
-    private static final VoxelShape INSIDE = box(2.0D, 4.0D, 2.0D, 14.0D, 16.0D, 14.0D);
-    protected static final VoxelShape SHAPE = Shapes.join(Shapes.block(), Shapes.or(box(0.0D, 0.0D, 4.0D, 16.0D, 3.0D, 12.0D),
-            box(4.0D, 0.0D, 0.0D, 12.0D, 3.0D, 16.0D),
-            box(2.0D, 0.0D, 2.0D, 14.0D, 3.0D, 14.0D),
-            INSIDE), BooleanOp.ONLY_FIRST);
-
+public class MagicalCatallyzatorBlock extends Block implements EntityBlock {
     public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
 
-    public SpecialCauldronBlock(Properties properties) {
+    private static final VoxelShape BASE = Block.box(7.0D, 0.0D, 7.0D, 9.0D, 12.0D, 9.0D);
+
+    public MagicalCatallyzatorBlock(Properties properties) {
         super(properties);
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH)); // FACING
     }
+
     // Direction
 
     public BlockState rotate(BlockState p_48722_, Rotation p_48723_) {
@@ -61,27 +61,25 @@ public class SpecialCauldronBlock extends Block implements EntityBlock {
         p_48725_.add(FACING);
     }
 
-    // Using
-
     @Override
     public RenderShape getRenderShape(BlockState p_60550_) {
         return RenderShape.MODEL;
     }
 
+    // Reaction
+
+    @Override
+    public PushReaction getPistonPushReaction(BlockState p_60584_) {
+        return PushReaction.DESTROY;
+    }
+
+    // Using
+
     @Override
     public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult result) {
-         // Explode if placed on not correct block
-        if (!level.isClientSide){
-            if (level.getBlockEntity(pos) instanceof SpecialCauldronBlockEntity entity) {
-                if (level.getBlockState(pos.below()).is(ModTags.Blocks.SPECIAL_CAULDRON_EXPLODES)) {
-                    level.explode(null, DamageSource.MAGIC, null, pos.getX(), pos.getY(), pos.getZ(), 3.5f, false, Explosion.BlockInteraction.DESTROY);
-                }
-            }
-        }
-
-         // Interaction - Server Side
+        // Interaction - Server Side
         if (!level.isClientSide) {
-            if (level.getBlockEntity(pos) instanceof SpecialCauldronBlockEntity entity) {
+            if (level.getBlockEntity(pos) instanceof MagicalCatallyzatorBlockEntity entity) {
                 if (entity.itemStackHandler.getStackInSlot(0).is(ItemStack.EMPTY.getItem()) && !player.getMainHandItem().is(ItemStack.EMPTY.getItem())) {
                     ItemStack item = player.getItemInHand(hand).copy();
                     entity.itemStackHandler.setStackInSlot(0, item);
@@ -99,9 +97,9 @@ public class SpecialCauldronBlock extends Block implements EntityBlock {
             }
         }
 
-         // Interaction - Client Side
+        // Interaction - Client Side
         if (level.isClientSide) {
-            if (level.getBlockEntity(pos) instanceof SpecialCauldronBlockEntity entity) {
+            if (level.getBlockEntity(pos) instanceof MagicalCatallyzatorBlockEntity entity) {
                 if (entity.itemStackHandler.getStackInSlot(0).is(ItemStack.EMPTY.getItem()) && !player.getMainHandItem().is(ItemStack.EMPTY.getItem())) {
                     ItemStack item = player.getItemInHand(hand).copy();
                     level.playLocalSound(pos.getX(), pos.getY(), pos.getZ(), SoundEvents.END_PORTAL_FRAME_FILL, SoundSource.BLOCKS, 1.0f, 1.0f, true);
@@ -123,23 +121,19 @@ public class SpecialCauldronBlock extends Block implements EntityBlock {
     @Override
     public boolean onDestroyedByPlayer(BlockState state, Level level, BlockPos pos, Player player, boolean willHarvest, FluidState fluid) {
         if (!level.isClientSide()){
-            if (level.getBlockEntity(pos) instanceof SpecialCauldronBlockEntity entity){
-                if (entity.getSphere() >= 3200) {
+            if (level.getBlockEntity(pos) instanceof MagicalCatallyzatorBlockEntity entity){
+                if (entity.getSphere() >= 12000) {
                     entity.itemStackHandler.setStackInSlot(0, ItemStack.EMPTY);
-                    level.explode(null, DamageSource.MAGIC, null, pos.getX(), pos.getY(), pos.getZ(), 5.5f, false, Explosion.BlockInteraction.DESTROY);
+                    level.explode(null, DamageSource.MAGIC, null, pos.getX(), pos.getY(), pos.getZ(), 9.5f, false, Explosion.BlockInteraction.DESTROY);
                 }
 
-                if (entity.itemStackHandler.getStackInSlot(0).is(ModTags.Items.SPECIAL_CAULDRON_DANGEROUS_ITEMS)){
-                    level.explode(null, DamageSource.MAGIC, null, pos.getX(), pos.getY(), pos.getZ(), 3.5f, false, Explosion.BlockInteraction.DESTROY);
-                } else {
-                    if (!entity.itemStackHandler.getStackInSlot(0).is(ItemStack.EMPTY.getItem())) {
-                        if (entity.itemStackHandler.getStackInSlot(0).isStackable()){
-                            ItemEntity itemEntity = new ItemEntity(level, pos.getX(), pos.getY() + 1d, pos.getZ(), entity.itemStackHandler.getStackInSlot(0).getItem().getDefaultInstance());
-                            level.addFreshEntity(itemEntity);
-                        } else{
-                            ItemEntity itemEntity = new ItemEntity(level, pos.getX(), pos.getY() + 1d, pos.getZ(), entity.itemStackHandler.getStackInSlot(0));
-                            level.addFreshEntity(itemEntity);
-                        }
+                if (!entity.itemStackHandler.getStackInSlot(0).is(ItemStack.EMPTY.getItem())) {
+                    if (entity.itemStackHandler.getStackInSlot(0).isStackable()){
+                        ItemEntity itemEntity = new ItemEntity(level, pos.getX(), pos.getY() + 1d, pos.getZ(), entity.itemStackHandler.getStackInSlot(0).getItem().getDefaultInstance());
+                        level.addFreshEntity(itemEntity);
+                    } else{
+                        ItemEntity itemEntity = new ItemEntity(level, pos.getX(), pos.getY() + 1d, pos.getZ(), entity.itemStackHandler.getStackInSlot(0));
+                        level.addFreshEntity(itemEntity);
                     }
                 }
                 entity.setSphere(-entity.getSphere());
@@ -152,14 +146,14 @@ public class SpecialCauldronBlock extends Block implements EntityBlock {
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return new SpecialCauldronBlockEntity(pos, state);
+        return new MagicalCatallyzatorBlockEntity(pos, state);
     }
 
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-        return createTickerHelper(type, ModBlockEntities.SPECIAL_CAULDRON.get(),
-                SpecialCauldronBlockEntity::tick);
+        return createTickerHelper(type, ModBlockEntities.MAGICAL_CATALLYZATOR.get(),
+                MagicalCatallyzatorBlockEntity::tick);
     }
 
     @javax.annotation.Nullable
@@ -170,10 +164,6 @@ public class SpecialCauldronBlock extends Block implements EntityBlock {
     // Shape
 
     public VoxelShape getShape(BlockState p_151964_, BlockGetter p_151965_, BlockPos p_151966_, CollisionContext p_151967_) {
-        return SHAPE;
-    }
-
-    public VoxelShape getInteractionShape(BlockState p_151955_, BlockGetter p_151956_, BlockPos p_151957_) {
-        return INSIDE;
+        return BASE;
     }
 }

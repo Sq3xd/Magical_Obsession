@@ -2,6 +2,7 @@
   "item.magical_obsession.magic_dust": "Magic Dust",
   "item.magical_obsession.crystal": "Crystal",
   "item.magical_obsession.sphere": "Sphere",
+  "item.magical_obsession.pentagram": "Pentagram",
   "item.magical_obsession.special_cauldron_campfire": "Special Cauldron",
   "item.magical_obsession.terra_nugget": "Terra Nugget",
   "item.magical_obsession.diamond_nugget": "Diamond Nugget",
@@ -11,6 +12,8 @@
 
   "block.magical_obsession.special_cauldron": "Special Cauldron",
   "block.magical_obsession.magical_cauldron": "Magical Cauldron",
+  "block.magical_obsession.magical_catallyzator": "Magical Catallyzator",
+  "block.magical_obsession.magical_field_shield": "Magical Field Shield",
   "block.magical_obsession.terra_ore": "Terra Ore",
   "block.magical_obsession.deepslate_terra_ore": "Deepslate Terra Ore",
 
@@ -19,6 +22,8 @@
 
   "gui.jei.description.special_cauldron": "The power of this cauldron is not revealed yet, be aware before you use it.",
   "gui.jei.description.magical_cauldron": "Cauldron covered by gold stripe, probably gonna be danger than last one.",
+  "gui.jei.description.magical_catallyzator": "Using the power of magic, this thing can bring a super powerful tools in your world, as long as you keep it in safe.",
+  "gui.jei.description.magical_field_shield": "This thing will help keep your base safe, and advance more progress in magic.",
   "gui.jei.description.magic_dust": "I don't know how to use this, but maybe i should try to do something with cauldron?",
   "gui.jei.description.nugget": "Nuggets can be obtained by destroying Terra Ore.",
 
@@ -26,7 +31,7 @@
   "advancements.magical_obsession.collectioner.title": "Collectioner",
   "advancements.magical_obsession.first_one.title": "The First One!",
   "advancements.magical_obsession.absolute_progression.title": "Absolute Progression",
-  "advancements.magical_obsession.big_step.title": "Big Step!",
+  "advancements.magical_obsession.big_step.title": "Big Step",
 
   "advancements.magical_obsession.magical_obsession.description": "Your magic road!",
   "advancements.magical_obsession.collectioner.description": "Collect all types of nuggets!",

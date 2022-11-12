@@ -1,0 +1,11 @@
+{
+  "type": "magical_obsession:magical_cauldron",
+  "ingredients": [
+    {
+      "item": "minecraft:iron_nugget"
+    }
+  ],
+  "output": {
+    "item": "minecraft:ghast_tear"
+  }
+}

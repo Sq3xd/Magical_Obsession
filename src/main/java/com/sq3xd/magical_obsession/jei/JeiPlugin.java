@@ -3,6 +3,7 @@ package com.sq3xd.magical_obsession.jei;
 import com.sq3xd.magical_obsession.MagicalObsession;
 import com.sq3xd.magical_obsession.init.ModBlocks;
 import com.sq3xd.magical_obsession.init.ModItems;
+import com.sq3xd.magical_obsession.recipe.MagicalCatallyzatorRecipe;
 import com.sq3xd.magical_obsession.recipe.MagicalCauldronRecipe;
 import com.sq3xd.magical_obsession.recipe.SpecialCauldronCampfireRecipe;
 import com.sq3xd.magical_obsession.recipe.SpecialCauldronRecipe;
@@ -25,6 +26,7 @@ import java.util.Objects;
 public class JeiPlugin implements IModPlugin {
     Component special_cauldron = Component.translatable("gui.jei.description.special_cauldron");
     Component magical_cauldron = Component.translatable("gui.jei.description.magical_cauldron");
+    Component magical_cattalyzator = Component.translatable("gui.jei.description.magical_catallyzator");
     Component magic_dust = Component.translatable("gui.jei.description.magic_dust");
     Component nugget = Component.translatable("gui.jei.description.nugget");
 
@@ -43,17 +45,22 @@ public class JeiPlugin implements IModPlugin {
     public static RecipeType<MagicalCauldronRecipe> MAGICAL_CAULDRON_TYPE =
             new RecipeType<>(MagicalCauldronRecipeCategory.UID, MagicalCauldronRecipe.class);
 
+    public static RecipeType<MagicalCatallyzatorRecipe> MAGICAL_CATALLYZATOR_TYPE =
+            new RecipeType<>(MagicalCatallyzatorRecipeCategory.UID, MagicalCatallyzatorRecipe.class);
+
     @Override
     public void registerRecipeCatalysts(IRecipeCatalystRegistration registration) {
         registration.addRecipeCatalyst(ModBlocks.SPECIAL_CAULDRON_ITEM.get().asItem().getDefaultInstance(), SPECIAL_CAULDRON_TYPE);
         registration.addRecipeCatalyst(ModBlocks.SPECIAL_CAULDRON_ITEM.get().asItem().getDefaultInstance(), SPECIAL_CAULDRON_CAMPFIRE_TYPE);
         registration.addRecipeCatalyst(ModBlocks.MAGICAL_CAULDRON_ITEM.get().asItem().getDefaultInstance(), MAGICAL_CAULDRON_TYPE);
+        registration.addRecipeCatalyst(ModBlocks.MAGICAL_CATALLYZATOR_ITEM.get().asItem().getDefaultInstance(), MAGICAL_CATALLYZATOR_TYPE);
     }
 
     @Override
     public void registerRecipes(IRecipeRegistration registration) {
         registration.addIngredientInfo(new ItemStack(ModBlocks.SPECIAL_CAULDRON_ITEM.get()), VanillaTypes.ITEM_STACK, special_cauldron);
         registration.addIngredientInfo(new ItemStack(ModBlocks.MAGICAL_CAULDRON_ITEM.get()), VanillaTypes.ITEM_STACK, magical_cauldron);
+        registration.addIngredientInfo(new ItemStack(ModBlocks.MAGICAL_CATALLYZATOR_ITEM.get()), VanillaTypes.ITEM_STACK, magical_cattalyzator);
         registration.addIngredientInfo(new ItemStack(ModItems.MAGIC_DUST.get()), VanillaTypes.ITEM_STACK, magic_dust);
         registration.addIngredientInfo(new ItemStack(ModItems.TERRA_NUGGET.get()), VanillaTypes.ITEM_STACK, nugget);
         registration.addIngredientInfo(new ItemStack(ModItems.DIAMOND_NUGGET.get()), VanillaTypes.ITEM_STACK, nugget);
@@ -73,6 +80,9 @@ public class JeiPlugin implements IModPlugin {
 
         List<MagicalCauldronRecipe> recipesMagicalCauldron = rm.getAllRecipesFor(MagicalCauldronRecipe.Type.INSTANCE);
         registration.addRecipes(MAGICAL_CAULDRON_TYPE, recipesMagicalCauldron);
+
+        List<MagicalCatallyzatorRecipe> recipesMagicalCatallyzator = rm.getAllRecipesFor(MagicalCatallyzatorRecipe.Type.INSTANCE);
+        registration.addRecipes(MAGICAL_CATALLYZATOR_TYPE, recipesMagicalCatallyzator);
     }
 
     @Override
@@ -85,5 +95,8 @@ public class JeiPlugin implements IModPlugin {
 
         registration.addRecipeCategories(new
                 MagicalCauldronRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
+
+        registration.addRecipeCategories(new
+                MagicalCatallyzatorRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
     }
 }

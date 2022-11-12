@@ -43,7 +43,7 @@ public class MagicalCauldronBlock extends Block implements EntityBlock {
 
     public MagicalCauldronBlock(Properties properties) {
         super(properties);
-        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH)); // FACING AND SPHERE PROPERTIES
+        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH)); // FACING
     }
     // Direction
 
