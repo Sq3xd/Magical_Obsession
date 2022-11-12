@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=west": {
+      "model": "magical_obsession:block/magical_catallyzator",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "magical_obsession:block/magical_catallyzator"
+    },
+    "facing=south": {
+      "model": "magical_obsession:block/magical_catallyzator",
+      "y": 180
+    },
+    "facing=east": {
+      "model": "magical_obsession:block/magical_catallyzator",
+      "y": 270
+    }
+  }
+}
