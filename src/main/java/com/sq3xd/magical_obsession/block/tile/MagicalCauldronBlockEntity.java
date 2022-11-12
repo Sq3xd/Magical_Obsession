@@ -66,7 +66,7 @@ public class MagicalCauldronBlockEntity extends BlockEntity {
 
             @Override
             public int getCount() {
-                return 6;
+                return 5;
             }
         };
     }
