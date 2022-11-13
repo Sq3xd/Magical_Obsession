@@ -61,20 +61,22 @@ public class MagicalFieldShieldRenderer implements BlockEntityRenderer<MagicalFi
                 Minecraft.getInstance().level, coverlay, plight, plight);
         stack.popPose();
 
-        VertexConsumer builder = buffer.getBuffer(RenderType.LINES); //SpellRender.QUADS is a personal RenderType, of VertexFormat POSITION_COLOR.
+        // Render Lines
+
         stack.pushPose();
+
+        MultiBufferSource.BufferSource buffer1 = Minecraft.getInstance().renderBuffers().bufferSource();
+        VertexConsumer builder = buffer1.getBuffer(RenderType.LINES);
 
         stack.translate(0d, 0d, 0d);
 
-        //stack.mulPose(Vector3f.ZERO.rotationDegrees(90));
         Matrix4f mat = stack.last().pose();
         Matrix3f mat1 = stack.last().normal();
         builder.vertex(mat, 0.5f, 0.5f, 0.5f).color(201, 135, 227, 200).normal(mat1, 0.5f, 0.5f, 0.5f).endVertex();
         builder.vertex(mat, -entity.getCords(0) + 0.5f, 0.75f, -entity.getCords(2) + 0.5f).color(255, 255, 255, 200)
                 .normal(mat1, -entity.getCords(0) + 0.5f, 0.75f, -entity.getCords(2) + 0.5f).endVertex();
-        //builder.vertex(mat, 4.5f, 0.75f, 4.5f).color(255, 255, 255, 200).normal(mat1, 4.5f, 0.75f, 4.5f).endVertex();
         stack.popPose();
 
-        buffer.getBuffer(RenderType.LINES).endVertex();
+        buffer1.endBatch();
     }
 }

@@ -101,7 +101,7 @@ public class MagicalFieldShieldBlockEntity extends BlockEntity {
         }
 
         if (!entity.detected) {
-            for (int x = -6; x <= 6; x++){ // Todo delete cords when theres no catallyzator in the area
+            for (int x = -6; x <= 6; x++){
                 if (entity.getLevel().getBlockState(pos.west(x)).is(ModBlocks.MAGICAL_CATALLYZATOR.get()) || entity.getLevel().getBlockState(pos.west(x)).is(ModBlocks.MAGICAL_FIELD_SHIELD.get()) || entity.getLevel().getBlockState(pos.west(x)).is(Blocks.AIR)) {
                     if (entity.getLevel().getBlockState(pos.west(x)).is(ModBlocks.MAGICAL_CATALLYZATOR.get())) {
                         entity.setCords(0, x);
@@ -126,10 +126,6 @@ public class MagicalFieldShieldBlockEntity extends BlockEntity {
                     entity.detected = false;
                 }
             }
-        }
-
-        for (float i : entity.cords) {
-            System.out.println(i);
         }
     }
 }

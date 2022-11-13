@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "#": {
+      "item": "minecraft:gold_ingot"
+    },
+    "$": {
+      "item": "minecraft:ghast_tear"
+    },
+    "*": {
+      "item": "minecraft:blaze_rod"
+    },
+    ".": {
+      "item": "magical_obsession:terra_nugget"
+    }
+  },
+  "pattern": [
+    " $ ",
+    ".#.",
+    "* *"
+  ],
+  "result": {
+    "item": "magical_obsession:magical_field_shield"
+  }
+}

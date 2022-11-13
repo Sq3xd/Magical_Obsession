@@ -27,6 +27,7 @@ public class JeiPlugin implements IModPlugin {
     Component special_cauldron = Component.translatable("gui.jei.description.special_cauldron");
     Component magical_cauldron = Component.translatable("gui.jei.description.magical_cauldron");
     Component magical_cattalyzator = Component.translatable("gui.jei.description.magical_catallyzator");
+    Component magical_field_shield = Component.translatable("gui.jei.description.magical_field_shield");
     Component magic_dust = Component.translatable("gui.jei.description.magic_dust");
     Component nugget = Component.translatable("gui.jei.description.nugget");
 
@@ -61,6 +62,7 @@ public class JeiPlugin implements IModPlugin {
         registration.addIngredientInfo(new ItemStack(ModBlocks.SPECIAL_CAULDRON_ITEM.get()), VanillaTypes.ITEM_STACK, special_cauldron);
         registration.addIngredientInfo(new ItemStack(ModBlocks.MAGICAL_CAULDRON_ITEM.get()), VanillaTypes.ITEM_STACK, magical_cauldron);
         registration.addIngredientInfo(new ItemStack(ModBlocks.MAGICAL_CATALLYZATOR_ITEM.get()), VanillaTypes.ITEM_STACK, magical_cattalyzator);
+        registration.addIngredientInfo(new ItemStack(ModBlocks.MAGICAL_FIELD_SHIELD_ITEM.get()), VanillaTypes.ITEM_STACK, magical_field_shield);
         registration.addIngredientInfo(new ItemStack(ModItems.MAGIC_DUST.get()), VanillaTypes.ITEM_STACK, magic_dust);
         registration.addIngredientInfo(new ItemStack(ModItems.TERRA_NUGGET.get()), VanillaTypes.ITEM_STACK, nugget);
         registration.addIngredientInfo(new ItemStack(ModItems.DIAMOND_NUGGET.get()), VanillaTypes.ITEM_STACK, nugget);
