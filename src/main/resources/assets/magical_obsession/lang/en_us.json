@@ -23,7 +23,7 @@
   "gui.jei.description.special_cauldron": "The power of this cauldron is not revealed yet, be aware before you use it.",
   "gui.jei.description.magical_cauldron": "Cauldron covered by gold stripe, probably gonna be danger than last one.",
   "gui.jei.description.magical_catallyzator": "Using the power of magic, this thing can bring a super powerful tools in your world, as long as you keep it in safe.",
-  "gui.jei.description.magical_field_shield": "This thing will help keep your base in safe, and advance more progress in magic, place it in 6x6 radius from catallyzator. Other blocks will not affect it work.",
+  "gui.jei.description.magical_field_shield": "This thing will help keep your base in safe, and advance more progress in magic, place it in 6x6 in line radius from catallyzator. Other blocks will not affect it work.",
   "gui.jei.description.magic_dust": "I don't know how to use this, but maybe i should try to do something with cauldron?",
   "gui.jei.description.nugget": "Nuggets can be obtained by destroying Terra Ore.",
 
