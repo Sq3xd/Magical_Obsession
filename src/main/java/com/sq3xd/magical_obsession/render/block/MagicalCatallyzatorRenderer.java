@@ -51,7 +51,7 @@ public class MagicalCatallyzatorRenderer implements BlockEntityRenderer<MagicalC
             stack.pushPose();
             stack.translate(0.5d, 1.29d + entity.getProgress() / 870f, 0.5d);
             stack.scale(0.75f, 0.75f, 0.75f);
-            stack.mulPose(Vector3f.YN.rotationDegrees(90));
+            stack.mulPose(Vector3f.YN.rotationDegrees(90 - entity.getProgress() / 2));
 
             item_renderer.renderStatic(Minecraft.getInstance().player, entity.itemStackHandler.getStackInSlot(0), ItemTransforms.TransformType.FIXED, false, stack, buffer,
                     Minecraft.getInstance().level, coverlay, plight, plight);
@@ -60,6 +60,7 @@ public class MagicalCatallyzatorRenderer implements BlockEntityRenderer<MagicalC
             stack.pushPose();
             stack.translate(0.5d, 1.29d + entity.getProgress() / 870f, 0.5d);
             stack.scale(0.75f, 0.75f, 0.75f);
+            stack.mulPose(Vector3f.YN.rotationDegrees(0 - entity.getProgress() / 2));
 
             item_renderer.renderStatic(Minecraft.getInstance().player, entity.itemStackHandler.getStackInSlot(0), ItemTransforms.TransformType.FIXED, false, stack, buffer,
                     Minecraft.getInstance().level, coverlay, plight, plight);
@@ -70,7 +71,7 @@ public class MagicalCatallyzatorRenderer implements BlockEntityRenderer<MagicalC
 
         if (!entity.itemStackHandler.getStackInSlot(0).is(ItemStack.EMPTY.getItem())) {
             stack.pushPose();
-            stack.translate(0.65d, 2.39d + entity.getProgress() / 520f, 0.65d);
+            stack.translate(0.65d, 2.39d + entity.getProgress() / 510d, 0.65d);
             stack.scale(0.75f, 0.75f, 0.75f);
             stack.mulPose(Vector3f.YN.rotation(0));
             item_renderer.renderStatic(Minecraft.getInstance().player, ModItems.CRYSTAL_ITEM.get().getDefaultInstance(), ItemTransforms.TransformType.FIXED, false, stack, buffer,
@@ -82,7 +83,7 @@ public class MagicalCatallyzatorRenderer implements BlockEntityRenderer<MagicalC
         if (entity.getProgress() >= 1) {
             stack.pushPose();
             stack.translate(0.5d, 0.1d + entity.getProgress() / 1570f, 0.5d);
-            stack.scale(7.77f, 0.000001f, 7.77f);
+            stack.scale(8.77f, 0.00000001f, 8.77f);
             stack.mulPose(Vector3f.XP.rotationDegrees(90));
             stack.mulPose(Vector3f.ZN.rotationDegrees(90 + entity.getProgress() / 3.5f));
 

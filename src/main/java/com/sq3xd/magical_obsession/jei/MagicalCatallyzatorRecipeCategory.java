@@ -49,7 +49,7 @@ public class MagicalCatallyzatorRecipeCategory implements IRecipeCategory<Magica
 
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, MagicalCatallyzatorRecipe recipe, IFocusGroup focuses) {
-        builder.addSlot(RecipeIngredientRole.INPUT, 84, 18).addIngredients(recipe.getIngredients().get(0));
+        builder.addSlot(RecipeIngredientRole.INPUT, 83, 18).addIngredients(recipe.getIngredients().get(0));
         builder.addSlot(RecipeIngredientRole.OUTPUT, 84, 63).addItemStack(recipe.getResultItem());
     }
 }

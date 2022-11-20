@@ -52,15 +52,6 @@ public class ModBlocks {
             new BlockItem(MAGICAL_FIELD_SHIELD.get(), new Item.Properties().rarity(Rarity.RARE)
                     .tab(ModTabs.MAGICAL_OBSESSION)));
 
-     // Pipes
-     public static RegistryObject<Block> MAGIC_PIPE = BLOCKS.register("magic_pipe", () ->
-             new MagicPipeBlock(BlockBehaviour.Properties.of(Material.GLASS, MaterialColor.SNOW)
-                     .explosionResistance(0.5f).destroyTime(0.15f)));
-
-    public static RegistryObject<Item> MAGIC_PIPE_ITEM = ITEMS.register("magic_pipe", () ->
-            new BlockItem(MAGIC_PIPE.get(), new Item.Properties()
-                    .tab(ModTabs.MAGICAL_OBSESSION)));
-
      // Ores
      public static RegistryObject<Block> TERRA_ORE = BLOCKS.register("terra_ore", () ->
              new Block(BlockBehaviour.Properties.of(Material.STONE, MaterialColor.STONE).requiresCorrectToolForDrops()

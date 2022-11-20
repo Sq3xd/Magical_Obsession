@@ -51,7 +51,7 @@ public class MagicalCauldronRenderer implements BlockEntityRenderer<MagicalCauld
             stack.pushPose();
             stack.translate(0.5d, 0.55d, 0.5d);
             stack.scale(0.75f, 0.75f, 0.75f);
-            stack.mulPose(Vector3f.YN.rotationDegrees(90));
+            stack.mulPose(Vector3f.YN.rotationDegrees(90 - entity.getProgress() / 2));
 
             item_renderer.renderStatic(Minecraft.getInstance().player, entity.itemStackHandler.getStackInSlot(0), ItemTransforms.TransformType.FIXED, false, stack, buffer,
                     Minecraft.getInstance().level, coverlay, plight, plight);
@@ -60,6 +60,7 @@ public class MagicalCauldronRenderer implements BlockEntityRenderer<MagicalCauld
             stack.pushPose();
             stack.translate(0.5d, 0.55d, 0.5d);
             stack.scale(0.75f, 0.75f, 0.75f);
+            stack.mulPose(Vector3f.YN.rotationDegrees(0 - entity.getProgress() / 2));
 
             item_renderer.renderStatic(Minecraft.getInstance().player, entity.itemStackHandler.getStackInSlot(0), ItemTransforms.TransformType.FIXED, false, stack, buffer,
                     Minecraft.getInstance().level, coverlay, plight, plight);
@@ -70,7 +71,7 @@ public class MagicalCauldronRenderer implements BlockEntityRenderer<MagicalCauld
 
         if (!entity.itemStackHandler.getStackInSlot(0).is(ItemStack.EMPTY.getItem())) {
             stack.pushPose();
-            stack.translate(0.65d, 2.07d, 0.65d);
+            stack.translate(0.65d, 2.07d + entity.getProgress() / 370d, 0.65d);
             stack.scale(0.75f, 0.75f, 0.75f);
             stack.mulPose(Vector3f.YN.rotation(0));
             item_renderer.renderStatic(Minecraft.getInstance().player, ModItems.CRYSTAL_ITEM.get().getDefaultInstance(), ItemTransforms.TransformType.FIXED, false, stack, buffer,

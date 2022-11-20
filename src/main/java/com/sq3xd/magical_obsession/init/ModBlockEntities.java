@@ -32,11 +32,6 @@ public class ModBlockEntities {
                     BlockEntityType.Builder.of(MagicalFieldShieldBlockEntity::new,
                             ModBlocks.MAGICAL_FIELD_SHIELD.get()).build(null));
 
-    public static final RegistryObject<BlockEntityType<MagicPipeBlockEntity>> MAGIC_PIPE =
-            BLOCK_ENTITIES.register("magic_pipe", () ->
-                    BlockEntityType.Builder.of(MagicPipeBlockEntity::new,
-                            ModBlocks.MAGIC_PIPE.get()).build(null));
-
 
     public static void register(IEventBus eventBus) {
         BLOCK_ENTITIES.register(eventBus);

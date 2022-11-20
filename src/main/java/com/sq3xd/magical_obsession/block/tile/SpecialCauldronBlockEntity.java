@@ -85,6 +85,10 @@ public class SpecialCauldronBlockEntity extends BlockEntity {
         return sphere;
     }
 
+    public int getProgress() {
+        return progress;
+    }
+
     @Override
     protected void saveAdditional(CompoundTag nbt) {
         nbt.put("inventory", itemStackHandler.serializeNBT());
@@ -135,13 +139,14 @@ public class SpecialCauldronBlockEntity extends BlockEntity {
                     spawnParticles(level, pos);
                 }
 
+                entity.setSphere(1);
+                if (level.getBlockState(pos.below()).is(Blocks.CAMPFIRE)){
+                    entity.setSphere(2);
+                }
+
                 if (entity.progress >= entity.maxProgress + new Random().nextInt(1, 59)) {
                     craftItem(entity, level);
                     crafted(level, pos);
-                    entity.setSphere(120);
-                    if (level.getBlockState(pos.below()).is(Blocks.CAMPFIRE)){
-                        entity.setSphere(320);
-                    }
                     level.playLocalSound(pos.getX(), pos.getY(), pos.getZ(), SoundEvents.BREWING_STAND_BREW, SoundSource.BLOCKS, 1.0f, 1.0f, true);
                     entity.resetProgress();
                 }
