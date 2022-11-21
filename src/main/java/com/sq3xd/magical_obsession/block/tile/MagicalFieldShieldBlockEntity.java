@@ -102,7 +102,7 @@ public class MagicalFieldShieldBlockEntity extends BlockEntity {
 
         if (!entity.detected) {
             for (int x = -6; x <= 6; x++){
-                if (entity.getLevel().getBlockState(pos.west(x)).is(ModBlocks.MAGICAL_CATALLYZATOR.get()) || entity.getLevel().getBlockState(pos.west(x)).is(ModBlocks.MAGICAL_FIELD_SHIELD.get()) || entity.getLevel().getBlockState(pos.west(1)).is(Blocks.AIR)) {
+                if (entity.getLevel().getBlockState(pos.west(1)).is(ModBlocks.MAGICAL_CATALLYZATOR.get()) || entity.getLevel().getBlockState(pos.west(1)).is(ModBlocks.MAGICAL_FIELD_SHIELD.get()) || entity.getLevel().getBlockState(pos.west(1)).is(Blocks.AIR)) {
                     if (entity.getLevel().getBlockState(pos.west(x)).is(ModBlocks.MAGICAL_CATALLYZATOR.get())) {
                         entity.setCords(0, x);
                         entity.detected = true;
@@ -116,7 +116,7 @@ public class MagicalFieldShieldBlockEntity extends BlockEntity {
 
         if (!entity.detected) {
             for (int z = -6; z <= 6; z++) {
-                if (entity.getLevel().getBlockState(pos.north(z)).is(ModBlocks.MAGICAL_CATALLYZATOR.get()) || entity.getLevel().getBlockState(pos.north(z)).is(ModBlocks.MAGICAL_FIELD_SHIELD.get()) || entity.getLevel().getBlockState(pos.north(1)).is(Blocks.AIR)) {
+                if (entity.getLevel().getBlockState(pos.north(1)).is(ModBlocks.MAGICAL_CATALLYZATOR.get()) || entity.getLevel().getBlockState(pos.north(1)).is(ModBlocks.MAGICAL_FIELD_SHIELD.get()) || entity.getLevel().getBlockState(pos.north(1)).is(Blocks.AIR)) {
                     if (entity.getLevel().getBlockState(pos.north(z)).is(ModBlocks.MAGICAL_CATALLYZATOR.get())) {
                         entity.setCords(2, z);
                         entity.detected = true;
