@@ -6,10 +6,7 @@ import com.sq3xd.magical_obsession.init.ModBlockEntities;
 import com.sq3xd.magical_obsession.init.ModBlocks;
 import com.sq3xd.magical_obsession.init.ModItems;
 import com.sq3xd.magical_obsession.init.ModRecipes;
-import com.sq3xd.magical_obsession.render.block.MagicalCatallyzatorRenderer;
-import com.sq3xd.magical_obsession.render.block.MagicalCauldronRenderer;
-import com.sq3xd.magical_obsession.render.block.MagicalFieldShieldRenderer;
-import com.sq3xd.magical_obsession.render.block.SpecialCauldronRenderer;
+import com.sq3xd.magical_obsession.render.block.*;
 import com.sq3xd.magical_obsession.world.feature.ModConfiguredFeatures;
 import com.sq3xd.magical_obsession.world.feature.ModPlacedFeatures;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
@@ -68,6 +65,7 @@ public class MagicalObsession
             event.registerBlockEntityRenderer(ModBlockEntities.MAGICAL_CAULDRON.get(), MagicalCauldronRenderer::new);
             event.registerBlockEntityRenderer(ModBlockEntities.MAGICAL_CATALLYZATOR.get(), MagicalCatallyzatorRenderer::new);
             event.registerBlockEntityRenderer(ModBlockEntities.MAGICAL_FIELD_SHIELD.get(), MagicalFieldShieldRenderer::new);
+            event.registerBlockEntityRenderer(ModBlockEntities.ENTITY_DUPLICATOR.get(), EntityDuplicatorRenderer::new);
         }
     }
 

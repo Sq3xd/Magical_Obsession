@@ -2,6 +2,7 @@ package com.sq3xd.magical_obsession.init;
 
 import com.sq3xd.magical_obsession.MagicalObsession;
 import com.sq3xd.magical_obsession.item.MagicDustItem;
+import com.sq3xd.magical_obsession.item.SuspendedRedstoneItem;
 import com.sq3xd.magical_obsession.item.tab.ModTabs;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Rarity;
@@ -23,11 +24,17 @@ public class ModItems {
     public static RegistryObject<Item> PENTAGRAM_ITEM = ITEMS.register("pentagram", () ->
             new Item(new Item.Properties().rarity(Rarity.RARE)));
 
+    public static RegistryObject<Item> ENTITY_DUPLICATOR_PARTICLE = ITEMS.register("entity_duplicator_particle", () ->
+            new Item(new Item.Properties().rarity(Rarity.RARE)));
+
     public static RegistryObject<Item> SPECIAL_CAULDRON_CAMPFIRE_ITEM = ITEMS.register("special_cauldron_campfire", () ->
             new Item(new Item.Properties().rarity(Rarity.RARE)));
 
     public static RegistryObject<Item> MAGIC_DUST = ITEMS.register("magic_dust", () ->
             new MagicDustItem(new Item.Properties().rarity(Rarity.RARE).tab(ModTabs.MAGICAL_OBSESSION)));
+
+    public static RegistryObject<Item> SUSPENDED_REDSTONE = ITEMS.register("suspended_redstone", () ->
+            new SuspendedRedstoneItem(new Item.Properties().rarity(Rarity.RARE).tab(ModTabs.MAGICAL_OBSESSION)));
 
      // Nuggets
     public static RegistryObject<Item> TERRA_NUGGET = ITEMS.register("terra_nugget", () ->

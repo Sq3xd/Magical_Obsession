@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=west": {
+      "model": "magical_obsession:block/entity_duplicator",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "magical_obsession:block/entity_duplicator"
+    },
+    "facing=south": {
+      "model": "magical_obsession:block/entity_duplicator",
+      "y": 180
+    },
+    "facing=east": {
+      "model": "magical_obsession:block/entity_duplicator",
+      "y": 270
+    }
+  }
+}

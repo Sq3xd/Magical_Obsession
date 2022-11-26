@@ -1,0 +1,11 @@
+{
+  "type": "magical_obsession:special_cauldron",
+  "ingredients": [
+    {
+      "item": "magical_obsession:suspended_redstone"
+    }
+  ],
+  "output": {
+    "item": "magical_obsession:magic_dust"
+  }
+}

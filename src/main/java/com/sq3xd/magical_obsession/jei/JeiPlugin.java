@@ -29,6 +29,7 @@ public class JeiPlugin implements IModPlugin {
     Component magical_cattalyzator = Component.translatable("gui.jei.description.magical_catallyzator");
     Component magical_field_shield = Component.translatable("gui.jei.description.magical_field_shield");
     Component magic_dust = Component.translatable("gui.jei.description.magic_dust");
+    Component suspended_redstone = Component.translatable("gui.jei.description.suspended_redstone");
     Component nugget = Component.translatable("gui.jei.description.nugget");
 
     @Override
@@ -64,6 +65,7 @@ public class JeiPlugin implements IModPlugin {
         registration.addIngredientInfo(new ItemStack(ModBlocks.MAGICAL_CATALLYZATOR_ITEM.get()), VanillaTypes.ITEM_STACK, magical_cattalyzator);
         registration.addIngredientInfo(new ItemStack(ModBlocks.MAGICAL_FIELD_SHIELD_ITEM.get()), VanillaTypes.ITEM_STACK, magical_field_shield);
         registration.addIngredientInfo(new ItemStack(ModItems.MAGIC_DUST.get()), VanillaTypes.ITEM_STACK, magic_dust);
+        registration.addIngredientInfo(new ItemStack(ModItems.SUSPENDED_REDSTONE.get()), VanillaTypes.ITEM_STACK, suspended_redstone);
         registration.addIngredientInfo(new ItemStack(ModItems.TERRA_NUGGET.get()), VanillaTypes.ITEM_STACK, nugget);
         registration.addIngredientInfo(new ItemStack(ModItems.DIAMOND_NUGGET.get()), VanillaTypes.ITEM_STACK, nugget);
         registration.addIngredientInfo(new ItemStack(ModItems.EMERALD_NUGGET.get()), VanillaTypes.ITEM_STACK, nugget);

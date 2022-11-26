@@ -2,8 +2,10 @@
   "item.magical_obsession.magic_dust": "Magic Dust",
   "item.magical_obsession.crystal": "Crystal",
   "item.magical_obsession.sphere": "Sphere",
+  "item.magical_obsession.entity_duplicator_particle": "Entity Duplicator Particle",
   "item.magical_obsession.pentagram": "Pentagram",
   "item.magical_obsession.special_cauldron_campfire": "Special Cauldron",
+  "item.magical_obsession.suspended_redstone": "Suspended Redstone",
   "item.magical_obsession.terra_nugget": "Terra Nugget",
   "item.magical_obsession.diamond_nugget": "Diamond Nugget",
   "item.magical_obsession.emerald_nugget": "Emerald Nugget",
@@ -14,10 +16,12 @@
   "block.magical_obsession.magical_cauldron": "Magical Cauldron",
   "block.magical_obsession.magical_catallyzator": "Magical Catallyzator",
   "block.magical_obsession.magical_field_shield": "Magical Field Shield",
+  "block.magical_obsession.entity_duplicator": "Entity Duplicator",
   "block.magical_obsession.terra_ore": "Terra Ore",
   "block.magical_obsession.deepslate_terra_ore": "Deepslate Terra Ore",
 
   "tooltip.magical_obsession.magic_dust": "§5No one knows how to use this, pink colored powder..",
+  "tooltip.magical_obsession.suspended_redstone": "§5Look's like a redstone, but doesn't work as redstone.",
   "tooltip.magical_obsession.shift": "§eHold §lSHIFT §r§efor more info",
 
   "gui.jei.description.special_cauldron": "The power of this cauldron is not revealed yet, be aware before you use it.",
@@ -25,6 +29,7 @@
   "gui.jei.description.magical_catallyzator": "Using the power of magic, this thing can bring a super powerful tools in your world, as long as you keep it in safe.",
   "gui.jei.description.magical_field_shield": "This thing will help keep your base in safe, and advance more progress in magic, place it in 6x6 in line radius from catallyzator. Other blocks will not affect it work.",
   "gui.jei.description.magic_dust": "I don't know how to use this, but maybe i should try to do something with cauldron?",
+  "gui.jei.description.suspended_redstone": "Probably was obtained from ancient redstone ores, but is there's any of those? This thing doesn't work as redstone, i can throw it away...",
   "gui.jei.description.nugget": "Nuggets can be obtained by destroying Terra Ore.",
 
   "advancements.magical_obsession.magical_obsession.title": "Magical Obsession",

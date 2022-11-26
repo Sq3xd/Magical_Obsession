@@ -32,6 +32,11 @@ public class ModBlockEntities {
                     BlockEntityType.Builder.of(MagicalFieldShieldBlockEntity::new,
                             ModBlocks.MAGICAL_FIELD_SHIELD.get()).build(null));
 
+    public static final RegistryObject<BlockEntityType<EntityDuplicatorBlockEntity>> ENTITY_DUPLICATOR =
+            BLOCK_ENTITIES.register("entity_duplicator", () ->
+                    BlockEntityType.Builder.of(EntityDuplicatorBlockEntity::new,
+                            ModBlocks.ENTITY_DUPLICATOR.get()).build(null));
+
 
     public static void register(IEventBus eventBus) {
         BLOCK_ENTITIES.register(eventBus);

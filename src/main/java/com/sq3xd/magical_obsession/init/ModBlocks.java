@@ -52,6 +52,14 @@ public class ModBlocks {
             new BlockItem(MAGICAL_FIELD_SHIELD.get(), new Item.Properties().rarity(Rarity.RARE)
                     .tab(ModTabs.MAGICAL_OBSESSION)));
 
+    public static RegistryObject<Block> ENTITY_DUPLICATOR = BLOCKS.register("entity_duplicator", () ->
+            new EntityDuplicatorBlock(BlockBehaviour.Properties.of(Material.HEAVY_METAL, MaterialColor.METAL).requiresCorrectToolForDrops()
+                    .explosionResistance(1.5f).destroyTime(1.25f).noOcclusion()));
+
+    public static RegistryObject<Item> ENTITY_DUPLICATOR_ITEM = ITEMS.register("entity_duplicator", () ->
+            new BlockItem(ENTITY_DUPLICATOR.get(), new Item.Properties().rarity(Rarity.RARE)
+                    .tab(ModTabs.MAGICAL_OBSESSION)));
+
      // Ores
      public static RegistryObject<Block> TERRA_ORE = BLOCKS.register("terra_ore", () ->
              new Block(BlockBehaviour.Properties.of(Material.STONE, MaterialColor.STONE).requiresCorrectToolForDrops()
