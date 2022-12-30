@@ -37,6 +37,11 @@ public class ModBlockEntities {
                     BlockEntityType.Builder.of(EntityDuplicatorBlockEntity::new,
                             ModBlocks.ENTITY_DUPLICATOR.get()).build(null));
 
+    public static final RegistryObject<BlockEntityType<MagicalPentagramBlockEntity>> MAGICAL_PENTAGRAM =
+            BLOCK_ENTITIES.register("magical_pentagram", () ->
+                    BlockEntityType.Builder.of(MagicalPentagramBlockEntity::new,
+                            ModBlocks.MAGICAL_PENTAGRAM.get()).build(null));
+
 
     public static void register(IEventBus eventBus) {
         BLOCK_ENTITIES.register(eventBus);

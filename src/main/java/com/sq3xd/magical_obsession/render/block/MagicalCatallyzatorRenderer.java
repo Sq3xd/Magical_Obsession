@@ -3,6 +3,7 @@ package com.sq3xd.magical_obsession.render.block;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector3f;
 import com.sq3xd.magical_obsession.block.tile.MagicalCatallyzatorBlockEntity;
+import com.sq3xd.magical_obsession.init.ModBlocks;
 import com.sq3xd.magical_obsession.init.ModItems;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -87,7 +88,7 @@ public class MagicalCatallyzatorRenderer implements BlockEntityRenderer<MagicalC
             stack.mulPose(Vector3f.XP.rotationDegrees(90));
             stack.mulPose(Vector3f.ZN.rotationDegrees(90 + entity.getProgress() / 3.5f));
 
-            item_renderer.renderStatic(Minecraft.getInstance().player, ModItems.PENTAGRAM_ITEM.get().getDefaultInstance(), ItemTransforms.TransformType.FIXED, false, stack, buffer,
+            item_renderer.renderStatic(Minecraft.getInstance().player, ModBlocks.MAGICAL_PENTAGRAM.get().asItem().getDefaultInstance(), ItemTransforms.TransformType.FIXED, false, stack, buffer,
                     Minecraft.getInstance().level, coverlay, plight, plight);
             stack.popPose();
         }

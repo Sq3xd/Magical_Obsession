@@ -1,0 +1,11 @@
+{
+  "type": "magical_obsession:magical_cauldron",
+  "ingredients": [
+    {
+      "item": "minecraft:bone_meal"
+    }
+  ],
+  "output": {
+    "item": "magical_obsession:magical_pentagram"
+  }
+}

@@ -21,9 +21,6 @@ public class ModItems {
     public static RegistryObject<Item> SPHERE_ITEM = ITEMS.register("sphere", () ->
             new Item(new Item.Properties().rarity(Rarity.RARE)));
 
-    public static RegistryObject<Item> PENTAGRAM_ITEM = ITEMS.register("pentagram", () ->
-            new Item(new Item.Properties().rarity(Rarity.RARE)));
-
     public static RegistryObject<Item> ENTITY_DUPLICATOR_PARTICLE = ITEMS.register("entity_duplicator_particle", () ->
             new Item(new Item.Properties().rarity(Rarity.RARE)));
 

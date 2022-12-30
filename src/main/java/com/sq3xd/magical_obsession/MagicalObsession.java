@@ -66,6 +66,7 @@ public class MagicalObsession
             event.registerBlockEntityRenderer(ModBlockEntities.MAGICAL_CATALLYZATOR.get(), MagicalCatallyzatorRenderer::new);
             event.registerBlockEntityRenderer(ModBlockEntities.MAGICAL_FIELD_SHIELD.get(), MagicalFieldShieldRenderer::new);
             event.registerBlockEntityRenderer(ModBlockEntities.ENTITY_DUPLICATOR.get(), EntityDuplicatorRenderer::new);
+            event.registerBlockEntityRenderer(ModBlockEntities.MAGICAL_PENTAGRAM.get(), MagicalPentagramRenderer::new);
         }
     }
 

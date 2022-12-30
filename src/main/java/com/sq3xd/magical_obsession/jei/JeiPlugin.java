@@ -28,6 +28,8 @@ public class JeiPlugin implements IModPlugin {
     Component magical_cauldron = Component.translatable("gui.jei.description.magical_cauldron");
     Component magical_cattalyzator = Component.translatable("gui.jei.description.magical_catallyzator");
     Component magical_field_shield = Component.translatable("gui.jei.description.magical_field_shield");
+    Component entity_duplicator = Component.translatable("gui.jei.description.entity_duplicator");
+    Component magical_pentagram = Component.translatable("gui.jei.description.magical_pentagram");
     Component magic_dust = Component.translatable("gui.jei.description.magic_dust");
     Component suspended_redstone = Component.translatable("gui.jei.description.suspended_redstone");
     Component nugget = Component.translatable("gui.jei.description.nugget");
@@ -64,6 +66,8 @@ public class JeiPlugin implements IModPlugin {
         registration.addIngredientInfo(new ItemStack(ModBlocks.MAGICAL_CAULDRON_ITEM.get()), VanillaTypes.ITEM_STACK, magical_cauldron);
         registration.addIngredientInfo(new ItemStack(ModBlocks.MAGICAL_CATALLYZATOR_ITEM.get()), VanillaTypes.ITEM_STACK, magical_cattalyzator);
         registration.addIngredientInfo(new ItemStack(ModBlocks.MAGICAL_FIELD_SHIELD_ITEM.get()), VanillaTypes.ITEM_STACK, magical_field_shield);
+        registration.addIngredientInfo(new ItemStack(ModBlocks.ENTITY_DUPLICATOR_ITEM.get()), VanillaTypes.ITEM_STACK, entity_duplicator);
+        registration.addIngredientInfo(new ItemStack(ModBlocks.MAGICAL_PENTAGRAM.get()), VanillaTypes.ITEM_STACK, magical_pentagram);
         registration.addIngredientInfo(new ItemStack(ModItems.MAGIC_DUST.get()), VanillaTypes.ITEM_STACK, magic_dust);
         registration.addIngredientInfo(new ItemStack(ModItems.SUSPENDED_REDSTONE.get()), VanillaTypes.ITEM_STACK, suspended_redstone);
         registration.addIngredientInfo(new ItemStack(ModItems.TERRA_NUGGET.get()), VanillaTypes.ITEM_STACK, nugget);

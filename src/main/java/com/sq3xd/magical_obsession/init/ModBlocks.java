@@ -77,6 +77,14 @@ public class ModBlocks {
             new BlockItem(DEEPSLATE_TERRA_ORE.get(), new Item.Properties()
                     .tab(ModTabs.MAGICAL_OBSESSION)));
 
+    public static RegistryObject<Block> MAGICAL_PENTAGRAM = BLOCKS.register("magical_pentagram", () ->
+            new MagicalPentagramBlock(BlockBehaviour.Properties.of(Material.STONE, MaterialColor.SNOW)
+                    .explosionResistance(0.15f).destroyTime(0.15f).noOcclusion().noCollission().instabreak()));
+
+    public static RegistryObject<Item> MAGICAL_PENTAGRAM_ITEM = ITEMS.register("magical_pentagram", () ->
+            new BlockItem(MAGICAL_PENTAGRAM.get(), new Item.Properties().rarity(Rarity.RARE)
+                    .tab(ModTabs.MAGICAL_OBSESSION)));
+
     /*
     public static List<String> names = new ArrayList<String>();
 
