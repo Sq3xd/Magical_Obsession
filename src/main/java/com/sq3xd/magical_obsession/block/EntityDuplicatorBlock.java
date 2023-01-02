@@ -1,7 +1,6 @@
 package com.sq3xd.magical_obsession.block;
 
 import com.sq3xd.magical_obsession.block.tile.EntityDuplicatorBlockEntity;
-import com.sq3xd.magical_obsession.block.tile.MagicalCatallyzatorBlockEntity;
 import com.sq3xd.magical_obsession.init.ModBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

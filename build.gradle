@@ -4,7 +4,7 @@ plugins {
     id 'net.minecraftforge.gradle' version '5.1.+'
 }
 
-version = '1.0-ALPHA'
+version = '1.0-A'
 group = 'com.sq3xd.magical_obsession' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'magical_obsession'
 

@@ -1,9 +1,7 @@
 package com.sq3xd.magical_obsession.block.tile;
 
 import com.sq3xd.magical_obsession.init.ModBlockEntities;
-import com.sq3xd.magical_obsession.jei.MagicalCatallyzatorRecipeCategory;
 import com.sq3xd.magical_obsession.recipe.MagicalCatallyzatorRecipe;
-import com.sq3xd.magical_obsession.recipe.MagicalCauldronRecipe;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
@@ -17,23 +15,14 @@ import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.shapes.BooleanOp;
-import net.minecraft.world.phys.shapes.CollisionContext;
-import net.minecraft.world.phys.shapes.Shapes;
-import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.items.ItemStackHandler;
 
 import java.util.Optional;
 import java.util.Random;
-
-import static net.minecraft.world.phys.shapes.Shapes.box;
 
 public class MagicalCatallyzatorBlockEntity extends BlockEntity {
     public static Direction direction;
