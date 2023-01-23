@@ -32,29 +32,7 @@ public class MagicalPentagramRenderer implements BlockEntityRenderer<MagicalPent
         BlockPos pos = entity.getBlockPos();
         BlockState state = entity.getBlockState();
 
-        // Render Crystal
-
         if (state.getValue(HorizontalDirectionalBlock.FACING).equals(Direction.NORTH)) {
-            stack.pushPose();
-            stack.translate(0.5d, 0.35d, 0.5d);
-            stack.scale(0.59f, 0.59f, 0.59f);
-            stack.mulPose(Vector3f.YN.rotationDegrees(0 - entity.getProgress() / 2));
-            stack.mulPose(Vector3f.XN.rotationDegrees(90));
-
-            item_renderer.renderStatic(Minecraft.getInstance().player, entity.itemStackHandler.getStackInSlot(0), ItemTransforms.TransformType.FIXED, false, stack, buffer,
-                    Minecraft.getInstance().level, coverlay, plight, plight);
-            stack.popPose();
-
-            stack.pushPose();
-            stack.translate(0.5d, 0.1d + entity.getProgress() / 2100f, 0.5d);
-            stack.scale(1f, 0.00000001f, 1f);
-            stack.mulPose(Vector3f.XP.rotationDegrees(90));
-            stack.mulPose(Vector3f.ZN.rotationDegrees(0 - entity.getProgress() / 3.15f));
-
-            item_renderer.renderStatic(Minecraft.getInstance().player, ModBlocks.MAGICAL_PENTAGRAM.get().asItem().getDefaultInstance(), ItemTransforms.TransformType.FIXED, false, stack, buffer,
-                    Minecraft.getInstance().level, coverlay, plight, plight);
-            stack.popPose();
-        } else if (state.getValue(HorizontalDirectionalBlock.FACING).equals(Direction.SOUTH)) {
             stack.pushPose();
             stack.translate(0.5d, 0.35d, 0.5d);
             stack.scale(0.59f, 0.59f, 0.59f);
@@ -67,7 +45,27 @@ public class MagicalPentagramRenderer implements BlockEntityRenderer<MagicalPent
 
             stack.pushPose();
             stack.translate(0.5d, 0.1d + entity.getProgress() / 2100f, 0.5d);
-            stack.scale(1f, 0.00000001f, 1f);
+            stack.scale(1.19f, 0.00000001f, 1.19f);
+            stack.mulPose(Vector3f.XP.rotationDegrees(90));
+            stack.mulPose(Vector3f.ZN.rotationDegrees(0 - entity.getProgress() / 3.15f));
+
+            item_renderer.renderStatic(Minecraft.getInstance().player, ModBlocks.MAGICAL_PENTAGRAM.get().asItem().getDefaultInstance(), ItemTransforms.TransformType.FIXED, false, stack, buffer,
+                    Minecraft.getInstance().level, coverlay, plight, plight);
+            stack.popPose();
+        } else if (state.getValue(HorizontalDirectionalBlock.FACING).equals(Direction.SOUTH)) {
+            stack.pushPose();
+            stack.translate(0.5d, 0.35d, 0.5d);
+            stack.scale(0.59f, 0.59f, 0.59f);
+            stack.mulPose(Vector3f.YN.rotationDegrees(0 - entity.getProgress() / 2));
+            stack.mulPose(Vector3f.XN.rotationDegrees(90));
+
+            item_renderer.renderStatic(Minecraft.getInstance().player, entity.itemStackHandler.getStackInSlot(0), ItemTransforms.TransformType.FIXED, false, stack, buffer,
+                    Minecraft.getInstance().level, coverlay, plight, plight);
+            stack.popPose();
+
+            stack.pushPose();
+            stack.translate(0.5d, 0.1d + entity.getProgress() / 2100f, 0.5d);
+            stack.scale(1.19f, 0.00000001f, 1.19f);
             stack.mulPose(Vector3f.XP.rotationDegrees(90));
             stack.mulPose(Vector3f.ZN.rotationDegrees(180 - entity.getProgress() / 3.15f));
 
@@ -87,7 +85,7 @@ public class MagicalPentagramRenderer implements BlockEntityRenderer<MagicalPent
 
             stack.pushPose();
             stack.translate(0.5d, 0.1d + entity.getProgress() / 2100f, 0.5d);
-            stack.scale(1f, 0.00000001f, 1f);
+            stack.scale(1.19f, 0.00000001f, 1.19f);
             stack.mulPose(Vector3f.XP.rotationDegrees(90));
             stack.mulPose(Vector3f.ZN.rotationDegrees(270 - entity.getProgress() / 3.15f));
 
@@ -107,7 +105,7 @@ public class MagicalPentagramRenderer implements BlockEntityRenderer<MagicalPent
 
             stack.pushPose();
             stack.translate(0.5d, 0.1d + entity.getProgress() / 2100f, 0.5d);
-            stack.scale(1f, 0.00000001f, 1f);
+            stack.scale(1.19f, 0.00000001f, 1.19f);
             stack.mulPose(Vector3f.XP.rotationDegrees(90));
             stack.mulPose(Vector3f.ZN.rotationDegrees(90 - entity.getProgress() / 3.15f));
 

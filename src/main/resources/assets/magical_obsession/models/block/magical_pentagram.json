@@ -1,7 +1,6 @@
 {
 	"parent": "minecraft:block/leaves",
 	"textures": {
-		"all": "minecraft:block/air",
-		"particle": "minecraft:block/air"
+		"all": "minecraft:block/air"
 	}
 }

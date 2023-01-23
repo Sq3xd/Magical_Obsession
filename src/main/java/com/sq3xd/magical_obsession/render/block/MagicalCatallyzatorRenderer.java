@@ -84,7 +84,7 @@ public class MagicalCatallyzatorRenderer implements BlockEntityRenderer<MagicalC
         if (entity.getProgress() >= 1) {
             stack.pushPose();
             stack.translate(0.5d, 0.1d + entity.getProgress() / 1570f, 0.5d);
-            stack.scale(8.77f, 0.00000001f, 8.77f);
+            stack.scale(11.5f, 0.00000001f, 11.57f);
             stack.mulPose(Vector3f.XP.rotationDegrees(90));
             stack.mulPose(Vector3f.ZN.rotationDegrees(90 + entity.getProgress() / 3.5f));
 
