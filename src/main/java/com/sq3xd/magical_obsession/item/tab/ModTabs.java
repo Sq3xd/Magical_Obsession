@@ -11,4 +11,11 @@ public class ModTabs {
             return new ItemStack(ModItems.CRYSTAL_ITEM.get());
         }
     };
+
+    public static final CreativeModeTab MAGICAL_OBSESSION_JARS = new CreativeModeTab("magical_obsession_jars") {
+        @Override
+        public ItemStack makeIcon() {
+            return new ItemStack(ModItems.SOUL_JAR.get());
+        }
+    };
 }

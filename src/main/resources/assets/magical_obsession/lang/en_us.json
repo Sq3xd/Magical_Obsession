@@ -10,6 +10,7 @@
   "item.magical_obsession.emerald_nugget": "Emerald Nugget",
   "item.magical_obsession.lapis_nugget": "Lapis Nugget",
   "item.magical_obsession.coal_nugget": "Coal Nugget",
+  "item.magical_obsession.soul_jar": "Soul Jar",
 
   "block.magical_obsession.special_cauldron": "Special Cauldron",
   "block.magical_obsession.magical_cauldron": "Magical Cauldron",
@@ -22,6 +23,7 @@
 
   "tooltip.magical_obsession.magic_dust": "§5No one knows how to use this, pink colored powder...",
   "tooltip.magical_obsession.suspended_redstone": "§5Look's like a redstone, but doesn't work as redstone.",
+  "tooltip.magical_obsession.soul_jar": "§dContains soul of -",
   "tooltip.magical_obsession.shift": "§eHold §lSHIFT §r§efor more info",
 
   "gui.jei.description.special_cauldron": "The power of this cauldron is not revealed yet, be aware before you use it.",
@@ -48,5 +50,6 @@
 
   "message.player.tip": "§5I fell asleep and had a dream about some strange cauldron. I put some §omagic powder§r§5 in it. I can't remember what happened next, should i try and repeat it?",
 
-  "itemGroup.magical_obsession": "Magical Obsession"
+  "itemGroup.magical_obsession": "Magical Obsession",
+  "itemGroup.magical_obsession_jars": "Magical Obsession Jars"
 }
