@@ -81,14 +81,6 @@ public class ModItems {
             if (!entityType.getCategory().equals(MobCategory.MISC)) {
                 RegistryObject<Item> SOUL_JAR = ITEMS.register("soul_jar" + '_' + k.toString().replace(':', '_').replace('.', '_'), () ->
                         new JarItem(new Item.Properties().rarity(Rarity.RARE).tab(ModTabs.MAGICAL_OBSESSION_JARS), entityType));
-
-                if (Thread.currentThread().getThreadGroup() == SidedThreadGroups.CLIENT) { // TODO BIND EACH ITEM TO SOUL JAR MODEL
-                    ItemModelShaper itemModelShaper = Minecraft.getInstance().getItemRenderer().getItemModelShaper();
-                    itemModelShaper.register(SOUL_JAR.get().asItem(), new ModelResourceLocation("item.soul_jar", "inventory"));
-                    for (int i = 0; i <= 15000; i++){
-                        System.out.println("YES");
-                    }
-                }
             }
         }
     }
