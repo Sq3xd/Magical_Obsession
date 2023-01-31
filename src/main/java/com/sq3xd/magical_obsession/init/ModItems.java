@@ -5,12 +5,25 @@ import com.sq3xd.magical_obsession.item.MagicDustItem;
 import com.sq3xd.magical_obsession.item.JarItem;
 import com.sq3xd.magical_obsession.item.SuspendedRedstoneItem;
 import com.sq3xd.magical_obsession.item.tab.ModTabs;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.ItemModelShaper;
+import net.minecraft.client.renderer.block.BlockRenderDispatcher;
+import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
+import net.minecraft.client.renderer.entity.ItemRenderer;
+import net.minecraft.client.resources.model.ModelBakery;
+import net.minecraft.client.resources.model.ModelManager;
+import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Rarity;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.fml.loading.FMLEnvironment;
+import net.minecraftforge.fml.util.thread.SidedThreadGroups;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
@@ -68,6 +81,14 @@ public class ModItems {
             if (!entityType.getCategory().equals(MobCategory.MISC)) {
                 RegistryObject<Item> SOUL_JAR = ITEMS.register("soul_jar" + '_' + k.toString().replace(':', '_').replace('.', '_'), () ->
                         new JarItem(new Item.Properties().rarity(Rarity.RARE).tab(ModTabs.MAGICAL_OBSESSION_JARS), entityType));
+
+                if (Thread.currentThread().getThreadGroup() == SidedThreadGroups.CLIENT) { // TODO BIND EACH ITEM TO SOUL JAR MODEL
+                    ItemModelShaper itemModelShaper = Minecraft.getInstance().getItemRenderer().getItemModelShaper();
+                    itemModelShaper.register(SOUL_JAR.get().asItem(), new ModelResourceLocation("item.soul_jar", "inventory"));
+                    for (int i = 0; i <= 15000; i++){
+                        System.out.println("YES");
+                    }
+                }
             }
         }
     }

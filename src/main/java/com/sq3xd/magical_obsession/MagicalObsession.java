@@ -9,6 +9,8 @@ import com.sq3xd.magical_obsession.init.ModRecipes;
 import com.sq3xd.magical_obsession.render.block.*;
 import com.sq3xd.magical_obsession.world.feature.ModConfiguredFeatures;
 import com.sq3xd.magical_obsession.world.feature.ModPlacedFeatures;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.ItemModelShaper;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;

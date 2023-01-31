@@ -1,6 +1,6 @@
 {
 	"credit": "Made with Blockbench",
-	"parent": "entity_duplicator",
+	"parent": "block/block",
 	"texture_size": [32, 32],
 	"textures": {
 		"0": "magical_obsession:block/entity_duplicator",
