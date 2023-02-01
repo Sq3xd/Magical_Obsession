@@ -17,7 +17,7 @@ public class ModPlacedFeatures {
 
     public static final RegistryObject<PlacedFeature> TERRA_ORE_PLACED = PLACED_FEATURES.register("terra_ore_placed",
             () -> new PlacedFeature(ModConfiguredFeatures.TERRA_ORE.getHolder().get(),
-                    commonOrePlacement(11, // VeinsPerChunk
+                    commonOrePlacement(12, // VeinsPerChunk
                             HeightRangePlacement.triangle(VerticalAnchor.aboveBottom(-59), VerticalAnchor.aboveBottom(80)))));
 
 

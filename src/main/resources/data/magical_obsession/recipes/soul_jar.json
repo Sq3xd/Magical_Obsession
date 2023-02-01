@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "$": {
+      "tag": "forge:glass_panes/colorless"
+    },
+    "*": {
+      "tag": "magical_obsession:buttons"
+    }
+  },
+  "pattern": [
+    "$*$",
+    "$ $",
+    "$$$"
+  ],
+  "result": {
+    "item": "magical_obsession:soul_jar"
+  }
+}

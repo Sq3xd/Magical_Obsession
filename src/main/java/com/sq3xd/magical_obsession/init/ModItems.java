@@ -1,6 +1,7 @@
 package com.sq3xd.magical_obsession.init;
 
 import com.sq3xd.magical_obsession.MagicalObsession;
+import com.sq3xd.magical_obsession.item.ImmolationSwordItem;
 import com.sq3xd.magical_obsession.item.MagicDustItem;
 import com.sq3xd.magical_obsession.item.JarItem;
 import com.sq3xd.magical_obsession.item.SuspendedRedstoneItem;
@@ -19,6 +20,8 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Rarity;
+import net.minecraft.world.item.SwordItem;
+import net.minecraft.world.item.Tiers;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -69,18 +72,23 @@ public class ModItems {
             new Item(new Item.Properties().tab(ModTabs.MAGICAL_OBSESSION)));
 
     public static RegistryObject<Item> SOUL_JAR = ITEMS.register("soul_jar", () ->
-            new Item(new Item.Properties().rarity(Rarity.RARE).tab(ModTabs.MAGICAL_OBSESSION_JARS)));
+            new Item(new Item.Properties().stacksTo(1).rarity(Rarity.RARE).tab(ModTabs.MAGICAL_OBSESSION_JARS)));
+
+    // Tools
+
+    public static RegistryObject<Item> IMMOLATION_SWORD = ITEMS.register("immolation_sword", () ->
+            new ImmolationSwordItem(ModTiers.IMMOLATION, 1, -2.4f, new Item.Properties()
+                    .fireResistant().tab(ModTabs.MAGICAL_OBSESSION)));
 
     public static void register(IEventBus eventBus){
         ITEMS.register(eventBus);
-
         Set<ResourceLocation> entityKeyList = ForgeRegistries.ENTITY_TYPES.getKeys();
 
         for (ResourceLocation k : entityKeyList) {
             EntityType<?> entityType = ForgeRegistries.ENTITY_TYPES.getValue(k);
             if (!entityType.getCategory().equals(MobCategory.MISC)) {
                 RegistryObject<Item> SOUL_JAR = ITEMS.register("soul_jar" + '_' + k.toString().replace(':', '_').replace('.', '_'), () ->
-                        new JarItem(new Item.Properties().rarity(Rarity.RARE).tab(ModTabs.MAGICAL_OBSESSION_JARS), entityType));
+                        new JarItem(new Item.Properties().stacksTo(1).rarity(Rarity.RARE).tab(ModTabs.MAGICAL_OBSESSION_JARS), entityType));
             }
         }
     }
