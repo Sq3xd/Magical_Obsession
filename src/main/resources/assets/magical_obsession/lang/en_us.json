@@ -30,11 +30,12 @@
   "gui.jei.description.magical_cauldron": "Cauldron covered by gold stripe, probably gonna be danger than last one.",
   "gui.jei.description.magical_catallyzator": "Using the power of magic, this thing can bring a super powerful tools in your world, as long as you keep it in safe.",
   "gui.jei.description.magical_field_shield": "This thing will help keep your base in safe, and advance more progress in magic, place it in 6x6 in line radius from catallyzator. Other blocks will not affect it work.",
-  "gui.jei.description.entity_duplicator": "Can copy most of entities, you just need only one crystal. [WIP]",
+  "gui.jei.description.entity_duplicator": "Can copy most of entities, you just need only one jar.",
   "gui.jei.description.magical_pentagram": "Use your magical knowledge to protect yourself or either...",
   "gui.jei.description.magic_dust": "I don't know how to use this, but maybe i should try to do something with cauldron?",
   "gui.jei.description.suspended_redstone": "Probably was obtained from ancient redstone ores, but is there's any of those? This thing doesn't work as redstone, i can throw it away...",
   "gui.jei.description.nugget": "Nuggets can be obtained by destroying Terra Ore.",
+  "gui.jei.description.soul_jar": "Soul Jars are used to duplicate entities on duplicator.",
 
   "advancements.magical_obsession.magical_obsession.title": "Magical Obsession",
   "advancements.magical_obsession.collectioner.title": "Collectioner",
@@ -48,7 +49,8 @@
   "advancements.magical_obsession.absolute_progression.description": "Acquire advanced wizard legacy.",
   "advancements.magical_obsession.big_step.description": "Finally, you can start making some magical stuff!",
 
-  "message.player.tip": "§5I fell asleep and had a dream about some strange cauldron. I put some §omagic powder§r§5 in it. I can't remember what happened next, should i try and repeat it?",
+  "message.magical_obsession.player.tip": "§5I fell asleep and had a dream about some strange cauldron. I put some §omagic powder§r§5 in it. I can't remember what happened next, should i try and repeat it?",
+  "message.magical_obsession.player.soul_jar": "You can't use §oSoul Jar§r in survival mode",
 
   "itemGroup.magical_obsession": "Magical Obsession",
   "itemGroup.magical_obsession_jars": "Magical Obsession Jars"

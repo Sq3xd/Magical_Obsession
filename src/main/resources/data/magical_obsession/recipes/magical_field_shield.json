@@ -1,7 +1,7 @@
 {
   "type": "minecraft:crafting_shaped",
   "key": {
-    "#": {
+    "5": {
       "item": "minecraft:gold_ingot"
     },
     "$": {
@@ -16,7 +16,7 @@
   },
   "pattern": [
     " $ ",
-    ".#.",
+    ".5.",
     "* *"
   ],
   "result": {

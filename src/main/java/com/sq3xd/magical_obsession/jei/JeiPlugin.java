@@ -3,6 +3,7 @@ package com.sq3xd.magical_obsession.jei;
 import com.sq3xd.magical_obsession.MagicalObsession;
 import com.sq3xd.magical_obsession.init.ModBlocks;
 import com.sq3xd.magical_obsession.init.ModItems;
+import com.sq3xd.magical_obsession.item.JarItem;
 import com.sq3xd.magical_obsession.recipe.MagicalCatallyzatorRecipe;
 import com.sq3xd.magical_obsession.recipe.MagicalCauldronRecipe;
 import com.sq3xd.magical_obsession.recipe.SpecialCauldronCampfireRecipe;
@@ -16,6 +17,7 @@ import mezz.jei.api.registration.IRecipeRegistration;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeManager;
 
@@ -33,6 +35,7 @@ public class JeiPlugin implements IModPlugin {
     Component magic_dust = Component.translatable("gui.jei.description.magic_dust");
     Component suspended_redstone = Component.translatable("gui.jei.description.suspended_redstone");
     Component nugget = Component.translatable("gui.jei.description.nugget");
+    Component soul_jar = Component.translatable("gui.jei.description.soul_jar");
 
     @Override
     public ResourceLocation getPluginUid() {
@@ -75,6 +78,7 @@ public class JeiPlugin implements IModPlugin {
         registration.addIngredientInfo(new ItemStack(ModItems.EMERALD_NUGGET.get()), VanillaTypes.ITEM_STACK, nugget);
         registration.addIngredientInfo(new ItemStack(ModItems.LAPIS_NUGGET.get()), VanillaTypes.ITEM_STACK, nugget);
         registration.addIngredientInfo(new ItemStack(ModItems.COAL_NUGGET.get()), VanillaTypes.ITEM_STACK, nugget);
+        registration.addIngredientInfo(new ItemStack(ModItems.SOUL_JAR.get()), VanillaTypes.ITEM_STACK, soul_jar);
 
         // Recipe Category
 

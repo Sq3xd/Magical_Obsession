@@ -9,14 +9,17 @@
     },
     "*": {
       "item": "minecraft:blaze_rod"
+    },
+    ".": {
+      "item": "magical_obsession:terra_nugget"
     }
   },
   "pattern": [
-    "5 5",
-    "$5$",
-    " * "
+    " . ",
+    "5$5",
+    "* *"
   ],
   "result": {
-    "item": "magical_obsession:magical_catallyzator"
+    "item": "magical_obsession:entity_duplicator"
   }
 }

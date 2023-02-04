@@ -1,0 +1,11 @@
+{
+  "type": "magical_obsession:special_cauldron_campfire",
+  "ingredients": [
+    {
+      "item": "minecraft:magma_block"
+    }
+  ],
+  "output": {
+    "item": "minecraft:coal"
+  }
+}

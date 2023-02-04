@@ -36,7 +36,7 @@ import java.util.Set;
 public class ModItems {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, MagicalObsession.MOD_ID);
 
-     // Register
+    // Register
     public static RegistryObject<Item> CRYSTAL_ITEM = ITEMS.register("crystal", () ->
             new Item(new Item.Properties().rarity(Rarity.RARE)));
 
@@ -55,7 +55,7 @@ public class ModItems {
     public static RegistryObject<Item> SUSPENDED_REDSTONE = ITEMS.register("suspended_redstone", () ->
             new SuspendedRedstoneItem(new Item.Properties().rarity(Rarity.RARE).tab(ModTabs.MAGICAL_OBSESSION)));
 
-     // Nuggets
+    // Nuggets
     public static RegistryObject<Item> TERRA_NUGGET = ITEMS.register("terra_nugget", () ->
             new Item(new Item.Properties().fireResistant().tab(ModTabs.MAGICAL_OBSESSION)));
 
