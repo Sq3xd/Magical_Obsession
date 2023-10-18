@@ -2,14 +2,14 @@
   "type": "minecraft:crafting_shaped",
   "key": {
     "$": {
-      "tag": "forge:glass_panes/colorless"
+      "tag": "forge:glass_panes"
     },
     "*": {
       "tag": "magical_obsession:buttons"
     }
   },
   "pattern": [
-    "$*$",
+    " * ",
     "$ $",
     "$$$"
   ],
