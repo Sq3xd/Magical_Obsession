@@ -74,21 +74,21 @@ public class MagicalCatallyzatorBlock extends Block implements EntityBlock {
 
     @Override
     public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult result) {
-        // Interaction - Server Side
         if (!level.isClientSide) {
             if (level.getBlockEntity(pos) instanceof MagicalCatallyzatorBlockEntity entity) {
-                if (entity.itemStackHandler.getStackInSlot(0).is(ItemStack.EMPTY.getItem()) && !player.getMainHandItem().is(ItemStack.EMPTY.getItem())) {
+                if (entity.inventory.getStackInSlot(0).is(ItemStack.EMPTY.getItem()) && !player.getMainHandItem().is(ItemStack.EMPTY.getItem())) {
                     ItemStack item = player.getItemInHand(hand).copy();
-                    entity.itemStackHandler.setStackInSlot(0, item);
+                    item.setCount(1);
+                    entity.inventory.setStackInSlot(0, item);
                     player.getMainHandItem().shrink(1);
                 } else {
-                    if (!entity.itemStackHandler.getStackInSlot(0).is(ItemStack.EMPTY.getItem())) {
-                        if (entity.itemStackHandler.getStackInSlot(0).isStackable()){
-                            player.addItem(entity.itemStackHandler.getStackInSlot(0).getItem().getDefaultInstance());
-                        } else{
-                            player.addItem(entity.itemStackHandler.getStackInSlot(0));
+                    if (!entity.inventory.getStackInSlot(0).is(ItemStack.EMPTY.getItem())) {
+                        if (player.getItemInHand(InteractionHand.MAIN_HAND).is(ItemStack.EMPTY.getItem())) {
+                            player.setItemInHand(InteractionHand.MAIN_HAND, entity.inventory.getStackInSlot(0));
+                        } else {
+                            player.addItem(entity.inventory.getStackInSlot(0));
                         }
-                        entity.itemStackHandler.setStackInSlot(0, ItemStack.EMPTY);
+                        entity.inventory.setStackInSlot(0, ItemStack.EMPTY);
                     }
                 }
             }
@@ -97,14 +97,19 @@ public class MagicalCatallyzatorBlock extends Block implements EntityBlock {
         // Interaction - Client Side
         if (level.isClientSide) {
             if (level.getBlockEntity(pos) instanceof MagicalCatallyzatorBlockEntity entity) {
-                if (entity.itemStackHandler.getStackInSlot(0).is(ItemStack.EMPTY.getItem()) && !player.getMainHandItem().is(ItemStack.EMPTY.getItem())) {
+                if (entity.inventory.getStackInSlot(0).is(ItemStack.EMPTY.getItem()) && !player.getMainHandItem().is(ItemStack.EMPTY.getItem())) {
                     ItemStack item = player.getItemInHand(hand).copy();
+                    item.setCount(1);
                     level.playLocalSound(pos.getX(), pos.getY(), pos.getZ(), SoundEvents.END_PORTAL_FRAME_FILL, SoundSource.BLOCKS, 1.0f, 1.0f, true);
-                    entity.itemStackHandler.setStackInSlot(0, item);
+                    entity.inventory.setStackInSlot(0, item);
                 } else {
-                    if (!entity.itemStackHandler.getStackInSlot(0).is(ItemStack.EMPTY.getItem())) {
-                        level.playLocalSound(pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ITEM_PICKUP, SoundSource.BLOCKS, 0.75f, 1f, true);
-                        entity.itemStackHandler.setStackInSlot(0, ItemStack.EMPTY);
+                    if (!entity.inventory.getStackInSlot(0).is(ItemStack.EMPTY.getItem())) {
+                        if (player.getItemInHand(InteractionHand.MAIN_HAND).is(ItemStack.EMPTY.getItem())) {
+                            player.setItemInHand(InteractionHand.MAIN_HAND, entity.inventory.getStackInSlot(0));
+                        } else {
+                            player.addItem(entity.inventory.getStackInSlot(0));
+                        }
+                        entity.inventory.setStackInSlot(0, ItemStack.EMPTY);
                     }
                 }
             }
@@ -120,21 +125,21 @@ public class MagicalCatallyzatorBlock extends Block implements EntityBlock {
         if (!level.isClientSide()){
             if (level.getBlockEntity(pos) instanceof MagicalCatallyzatorBlockEntity entity){
                 if (entity.getSphere() >= 12000) {
-                    entity.itemStackHandler.setStackInSlot(0, ItemStack.EMPTY);
+                    entity.inventory.setStackInSlot(0, ItemStack.EMPTY);
                     level.explode(null, DamageSource.MAGIC, null, pos.getX(), pos.getY(), pos.getZ(), 9.5f, false, Explosion.BlockInteraction.DESTROY);
                 }
 
-                if (!entity.itemStackHandler.getStackInSlot(0).is(ItemStack.EMPTY.getItem())) {
-                    if (entity.itemStackHandler.getStackInSlot(0).isStackable()){
-                        ItemEntity itemEntity = new ItemEntity(level, pos.getX(), pos.getY() + 1d, pos.getZ(), entity.itemStackHandler.getStackInSlot(0).getItem().getDefaultInstance());
+                if (!entity.inventory.getStackInSlot(0).is(ItemStack.EMPTY.getItem())) {
+                    if (entity.inventory.getStackInSlot(0).isStackable()){
+                        ItemEntity itemEntity = new ItemEntity(level, pos.getX(), pos.getY() + 1d, pos.getZ(), entity.inventory.getStackInSlot(0).getItem().getDefaultInstance());
                         level.addFreshEntity(itemEntity);
                     } else{
-                        ItemEntity itemEntity = new ItemEntity(level, pos.getX(), pos.getY() + 1d, pos.getZ(), entity.itemStackHandler.getStackInSlot(0));
+                        ItemEntity itemEntity = new ItemEntity(level, pos.getX(), pos.getY() + 1d, pos.getZ(), entity.inventory.getStackInSlot(0));
                         level.addFreshEntity(itemEntity);
                     }
                 }
                 entity.setSphere(-entity.getSphere());
-                entity.itemStackHandler.setStackInSlot(0, ItemStack.EMPTY);
+                entity.inventory.setStackInSlot(0, ItemStack.EMPTY);
             }
         }
         return super.onDestroyedByPlayer(state, level, pos, player, willHarvest, fluid);

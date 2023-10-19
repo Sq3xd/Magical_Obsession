@@ -69,15 +69,6 @@ public class EntityDuplicatorRenderer implements BlockEntityRenderer<EntityDupli
 
         // Render Sphere
 
-        if (entity.getSphere() >= 1250){
-            stack.pushPose();
-            stack.translate(3.125d, 3.125d, 3.125d);
-            stack.scale(15, 15, 15);
-            stack.mulPose(Vector3f.YN.rotationDegrees(0));
-            item_renderer.renderStatic(Minecraft.getInstance().player, ModItems.SPHERE_ITEM.get().getDefaultInstance(), ItemTransforms.TransformType.FIXED, false, stack, buffer,
-                    Minecraft.getInstance().level, coverlay, plight, plight);
-            stack.popPose();
-        }
 
         // Render Particle
 

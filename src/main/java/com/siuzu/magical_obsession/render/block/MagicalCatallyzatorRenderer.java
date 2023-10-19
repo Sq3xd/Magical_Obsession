@@ -54,7 +54,7 @@ public class MagicalCatallyzatorRenderer implements BlockEntityRenderer<MagicalC
             stack.scale(0.75f, 0.75f, 0.75f);
             stack.mulPose(Vector3f.YN.rotationDegrees(90 - entity.getProgress() / 2));
 
-            item_renderer.renderStatic(Minecraft.getInstance().player, entity.itemStackHandler.getStackInSlot(0), ItemTransforms.TransformType.FIXED, false, stack, buffer,
+            item_renderer.renderStatic(Minecraft.getInstance().player, entity.inventory.getStackInSlot(0), ItemTransforms.TransformType.FIXED, false, stack, buffer,
                     Minecraft.getInstance().level, coverlay, plight, plight);
             stack.popPose();
         } else {
@@ -63,14 +63,14 @@ public class MagicalCatallyzatorRenderer implements BlockEntityRenderer<MagicalC
             stack.scale(0.75f, 0.75f, 0.75f);
             stack.mulPose(Vector3f.YN.rotationDegrees(0 - entity.getProgress() / 2));
 
-            item_renderer.renderStatic(Minecraft.getInstance().player, entity.itemStackHandler.getStackInSlot(0), ItemTransforms.TransformType.FIXED, false, stack, buffer,
+            item_renderer.renderStatic(Minecraft.getInstance().player, entity.inventory.getStackInSlot(0), ItemTransforms.TransformType.FIXED, false, stack, buffer,
                     Minecraft.getInstance().level, coverlay, plight, plight);
             stack.popPose();
         }
 
         // Render Crystal
 
-        if (!entity.itemStackHandler.getStackInSlot(0).is(ItemStack.EMPTY.getItem())) {
+        if (!entity.inventory.getStackInSlot(0).is(ItemStack.EMPTY.getItem())) {
             stack.pushPose();
             stack.translate(0.65d, 2.39d + entity.getProgress() / 510d, 0.65d);
             stack.scale(0.75f, 0.75f, 0.75f);

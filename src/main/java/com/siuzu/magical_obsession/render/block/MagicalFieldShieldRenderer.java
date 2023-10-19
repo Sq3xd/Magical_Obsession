@@ -12,11 +12,15 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.block.BlockRenderDispatcher;
 import net.minecraft.client.renderer.block.model.ItemTransforms;
+import net.minecraft.client.renderer.blockentity.BeaconRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.block.entity.BeaconBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec3;
+import org.lwjgl.opengl.GL11;
 
 public class MagicalFieldShieldRenderer implements BlockEntityRenderer<MagicalFieldShieldBlockEntity> {
     private final BlockEntityRendererProvider.Context context;
@@ -35,7 +39,6 @@ public class MagicalFieldShieldRenderer implements BlockEntityRenderer<MagicalFi
         BlockState state = entity.getBlockState();
 
         // Render Crystal
-
         stack.pushPose();
         stack.translate(0.65d, 2d, 0.65d);
         stack.scale(0.75f, 0.75f, 0.75f);
@@ -45,6 +48,7 @@ public class MagicalFieldShieldRenderer implements BlockEntityRenderer<MagicalFi
         stack.popPose();
 
         // Render Lines
+
 
         stack.pushPose();
 
@@ -56,10 +60,26 @@ public class MagicalFieldShieldRenderer implements BlockEntityRenderer<MagicalFi
         Matrix4f mat = stack.last().pose();
         Matrix3f mat1 = stack.last().normal();
         builder.vertex(mat, 0.5f, 0.5f, 0.5f).color(201, 135, 227, 200).normal(mat1, 0.5f, 0.5f, 0.5f).endVertex();
-        builder.vertex(mat, -entity.getCords(0) + 0.5f, 0.75f, -entity.getCords(2) + 0.5f).color(255, 255, 255, 200)
-                .normal(mat1, -entity.getCords(0) + 0.5f, 0.75f, -entity.getCords(2) + 0.5f).endVertex();
+        builder.vertex(mat, -entity.getCords(0) + 0.5f, 0.75f, -entity.getCords(2) + 0.5f).color(255, 255, 255, 200).normal(mat1, -entity.getCords(0) + 0.5f, 0.75f, -entity.getCords(2) + 0.5f).endVertex();
+
         stack.popPose();
 
         buffer1.endBatch();
+    }
+
+
+    @Override
+    public boolean shouldRender(MagicalFieldShieldBlockEntity pBlockEntity, Vec3 pCameraPos) {
+        return true;
+    }
+
+    @Override
+    public boolean shouldRenderOffScreen(MagicalFieldShieldBlockEntity pBlockEntity) {
+        return true;
+    }
+
+    @Override
+    public int getViewDistance() {
+        return 12;
     }
 }

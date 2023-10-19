@@ -33,18 +33,6 @@ public class MagicalCauldronRenderer implements BlockEntityRenderer<MagicalCauld
         BlockPos pos = entity.getBlockPos();
         BlockState state = entity.getBlockState();
 
-        // Render Sphere
-
-        if (entity.getSphere() >= 3700){
-            stack.pushPose();
-            stack.translate(3.125d, 3.125d, 3.125d);
-            stack.scale(15, 15, 15);
-            stack.mulPose(Vector3f.YN.rotationDegrees(0));
-            item_renderer.renderStatic(Minecraft.getInstance().player, ModItems.SPHERE_ITEM.get().getDefaultInstance(), ItemTransforms.TransformType.FIXED, false, stack, buffer,
-                    Minecraft.getInstance().level, coverlay, plight, plight);
-            stack.popPose();
-        }
-
         // Render Item inside
 
         if (state.getValue(HorizontalDirectionalBlock.FACING).equals(Direction.EAST) || state.getValue(HorizontalDirectionalBlock.FACING).equals(Direction.WEST)){
@@ -53,7 +41,7 @@ public class MagicalCauldronRenderer implements BlockEntityRenderer<MagicalCauld
             stack.scale(0.75f, 0.75f, 0.75f);
             stack.mulPose(Vector3f.YN.rotationDegrees(90 - entity.getProgress() / 2));
 
-            item_renderer.renderStatic(Minecraft.getInstance().player, entity.itemStackHandler.getStackInSlot(0), ItemTransforms.TransformType.FIXED, false, stack, buffer,
+            item_renderer.renderStatic(Minecraft.getInstance().player, entity.inventory.getStackInSlot(0), ItemTransforms.TransformType.FIXED, false, stack, buffer,
                     Minecraft.getInstance().level, coverlay, plight, plight);
             stack.popPose();
         } else {
@@ -62,14 +50,14 @@ public class MagicalCauldronRenderer implements BlockEntityRenderer<MagicalCauld
             stack.scale(0.75f, 0.75f, 0.75f);
             stack.mulPose(Vector3f.YN.rotationDegrees(0 - entity.getProgress() / 2));
 
-            item_renderer.renderStatic(Minecraft.getInstance().player, entity.itemStackHandler.getStackInSlot(0), ItemTransforms.TransformType.FIXED, false, stack, buffer,
+            item_renderer.renderStatic(Minecraft.getInstance().player, entity.inventory.getStackInSlot(0), ItemTransforms.TransformType.FIXED, false, stack, buffer,
                     Minecraft.getInstance().level, coverlay, plight, plight);
             stack.popPose();
         }
 
         // Render Crystal
 
-        if (!entity.itemStackHandler.getStackInSlot(0).is(ItemStack.EMPTY.getItem())) {
+        if (!entity.inventory.getStackInSlot(0).is(ItemStack.EMPTY.getItem())) {
             stack.pushPose();
             stack.translate(0.65d, 2.07d + entity.getProgress() / 370d, 0.65d);
             stack.scale(0.75f, 0.75f, 0.75f);
@@ -78,11 +66,5 @@ public class MagicalCauldronRenderer implements BlockEntityRenderer<MagicalCauld
                     Minecraft.getInstance().level, coverlay, plight, plight);
             stack.popPose();
         }
-
-        /*stack.pushPose();
-        stack.translate(0f, 0f, 0f);
-        stack.mulPose(Vector3f.YN.rotation(0));
-        dispatcher.renderSingleBlock(Blocks.GLASS.defaultBlockState(), stack, buffer, coverlay, plight);
-        stack.popPose();*/
     }
 }

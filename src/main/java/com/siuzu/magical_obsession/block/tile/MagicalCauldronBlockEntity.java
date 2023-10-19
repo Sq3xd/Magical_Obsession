@@ -1,7 +1,9 @@
 package com.siuzu.magical_obsession.block.tile;
 
+import com.siuzu.magical_obsession.block.MagicalCauldronBlock;
 import com.siuzu.magical_obsession.init.ModBlockEntities;
 import com.siuzu.magical_obsession.recipe.MagicalCauldronRecipe;
+import com.siuzu.magical_obsession.util.ItemCapabilityHandler;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
@@ -20,7 +22,11 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
+import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.ItemStackHandler;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;
 import java.util.Random;
@@ -29,14 +35,19 @@ public class MagicalCauldronBlockEntity extends BlockEntity {
     public static Direction direction;
     protected final ContainerData data;
 
-    public final ItemStackHandler itemStackHandler = new ItemStackHandler(1){
-        @Override
-        public void onContentsChanged(int slot) {
-            setChanged();
-        }
-    };
+    public final ItemStackHandler inventory = new ItemCapabilityHandler(MagicalCauldronBlockEntity.this, 1);
+    private final LazyOptional<ItemStackHandler> optional = LazyOptional.of(() -> this.inventory);
 
-    private int sphere = 0;
+    @Override
+    public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap) {
+        return cap == ForgeCapabilities.ITEM_HANDLER ? this.optional.cast() : super.getCapability(cap);
+    }
+
+    @Override
+    public void invalidateCaps() {
+        super.invalidateCaps();
+        this.optional.invalidate();
+    }
 
     private int progress = 0;
     private int maxProgress = 520;
@@ -71,34 +82,22 @@ public class MagicalCauldronBlockEntity extends BlockEntity {
         };
     }
 
-    //
-
-    public void setSphere(int plus) {
-        sphere += plus;
-    }
-
-    public int getSphere() {
-        return sphere;
-    }
-
     public int getProgress() {
         return progress;
     }
 
     @Override
     protected void saveAdditional(CompoundTag nbt) {
-        nbt.put("inventory", itemStackHandler.serializeNBT());
+        nbt.put("inventory", inventory.serializeNBT());
         nbt.putInt("progress", this.progress);
-        nbt.putInt("sphere", this.sphere);
         super.saveAdditional(nbt);
     }
 
     @Override
     public void load(CompoundTag nbt) {
         super.load(nbt);
-        itemStackHandler.deserializeNBT(nbt.getCompound("inventory"));
+        inventory.deserializeNBT(nbt.getCompound("inventory"));
         progress = nbt.getInt("progress");
-        sphere = nbt.getInt("sphere");
     }
 
     // Packets
@@ -129,15 +128,10 @@ public class MagicalCauldronBlockEntity extends BlockEntity {
     public static void tick(Level level, BlockPos pos, BlockState state, MagicalCauldronBlockEntity entity) {
         // Craft for client side
         if (level.isClientSide) {
-            if (!entity.itemStackHandler.getStackInSlot(0).is(ItemStack.EMPTY.getItem()) && hasRecipe(entity, level)) {
+            if (!entity.inventory.getStackInSlot(0).is(ItemStack.EMPTY.getItem()) && hasRecipe(entity, level)) {
                 entity.progress++;
                 if (entity.progress == RandomSource.create().nextInt(entity.progress, entity.progress + 75)){
                     spawnParticles(level, pos);
-                }
-
-                entity.setSphere(1);
-                if (level.getBlockState(pos.below()).is(Blocks.CAMPFIRE)){
-                    entity.setSphere(2);
                 }
 
                 if (entity.progress >= entity.maxProgress + new Random().nextInt(1, 59)) {
@@ -152,12 +146,8 @@ public class MagicalCauldronBlockEntity extends BlockEntity {
 
         // Craft for server side
         if (!level.isClientSide) {
-            if (!entity.itemStackHandler.getStackInSlot(0).is(ItemStack.EMPTY.getItem()) && hasRecipe(entity, level)) {
+            if (!entity.inventory.getStackInSlot(0).is(ItemStack.EMPTY.getItem()) && hasRecipe(entity, level)) {
                 entity.progress++;
-                entity.setSphere(1);
-                if (level.getBlockState(pos.below()).is(Blocks.CAMPFIRE)){
-                    entity.setSphere(2);
-                }
 
                 if (entity.progress >= entity.maxProgress + new Random().nextInt(1, 59)) {
                     craftItem(entity, level);
@@ -166,28 +156,21 @@ public class MagicalCauldronBlockEntity extends BlockEntity {
             } else
                 entity.resetProgress();
         }
-
-         // Explode
-        if (!level.isClientSide) {
-            if (entity.getSphere() >= 5500) {
-                level.explode(null, DamageSource.MAGIC, null, pos.getX(), pos.getY(), pos.getZ(), 8.5f, false, Explosion.BlockInteraction.DESTROY);
-            }
-        }
     }
 
     // Craft
     private static void craftItem(MagicalCauldronBlockEntity entity, Level level) {
-        SimpleContainer inventory = new SimpleContainer(entity.itemStackHandler.getStackInSlot(0));
+        SimpleContainer inventory = new SimpleContainer(entity.inventory.getStackInSlot(0));
 
         Optional<MagicalCauldronRecipe> recipe = level.getRecipeManager()
                 .getRecipeFor(MagicalCauldronRecipe.Type.INSTANCE, inventory, level);
 
         if (hasRecipe(entity, level))
-            entity.itemStackHandler.setStackInSlot(0, new ItemStack(recipe.get().getResultItem().getItem()));
+            entity.inventory.setStackInSlot(0, new ItemStack(recipe.get().getResultItem().getItem()));
     }
 
     private static boolean hasRecipe(MagicalCauldronBlockEntity entity, Level level) {
-        SimpleContainer inventory = new SimpleContainer(entity.itemStackHandler.getStackInSlot(0));
+        SimpleContainer inventory = new SimpleContainer(entity.inventory.getStackInSlot(0));
 
         Optional<MagicalCauldronRecipe> recipe = level.getRecipeManager()
                 .getRecipeFor(MagicalCauldronRecipe.Type.INSTANCE, inventory, level);

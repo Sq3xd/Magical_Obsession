@@ -34,16 +34,6 @@ public class SpecialCauldronRenderer implements BlockEntityRenderer<SpecialCauld
 
         // Render Sphere
 
-        if (entity.getSphere() >= 3200){
-            stack.pushPose();
-            stack.translate(3.125d, 3.125d, 3.125d);
-            stack.scale(15, 15, 15);
-            stack.mulPose(Vector3f.YN.rotationDegrees(0));
-            item_renderer.renderStatic(Minecraft.getInstance().player, ModItems.SPHERE_ITEM.get().getDefaultInstance(), ItemTransforms.TransformType.FIXED, false, stack, buffer,
-                    Minecraft.getInstance().level, coverlay, plight, plight);
-            stack.popPose();
-        }
-
         // Render Item inside
 
         if (state.getValue(HorizontalDirectionalBlock.FACING).equals(Direction.EAST) || state.getValue(HorizontalDirectionalBlock.FACING).equals(Direction.WEST)){
@@ -52,7 +42,7 @@ public class SpecialCauldronRenderer implements BlockEntityRenderer<SpecialCauld
             stack.scale(0.75f, 0.75f, 0.75f);
             stack.mulPose(Vector3f.YN.rotationDegrees(90 - entity.getProgress() / 2));
 
-            item_renderer.renderStatic(Minecraft.getInstance().player, entity.itemStackHandler.getStackInSlot(0), ItemTransforms.TransformType.FIXED, false, stack, buffer,
+            item_renderer.renderStatic(Minecraft.getInstance().player, entity.inventory.getStackInSlot(0), ItemTransforms.TransformType.FIXED, false, stack, buffer,
                     Minecraft.getInstance().level, coverlay, plight, plight);
             stack.popPose();
         } else {
@@ -61,14 +51,14 @@ public class SpecialCauldronRenderer implements BlockEntityRenderer<SpecialCauld
             stack.scale(0.75f, 0.75f, 0.75f);
             stack.mulPose(Vector3f.YN.rotationDegrees(0 - entity.getProgress() / 2));
 
-            item_renderer.renderStatic(Minecraft.getInstance().player, entity.itemStackHandler.getStackInSlot(0), ItemTransforms.TransformType.FIXED, false, stack, buffer,
+            item_renderer.renderStatic(Minecraft.getInstance().player, entity.inventory.getStackInSlot(0), ItemTransforms.TransformType.FIXED, false, stack, buffer,
                     Minecraft.getInstance().level, coverlay, plight, plight);
             stack.popPose();
         }
 
         // Render Crystal
 
-        if (!entity.itemStackHandler.getStackInSlot(0).is(ItemStack.EMPTY.getItem())) {
+        if (!entity.inventory.getStackInSlot(0).is(ItemStack.EMPTY.getItem())) {
             stack.pushPose();
             stack.translate(0.65d, 2.07d + entity.getProgress() / 370d, 0.65d);
             stack.scale(0.75f, 0.75f, 0.75f);

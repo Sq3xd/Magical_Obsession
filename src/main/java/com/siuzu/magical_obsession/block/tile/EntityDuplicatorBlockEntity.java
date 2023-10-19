@@ -42,8 +42,6 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Random;
 
 public class EntityDuplicatorBlockEntity extends BlockEntity {
-    private int sphere = 0;
-
     private int progress = 0;
     private int maxProgress = 275;
 
@@ -93,13 +91,6 @@ public class EntityDuplicatorBlockEntity extends BlockEntity {
     }
 
     // NBT Tags
-
-    public void setSphere(int plus) {
-        sphere += plus;
-    }
-    public int getSphere() {
-        return sphere;
-    }
     public int getProgress() {
         return progress;
     }
@@ -111,7 +102,6 @@ public class EntityDuplicatorBlockEntity extends BlockEntity {
     protected void saveAdditional(CompoundTag nbt) {
         super.saveAdditional(nbt);
         nbt.putInt("progress", this.progress);
-        nbt.putInt("sphere", this.sphere);
         var modData = new CompoundTag();
         modData.put("inventory", this.inventory.serializeNBT());
         nbt.put(MagicalObsession.MOD_ID, modData);
@@ -123,7 +113,6 @@ public class EntityDuplicatorBlockEntity extends BlockEntity {
         CompoundTag modData = nbt.getCompound(MagicalObsession.MOD_ID);
         this.inventory.deserializeNBT(modData.getCompound("inventory"));
         progress = nbt.getInt("progress");
-        sphere = nbt.getInt("sphere");
     }
 
     // Packets
@@ -151,13 +140,12 @@ public class EntityDuplicatorBlockEntity extends BlockEntity {
         if (level.isClientSide) {
             if (!entity.inventory.getStackInSlot(0).is(ItemStack.EMPTY.getItem()) && entity.inventory.getStackInSlot(0).getItem() instanceof SoulJarItem item) {
                 entity.progress++;
-                entity.setSphere(1);
-                if (entity.progress == random.nextInt(50, 100)){
+                if (entity.progress == random.nextInt(entity.progress, entity.progress + 50)){
                     level.playLocalSound(pos.getX() + random.nextInt(-3, 3), pos.getY() + random.nextInt(-3, 3), pos.getZ() + random.nextInt(-3, 3),
                             SoundEvents.ALLAY_AMBIENT_WITH_ITEM, SoundSource.BLOCKS, 1.5f, 0.9f, true);
                     spawnParticles(level, pos);
                 }
-
+                
                 if (entity.progress >= entity.maxProgress) {
                     level.playLocalSound(pos.getX(), pos.getY(), pos.getZ(), SoundEvents.END_PORTAL_FRAME_FILL, SoundSource.BLOCKS, 1.0f, 1.0f, true);
                     entity.inventory.setStackInSlot(0, ItemStack.EMPTY);
@@ -173,7 +161,6 @@ public class EntityDuplicatorBlockEntity extends BlockEntity {
         if (!level.isClientSide) {
             if (!entity.inventory.getStackInSlot(0).is(ItemStack.EMPTY.getItem()) && entity.inventory.getStackInSlot(0).getItem() instanceof SoulJarItem item) {
                 entity.progress++;
-                entity.setSphere(1);
                 if (entity.progress >= entity.maxProgress) {
                     ItemStack jar = entity.inventory.getStackInSlot(0).copy();
                     if (jar.getTag() != null) {
@@ -191,13 +178,6 @@ public class EntityDuplicatorBlockEntity extends BlockEntity {
                 }
             } else
                 entity.resetProgress();
-        }
-
-        // Explode
-        if (!level.isClientSide) {
-            if (entity.getSphere() >= 1500) {
-                level.explode(null, DamageSource.MAGIC, null, pos.getX(), pos.getY(), pos.getZ(), 8.5f, false, Explosion.BlockInteraction.DESTROY);
-            }
         }
     }
 

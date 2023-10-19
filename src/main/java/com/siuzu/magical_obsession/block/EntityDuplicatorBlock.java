@@ -123,11 +123,6 @@ public class EntityDuplicatorBlock extends Block implements EntityBlock {
     public boolean onDestroyedByPlayer(BlockState state, Level level, BlockPos pos, Player player, boolean willHarvest, FluidState fluid) {
         if (!level.isClientSide()){
             if (level.getBlockEntity(pos) instanceof EntityDuplicatorBlockEntity entity){
-                if (entity.getSphere() >= 1250) {
-                    entity.inventory.setStackInSlot(0, ItemStack.EMPTY);
-                    level.explode(null, DamageSource.MAGIC, null, pos.getX(), pos.getY(), pos.getZ(), 9.5f, false, Explosion.BlockInteraction.DESTROY);
-                }
-
                 if (!entity.inventory.getStackInSlot(0).is(ItemStack.EMPTY.getItem())) {
                     if (entity.inventory.getStackInSlot(0).isStackable()){
                         ItemEntity itemEntity = new ItemEntity(level, pos.getX(), pos.getY() + 1d, pos.getZ(), entity.inventory.getStackInSlot(0).getItem().getDefaultInstance());
@@ -137,7 +132,6 @@ public class EntityDuplicatorBlock extends Block implements EntityBlock {
                         level.addFreshEntity(itemEntity);
                     }
                 }
-                entity.setSphere(-entity.getSphere());
                 entity.inventory.setStackInSlot(0, ItemStack.EMPTY);
             }
         }

@@ -1,15 +1,21 @@
 package com.siuzu.magical_obsession.block.tile;
 
+import com.mojang.math.Vector3d;
 import com.siuzu.magical_obsession.init.ModBlockEntities;
 import com.siuzu.magical_obsession.init.ModBlocks;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.Connection;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.levelgen.structure.BoundingBox;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
 
 public class MagicalFieldShieldBlockEntity extends BlockEntity {
     public boolean detected = false;
@@ -46,6 +52,12 @@ public class MagicalFieldShieldBlockEntity extends BlockEntity {
         return this.saveWithoutMetadata();
     }
 
+    @Override
+    public AABB getRenderBoundingBox() {
+        BlockPos pos = this.getBlockPos();
+        Vec3 d = new Vec3(pos.getX(), pos.getY(), pos.getZ());
+        return AABB.ofSize(d, 16, 16, 16);
+    }
     // Tick
 
     public static void tick(Level level, BlockPos pos, BlockState state, MagicalFieldShieldBlockEntity entity) {
