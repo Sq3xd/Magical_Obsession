@@ -2,6 +2,7 @@ package com.siuzu.magical_obsession.block;
 
 import com.siuzu.magical_obsession.block.tile.MagicalFieldShieldBlockEntity;
 import com.siuzu.magical_obsession.init.ModBlockEntities;
+import com.siuzu.magical_obsession.init.ModBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.entity.player.Player;
@@ -22,38 +23,16 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
 public class MagicalFieldShieldBlock extends Block implements EntityBlock {
-    public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
-
     private static final VoxelShape BASE = Block.box(4.0D, 0.0D, 4.0D, 12.0D, 7.0D, 12.0D);
 
     public MagicalFieldShieldBlock(Properties properties){
         super(properties);
-        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH)); // FACING
     }
 
     @Override
     public RenderShape getRenderShape(BlockState p_60550_) {
         return RenderShape.MODEL;
     }
-
-    // Direction
-
-    public BlockState rotate(BlockState p_48722_, Rotation p_48723_) {
-        return p_48722_.setValue(FACING, p_48723_.rotate(p_48722_.getValue(FACING)));
-    }
-
-    public BlockState mirror(BlockState p_48719_, Mirror p_48720_) {
-        return p_48719_.rotate(p_48720_.getRotation(p_48719_.getValue(FACING)));
-    }
-
-    public BlockState getStateForPlacement(BlockPlaceContext p_48689_) {
-        return this.defaultBlockState().setValue(FACING, p_48689_.getHorizontalDirection().getOpposite());
-    }
-
-    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> p_48725_) {
-        p_48725_.add(FACING);
-    }
-
     // Reaction
 
     @Override

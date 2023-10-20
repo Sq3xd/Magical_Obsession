@@ -60,7 +60,7 @@ public class MagicalFieldShieldRenderer implements BlockEntityRenderer<MagicalFi
         Matrix4f mat = stack.last().pose();
         Matrix3f mat1 = stack.last().normal();
         builder.vertex(mat, 0.5f, 0.5f, 0.5f).color(201, 135, 227, 200).normal(mat1, 0.5f, 0.5f, 0.5f).endVertex();
-        builder.vertex(mat, -entity.getCords(0) + 0.5f, 0.75f, -entity.getCords(2) + 0.5f).color(255, 255, 255, 200).normal(mat1, -entity.getCords(0) + 0.5f, 0.75f, -entity.getCords(2) + 0.5f).endVertex();
+        builder.vertex(mat, entity.getCords(0) + 0.5f, 0.75f, entity.getCords(2) + 0.5f).color(255, 255, 255, 200).normal(mat1, -entity.getCords(0) + 0.5f, 0.75f, -entity.getCords(2) + 0.5f).endVertex();
 
         stack.popPose();
 

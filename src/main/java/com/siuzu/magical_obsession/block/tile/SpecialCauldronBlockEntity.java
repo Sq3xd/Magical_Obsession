@@ -31,27 +31,9 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Optional;
 import java.util.Random;
 
-public class SpecialCauldronBlockEntity extends BlockEntity {
+public class SpecialCauldronBlockEntity extends AbstractCauldronBlockEntity {
     public static Direction direction;
     protected final ContainerData data;
-
-    public final ItemStackHandler inventory = new ItemCapabilityHandler(SpecialCauldronBlockEntity.this, 1);
-    private final LazyOptional<ItemStackHandler> optional = LazyOptional.of(() -> this.inventory);
-
-    @Override
-    public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap) {
-        return cap == ForgeCapabilities.ITEM_HANDLER ? this.optional.cast() : super.getCapability(cap);
-    }
-
-    @Override
-    public void invalidateCaps() {
-        super.invalidateCaps();
-        this.optional.invalidate();
-    }
-
-    private int progress = 0;
-    private int maxProgress = 320;
-    private int maxAdvancedProgress = 590;
 
     // Initialisation
 
@@ -62,9 +44,9 @@ public class SpecialCauldronBlockEntity extends BlockEntity {
             @Override
             public int get(int index) {
                 return switch (index) {
-                    case 0 -> SpecialCauldronBlockEntity.this.progress;
-                    case 1 -> SpecialCauldronBlockEntity.this.maxProgress;
-                    case 2 -> SpecialCauldronBlockEntity.this.maxAdvancedProgress;
+                    case 0 -> SpecialCauldronBlockEntity.super.progress;
+                    case 1 -> SpecialCauldronBlockEntity.super.maxProgress;
+                    case 2 -> SpecialCauldronBlockEntity.super.maxAdvancedProgress;
                     default -> 0;
                 };
             }
@@ -72,15 +54,15 @@ public class SpecialCauldronBlockEntity extends BlockEntity {
             @Override
             public void set(int index, int value) {
                 switch (index) {
-                    case 0 -> SpecialCauldronBlockEntity.this.progress = value;
-                    case 1 -> SpecialCauldronBlockEntity.this.maxProgress = value;
-                    case 2 -> SpecialCauldronBlockEntity.this.maxAdvancedProgress = value;
+                    case 0 -> SpecialCauldronBlockEntity.super.progress = value;
+                    case 1 -> SpecialCauldronBlockEntity.super.maxProgress = value;
+                    case 2 -> SpecialCauldronBlockEntity.super.maxAdvancedProgress = value;
                 }
             }
 
             @Override
             public int getCount() {
-                return 5;
+                return 1;
             }
         };
     }
@@ -91,40 +73,7 @@ public class SpecialCauldronBlockEntity extends BlockEntity {
         return progress;
     }
 
-    @Override
-    protected void saveAdditional(CompoundTag nbt) {
-        nbt.put("inventory", inventory.serializeNBT());
-        nbt.putInt("progress", this.progress);
-        super.saveAdditional(nbt);
-    }
-
-    @Override
-    public void load(CompoundTag nbt) {
-        super.load(nbt);
-        inventory.deserializeNBT(nbt.getCompound("inventory"));
-        progress = nbt.getInt("progress");
-    }
-
-    // Packets
-
-    @Override
-    public void onDataPacket(Connection net, ClientboundBlockEntityDataPacket pkt) {
-        super.onDataPacket(net, pkt);
-    }
-
-    @Override
-    public ClientboundBlockEntityDataPacket getUpdatePacket() {
-        return ClientboundBlockEntityDataPacket.create(this);
-    }
-
-    @Override
-    public CompoundTag getUpdateTag() {
-        return this.saveWithoutMetadata();
-    }
-
-
     // Crafting
-
     private void resetProgress() {
         this.progress = 0;
     }

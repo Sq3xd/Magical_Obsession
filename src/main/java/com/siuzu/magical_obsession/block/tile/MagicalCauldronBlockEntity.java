@@ -31,26 +31,9 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Optional;
 import java.util.Random;
 
-public class MagicalCauldronBlockEntity extends BlockEntity {
+public class MagicalCauldronBlockEntity extends AbstractCauldronBlockEntity {
     public static Direction direction;
     protected final ContainerData data;
-
-    public final ItemStackHandler inventory = new ItemCapabilityHandler(MagicalCauldronBlockEntity.this, 1);
-    private final LazyOptional<ItemStackHandler> optional = LazyOptional.of(() -> this.inventory);
-
-    @Override
-    public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap) {
-        return cap == ForgeCapabilities.ITEM_HANDLER ? this.optional.cast() : super.getCapability(cap);
-    }
-
-    @Override
-    public void invalidateCaps() {
-        super.invalidateCaps();
-        this.optional.invalidate();
-    }
-
-    private int progress = 0;
-    private int maxProgress = 520;
 
     // Initialisation
 
@@ -61,8 +44,8 @@ public class MagicalCauldronBlockEntity extends BlockEntity {
             @Override
             public int get(int index) {
                 return switch (index) {
-                    case 0 -> MagicalCauldronBlockEntity.this.progress;
-                    case 1 -> MagicalCauldronBlockEntity.this.maxProgress;
+                    case 0 -> MagicalCauldronBlockEntity.super.progress;
+                    case 1 -> MagicalCauldronBlockEntity.super.maxProgress;
                     default -> 0;
                 };
             }
@@ -70,55 +53,24 @@ public class MagicalCauldronBlockEntity extends BlockEntity {
             @Override
             public void set(int index, int value) {
                 switch (index) {
-                    case 0 -> MagicalCauldronBlockEntity.this.progress = value;
-                    case 1 -> MagicalCauldronBlockEntity.this.maxProgress = value;
+                    case 0 -> MagicalCauldronBlockEntity.super.progress = value;
+                    case 1 -> MagicalCauldronBlockEntity.super.maxProgress = value;
                 }
             }
 
             @Override
             public int getCount() {
-                return 5;
+                return 1;
             }
         };
     }
 
+
+    // Crafting
+
     public int getProgress() {
         return progress;
     }
-
-    @Override
-    protected void saveAdditional(CompoundTag nbt) {
-        nbt.put("inventory", inventory.serializeNBT());
-        nbt.putInt("progress", this.progress);
-        super.saveAdditional(nbt);
-    }
-
-    @Override
-    public void load(CompoundTag nbt) {
-        super.load(nbt);
-        inventory.deserializeNBT(nbt.getCompound("inventory"));
-        progress = nbt.getInt("progress");
-    }
-
-    // Packets
-
-    @Override
-    public void onDataPacket(Connection net, ClientboundBlockEntityDataPacket pkt) {
-        super.onDataPacket(net, pkt);
-    }
-
-    @Override
-    public ClientboundBlockEntityDataPacket getUpdatePacket() {
-        return ClientboundBlockEntityDataPacket.create(this);
-    }
-
-    @Override
-    public CompoundTag getUpdateTag() {
-        return this.saveWithoutMetadata();
-    }
-
-
-    // Crafting
 
     private void resetProgress() {
         this.progress = 0;

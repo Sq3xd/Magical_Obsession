@@ -30,7 +30,7 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
-public class SpecialCauldronBlock extends Block implements EntityBlock {
+public class SpecialCauldronBlock extends AbstractCauldronBlock implements EntityBlock {
     private static final VoxelShape INSIDE = box(2.0D, 4.0D, 2.0D, 14.0D, 16.0D, 14.0D);
     protected static final VoxelShape SHAPE = Shapes.join(Shapes.block(), Shapes.or(box(0.0D, 0.0D, 4.0D, 16.0D, 3.0D, 12.0D),
             box(4.0D, 0.0D, 0.0D, 12.0D, 3.0D, 16.0D),
@@ -71,58 +71,7 @@ public class SpecialCauldronBlock extends Block implements EntityBlock {
 
     @Override
     public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult result) {
-         // Explode if placed on not correct block
-        if (!level.isClientSide){
-            if (level.getBlockEntity(pos) instanceof SpecialCauldronBlockEntity entity) {
-                if (level.getBlockState(pos.below()).is(ModTags.Blocks.SPECIAL_CAULDRON_EXPLODES)) {
-                    level.explode(null, DamageSource.MAGIC, null, pos.getX(), pos.getY(), pos.getZ(), 3.5f, false, Explosion.BlockInteraction.DESTROY);
-                }
-            }
-        }
-
-         // Interaction - Server Side
-        if (!level.isClientSide) {
-            if (level.getBlockEntity(pos) instanceof SpecialCauldronBlockEntity entity) {
-                if (entity.inventory.getStackInSlot(0).is(ItemStack.EMPTY.getItem()) && !player.getMainHandItem().is(ItemStack.EMPTY.getItem())) {
-                    ItemStack item = player.getItemInHand(hand).copy();
-                    item.setCount(1);
-                    entity.inventory.setStackInSlot(0, item);
-                    player.getMainHandItem().shrink(1);
-                } else {
-                    if (!entity.inventory.getStackInSlot(0).is(ItemStack.EMPTY.getItem())) {
-                        if (player.getItemInHand(InteractionHand.MAIN_HAND).is(ItemStack.EMPTY.getItem())) {
-                            player.setItemInHand(InteractionHand.MAIN_HAND, entity.inventory.getStackInSlot(0));
-                        } else {
-                            player.addItem(entity.inventory.getStackInSlot(0));
-                        }
-                        entity.inventory.setStackInSlot(0, ItemStack.EMPTY);
-                    }
-                }
-            }
-        }
-
-         // Interaction - Client Side
-        if (level.isClientSide) {
-            if (level.getBlockEntity(pos) instanceof SpecialCauldronBlockEntity entity) {
-                if (entity.inventory.getStackInSlot(0).is(ItemStack.EMPTY.getItem()) && !player.getMainHandItem().is(ItemStack.EMPTY.getItem())) {
-                    ItemStack item = player.getItemInHand(hand).copy();
-                    item.setCount(1);
-                    level.playLocalSound(pos.getX(), pos.getY(), pos.getZ(), SoundEvents.END_PORTAL_FRAME_FILL, SoundSource.BLOCKS, 1.0f, 1.0f, true);
-                    entity.inventory.setStackInSlot(0, item);
-                } else {
-                    if (!entity.inventory.getStackInSlot(0).is(ItemStack.EMPTY.getItem())) {
-                        if (player.getItemInHand(InteractionHand.MAIN_HAND).is(ItemStack.EMPTY.getItem())) {
-                            player.setItemInHand(InteractionHand.MAIN_HAND, entity.inventory.getStackInSlot(0));
-                        } else {
-                            player.addItem(entity.inventory.getStackInSlot(0));
-                        }
-                        level.playLocalSound(pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ITEM_PICKUP, SoundSource.BLOCKS, 0.75f, 1f, true);
-                        entity.inventory.setStackInSlot(0, ItemStack.EMPTY);
-                    }
-                }
-            }
-        }
-        return InteractionResult.SUCCESS;
+        return super.use(state, level, pos, player, hand, result);
     }
 
     // Entity
@@ -130,24 +79,6 @@ public class SpecialCauldronBlock extends Block implements EntityBlock {
 
     @Override
     public boolean onDestroyedByPlayer(BlockState state, Level level, BlockPos pos, Player player, boolean willHarvest, FluidState fluid) {
-        if (!level.isClientSide()){
-            if (level.getBlockEntity(pos) instanceof SpecialCauldronBlockEntity entity){
-                if (entity.inventory.getStackInSlot(0).is(ModTags.Items.SPECIAL_CAULDRON_DANGEROUS_ITEMS)){
-                    level.explode(null, DamageSource.MAGIC, null, pos.getX(), pos.getY(), pos.getZ(), 3.5f, false, Explosion.BlockInteraction.DESTROY);
-                } else {
-                    if (!entity.inventory.getStackInSlot(0).is(ItemStack.EMPTY.getItem())) {
-                        if (entity.inventory.getStackInSlot(0).isStackable()){
-                            ItemEntity itemEntity = new ItemEntity(level, pos.getX(), pos.getY() + 1d, pos.getZ(), entity.inventory.getStackInSlot(0).getItem().getDefaultInstance());
-                            level.addFreshEntity(itemEntity);
-                        } else{
-                            ItemEntity itemEntity = new ItemEntity(level, pos.getX(), pos.getY() + 1d, pos.getZ(), entity.inventory.getStackInSlot(0));
-                            level.addFreshEntity(itemEntity);
-                        }
-                    }
-                }
-                entity.inventory.setStackInSlot(0, ItemStack.EMPTY);
-            }
-        }
         return super.onDestroyedByPlayer(state, level, pos, player, willHarvest, fluid);
     }
 

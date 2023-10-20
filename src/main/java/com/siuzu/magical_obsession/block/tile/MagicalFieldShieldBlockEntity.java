@@ -20,6 +20,7 @@ import net.minecraft.world.phys.Vec3;
 public class MagicalFieldShieldBlockEntity extends BlockEntity {
     public boolean detected = false;
     public int[] cords = new int[]{0, 0, 0};
+    public int radius = 6;
 
     public MagicalFieldShieldBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.MAGICAL_FIELD_SHIELD.get(), pos, state);
@@ -62,69 +63,29 @@ public class MagicalFieldShieldBlockEntity extends BlockEntity {
 
     public static void tick(Level level, BlockPos pos, BlockState state, MagicalFieldShieldBlockEntity entity) {
         // Craft for client side
-        if (level.isClientSide) {
-            if (level.getBlockEntity(pos.west(entity.getCords(0))) instanceof MagicalCatallyzatorBlockEntity entity1) {
-                if (entity1.getSphere() > 30) {
-                    entity1.setSphere(-30);
-                }
+        if (level.getBlockEntity(new BlockPos(new Vec3(pos.getX() + entity.cords[0], pos.getY(), pos.getZ() + entity.cords[2]))) instanceof MagicalCatallyzatorBlockEntity entity1) {
+            if (entity1.getSphere() > 30) {
+                entity1.setSphere(-30);
             }
         }
 
-        if (!level.isClientSide) {
-            if (level.getBlockEntity(pos.west(entity.getCords(0))) instanceof MagicalCatallyzatorBlockEntity entity1) {
-                if (entity1.getSphere() > 30) {
-                    entity1.setSphere(-30);
-                }
-            }
-        }
-
-        if (level.isClientSide) {
-            if (level.getBlockEntity(pos.north(entity.getCords(2))) instanceof MagicalCatallyzatorBlockEntity entity1) {
-                if (entity1.getSphere() > 30) {
-                    entity1.setSphere(-30);
-                }
-            }
-        }
-
-        if (!level.isClientSide) {
-            if (level.getBlockEntity(pos.north(entity.getCords(2))) instanceof MagicalCatallyzatorBlockEntity entity1) {
-                if (entity1.getSphere() > 30) {
-                    entity1.setSphere(-30);
-                }
-            }
-        }
-
-        if (!(entity.getLevel().getBlockEntity(pos.west(entity.getCords(0))) instanceof MagicalCatallyzatorBlockEntity) && !(entity.getLevel().getBlockEntity(pos.north(entity.getCords(2))) instanceof MagicalCatallyzatorBlockEntity)) {
-            entity.setCords(0, 0);
-            entity.setCords(1, 0);
-            entity.setCords(2, 0);
-            entity.detected = false;
-        }
-
-        if (!entity.detected) {
-            for (int x = -6; x <= 6; x++){
-                if (entity.getLevel().getBlockState(pos.west(1)).is(ModBlocks.MAGICAL_CATALLYZATOR.get()) || entity.getLevel().getBlockState(pos.west(1)).is(ModBlocks.MAGICAL_FIELD_SHIELD.get()) || entity.getLevel().getBlockState(pos.west(1)).is(Blocks.AIR)) {
-                    if (entity.getLevel().getBlockState(pos.west(x)).is(ModBlocks.MAGICAL_CATALLYZATOR.get())) {
-                        entity.setCords(0, x);
-                        entity.detected = true;
-                    }
-                } else {
-                    entity.setCords(0, 0);
-                    entity.detected = false;
-                }
+        if (entity.detected) {
+            if (!(entity.getLevel().getBlockEntity(new BlockPos(new Vec3(entity.cords[0], pos.getY(), entity.cords[2]))) instanceof MagicalCatallyzatorBlockEntity)) {
+                entity.setCords(0, 0);
+                entity.setCords(1, 0);
+                entity.setCords(2, 0);
+                entity.detected = false;
             }
         }
 
         if (!entity.detected) {
-            for (int z = -6; z <= 6; z++) {
-                if (entity.getLevel().getBlockState(pos.north(1)).is(ModBlocks.MAGICAL_CATALLYZATOR.get()) || entity.getLevel().getBlockState(pos.north(1)).is(ModBlocks.MAGICAL_FIELD_SHIELD.get()) || entity.getLevel().getBlockState(pos.north(1)).is(Blocks.AIR)) {
-                    if (entity.getLevel().getBlockState(pos.north(z)).is(ModBlocks.MAGICAL_CATALLYZATOR.get())) {
-                        entity.setCords(2, z);
+            for (int x = -entity.radius; x <= entity.radius; x++) {
+                for (int z = -entity.radius; z <= entity.radius; z++) {
+                    if (level.getBlockEntity(new BlockPos(new Vec3(pos.getX() + x, pos.getY(), pos.getZ() + z))) instanceof MagicalCatallyzatorBlockEntity entity1) {
+                        entity.cords[0] = x;
+                        entity.cords[2] = z;
                         entity.detected = true;
                     }
-                } else {
-                    entity.setCords(2, 0);
-                    entity.detected = false;
                 }
             }
         }
