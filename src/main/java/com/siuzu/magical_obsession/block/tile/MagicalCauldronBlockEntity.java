@@ -2,6 +2,7 @@ package com.siuzu.magical_obsession.block.tile;
 
 import com.siuzu.magical_obsession.block.MagicalCauldronBlock;
 import com.siuzu.magical_obsession.init.ModBlockEntities;
+import com.siuzu.magical_obsession.particle.ModParticles;
 import com.siuzu.magical_obsession.recipe.MagicalCauldronRecipe;
 import com.siuzu.magical_obsession.util.ItemCapabilityHandler;
 import net.minecraft.core.BlockPos;
@@ -82,8 +83,8 @@ public class MagicalCauldronBlockEntity extends AbstractCauldronBlockEntity {
         if (level.isClientSide) {
             if (!entity.inventory.getStackInSlot(0).is(ItemStack.EMPTY.getItem()) && hasRecipe(entity, level)) {
                 entity.progress++;
-                if (entity.progress == RandomSource.create().nextInt(entity.progress, entity.progress + 75)){
-                    spawnParticles(level, pos);
+                if (entity.progress == RandomSource.create().nextInt(entity.progress, entity.progress + 5)){
+                    level.addParticle(ModParticles.MAGIC_DUST_PARTICLES.get(), pos.getX()+0.5 + Math.cos(entity.getProgress()), pos.getY() + 1.75d, pos.getZ()+0.5 + Math.sin(entity.getProgress()), 0, 0, 0);
                 }
 
                 if (entity.progress >= entity.maxProgress + new Random().nextInt(1, 59)) {

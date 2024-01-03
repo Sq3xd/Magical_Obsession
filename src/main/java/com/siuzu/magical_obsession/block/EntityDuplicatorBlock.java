@@ -96,7 +96,6 @@ public class EntityDuplicatorBlock extends Block implements EntityBlock {
                     ItemStack item = player.getItemInHand(hand).copy();
                     item.setCount(1);
 
-                    level.playLocalSound(pos.getX(), pos.getY(), pos.getZ(), SoundEvents.END_PORTAL_FRAME_FILL, SoundSource.BLOCKS, 1.0f, 1.0f, true);
                     entity.inventory.setStackInSlot(0, item);
                 } else {
                     if (!entity.inventory.getStackInSlot(0).is(ItemStack.EMPTY.getItem())) {

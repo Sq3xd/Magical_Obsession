@@ -1,6 +1,8 @@
 package com.siuzu.magical_obsession.item;
 
 import com.siuzu.magical_obsession.init.ModBlocks;
+import com.siuzu.magical_obsession.particle.ModParticles;
+import com.siuzu.magical_obsession.sound.ModSounds;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -42,15 +44,9 @@ public class MagicDustItem extends Item {
             BlockState state = level.getBlockState(pos);
 
             if (state.is(Blocks.CAULDRON) && !player.isShiftKeyDown()){
-                level.destroyBlock(pos, false);
+                level.playSound(player, pos, ModSounds.MAGIC_DUST_ON_USE.get(), SoundSource.BLOCKS,1f,1f);
                 stack.shrink(1);
-                level.playLocalSound(pos.getX() + random.nextDouble(-3d, 3d), pos.getY() + random.nextDouble(-3d, 3d), pos.getZ() + random.nextDouble(-3d, 3d), SoundEvents.VEX_CHARGE, SoundSource.BLOCKS, 1.5f, 0.9f, true);
-                level.playLocalSound(pos.getX() + random.nextDouble(-3d, 3d), pos.getY() + random.nextDouble(-3d, 3d), pos.getZ() + random.nextDouble(-3d, 3d), SoundEvents.VEX_CHARGE, SoundSource.BLOCKS, 1.3f, 0.7f, true);
-                level.playLocalSound(pos.getX() + random.nextDouble(-3d, 3d), pos.getY() + random.nextDouble(-3d, 3d), pos.getZ() + random.nextDouble(-3d, 3d), SoundEvents.VEX_CHARGE, SoundSource.BLOCKS, 1.2f, 0.5f, true);
-                level.playLocalSound(pos.getX() + random.nextDouble(-3d, 3d), pos.getY() + random.nextDouble(-3d, 3d), pos.getZ() + random.nextDouble(-3d, 3d), SoundEvents.VEX_CHARGE, SoundSource.BLOCKS, 1.1f, 0.4f, true);
-                level.playLocalSound(pos.getX() + random.nextDouble(-3d, 3d), pos.getY() + random.nextDouble(-3d, 3d), pos.getZ() + random.nextDouble(-3d, 3d), SoundEvents.VEX_CHARGE, SoundSource.BLOCKS, 1.0f, 0.3f, true);
                 spawnParticles(level, pos);
-                level.setRainLevel(1.5f);
                 return InteractionResult.SUCCESS;
             } else {
                 return InteractionResult.PASS;
@@ -64,16 +60,7 @@ public class MagicDustItem extends Item {
             BlockState state = level.getBlockState(pos);
 
             if (state.is(Blocks.CAULDRON) && !player.isShiftKeyDown()){
-                if (random.nextInt(8) != 1){
-                    level.destroyBlock(pos, false);
-                    LightningBolt lb = new LightningBolt(EntityType.LIGHTNING_BOLT, level);
-                    lb.setPos(pos.getX(), pos.getY(), pos.getZ());
-                    level.addFreshEntity(lb);
-                    level.setRainLevel(1.5f);
-                    setBlock(level, pos);
-                } else {
-                    explode(level, pos);
-                }
+                setBlock(level, pos);
                 stack.shrink(1);
                 return InteractionResult.SUCCESS;
             } else {
@@ -85,18 +72,15 @@ public class MagicDustItem extends Item {
     }
 
     public static void spawnParticles(Level level, BlockPos pos) {
-        double d0 = 0.5725D;
         RandomSource randomsource = level.random;
 
-        for(Direction direction : Direction.values()) {
-            BlockPos blockpos = pos.relative(direction);
-            if (!level.getBlockState(blockpos).isSolidRender(level, blockpos)) {
-                Direction.Axis direction$axis = direction.getAxis();
-                double d1 = direction$axis == Direction.Axis.X ? 0.5D + 0.5625D * (double)direction.getStepX() : (double)randomsource.nextFloat();
-                double d2 = direction$axis == Direction.Axis.Y ? 0.59D + 0.5625D * (double)direction.getStepY() : (double)randomsource.nextFloat();
-                double d3 = direction$axis == Direction.Axis.Z ? 0.5D + 0.5625D * (double)direction.getStepZ() : (double)randomsource.nextFloat();
-                level.addParticle(ParticleTypes.DRAGON_BREATH, (double)pos.getX() + d1, (double)pos.getY() + d2 + 1.77D, (double)pos.getZ() + d3, 0.0D, 0.0D, 0.0D);
-            }
+        for (int i = 0; i <= 10; i++) {
+            level.addParticle(ModParticles.MAGIC_DUST_PARTICLES.get(), pos.getX() + (float)i/10, pos.getY() + 1d, pos.getZ() - 0.03, 0, -1, -1);
+            level.addParticle(ModParticles.MAGIC_DUST_PARTICLES.get(), pos.getX() - 0.03, pos.getY() + 1d, pos.getZ() + (float)i/10, 0, -1, 1);
+            level.addParticle(ModParticles.MAGIC_DUST_PARTICLES.get(), pos.getX() + (float)i/10, pos.getY() + 1d, pos.getZ() + 1.03, -1, -1, 0);
+            level.addParticle(ModParticles.MAGIC_DUST_PARTICLES.get(), pos.getX() + 1.03, pos.getY() + 1d, pos.getZ() + (float)i/10, 1, -1, 0);
+            level.addParticle(ModParticles.MAGIC_DUST_PARTICLES.get(), pos.getX() + 0.5d, pos.getY() + 1.5d, pos.getZ() + 0.5d, 0, -1, 0);
+
         }
     }
 

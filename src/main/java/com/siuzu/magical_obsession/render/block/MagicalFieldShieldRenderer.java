@@ -39,13 +39,13 @@ public class MagicalFieldShieldRenderer implements BlockEntityRenderer<MagicalFi
         BlockState state = entity.getBlockState();
 
         // Render Crystal
-        stack.pushPose();
-        stack.translate(0.65d, 2d, 0.65d);
-        stack.scale(0.75f, 0.75f, 0.75f);
-        stack.mulPose(Vector3f.YN.rotation(0));
-        item_renderer.renderStatic(Minecraft.getInstance().player, ModItems.CRYSTAL_ITEM.get().getDefaultInstance(), ItemTransforms.TransformType.FIXED, false, stack, buffer,
-                Minecraft.getInstance().level, coverlay, plight, plight);
-        stack.popPose();
+//        stack.pushPose();
+//        stack.translate(0.65d, 2d, 0.65d);
+//        stack.scale(0.75f, 0.75f, 0.75f);
+//        stack.mulPose(Vector3f.YN.rotation(0));
+//        item_renderer.renderStatic(Minecraft.getInstance().player, ModItems.CRYSTAL_ITEM.get().getDefaultInstance(), ItemTransforms.TransformType.FIXED, false, stack, buffer,
+//                Minecraft.getInstance().level, coverlay, plight, plight);
+//        stack.popPose();
 
         // Render Lines
 

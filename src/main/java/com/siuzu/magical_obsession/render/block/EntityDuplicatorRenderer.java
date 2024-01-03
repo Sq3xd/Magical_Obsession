@@ -37,8 +37,8 @@ public class EntityDuplicatorRenderer implements BlockEntityRenderer<EntityDupli
 
         if (state.getValue(HorizontalDirectionalBlock.FACING).equals(Direction.EAST) || state.getValue(HorizontalDirectionalBlock.FACING).equals(Direction.WEST)){
             stack.pushPose();
-            stack.translate(0.52d, 1.29d + entity.getProgress() / 870f, 0.52d);
-            stack.scale(0.75f, 0.75f, 0.75f);
+            stack.translate(0.5d, 1.25d + entity.getProgress() / 870f, 0.5d);
+            stack.scale(0.7f, 0.7f, 0.7f);
             stack.mulPose(Vector3f.YN.rotationDegrees(90 - entity.getProgress() / 2));
 
             item_renderer.renderStatic(Minecraft.getInstance().player, entity.inventory.getStackInSlot(0), ItemTransforms.TransformType.FIXED, false, stack, buffer,
@@ -46,8 +46,8 @@ public class EntityDuplicatorRenderer implements BlockEntityRenderer<EntityDupli
             stack.popPose();
         } else {
             stack.pushPose();
-            stack.translate(0.52d, 1.29d + entity.getProgress() / 870f, 0.52d);
-            stack.scale(0.75f, 0.75f, 0.75f);
+            stack.translate(0.5d, 1.25d + entity.getProgress() / 870f, 0.5d);
+            stack.scale(0.7f, 0.7f, 0.7f);
             stack.mulPose(Vector3f.YN.rotationDegrees(0 - entity.getProgress() / 2));
 
             item_renderer.renderStatic(Minecraft.getInstance().player, entity.inventory.getStackInSlot(0), ItemTransforms.TransformType.FIXED, false, stack, buffer,
@@ -57,15 +57,15 @@ public class EntityDuplicatorRenderer implements BlockEntityRenderer<EntityDupli
 
         // Render Crystal
 
-        if (!entity.inventory.getStackInSlot(0).is(ItemStack.EMPTY.getItem())) {
-            stack.pushPose();
-            stack.translate(0.65d, 2.39d + entity.getProgress() / 510d, 0.65d);
-            stack.scale(0.75f, 0.75f, 0.75f);
-            stack.mulPose(Vector3f.YN.rotation(0));
-            item_renderer.renderStatic(Minecraft.getInstance().player, ModItems.CRYSTAL_ITEM.get().getDefaultInstance(), ItemTransforms.TransformType.FIXED, false, stack, buffer,
-                    Minecraft.getInstance().level, coverlay, plight, plight);
-            stack.popPose();
-        }
+//        if (!entity.inventory.getStackInSlot(0).is(ItemStack.EMPTY.getItem())) {
+//            stack.pushPose();
+//            stack.translate(0.65d, 2.39d + entity.getProgress() / 510d, 0.65d);
+//            stack.scale(0.75f, 0.75f, 0.75f);
+//            stack.mulPose(Vector3f.YN.rotation(0));
+//            item_renderer.renderStatic(Minecraft.getInstance().player, ModItems.CRYSTAL_ITEM.get().getDefaultInstance(), ItemTransforms.TransformType.FIXED, false, stack, buffer,
+//                    Minecraft.getInstance().level, coverlay, plight, plight);
+//            stack.popPose();
+//        }
 
         // Render Sphere
 

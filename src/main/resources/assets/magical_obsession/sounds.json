@@ -1,0 +1,8 @@
+{
+  "magic_dust_on_use": {
+    "subtitle": "sounds.magical_obsession.magic_dust_on_use",
+    "sounds": [
+      "magical_obsession:magic_dust_on_use"
+    ]
+  }
+}

@@ -6,7 +6,9 @@ import com.siuzu.magical_obsession.init.ModBlockEntities;
 import com.siuzu.magical_obsession.init.ModBlocks;
 import com.siuzu.magical_obsession.init.ModItems;
 import com.siuzu.magical_obsession.init.ModRecipes;
+import com.siuzu.magical_obsession.particle.ModParticles;
 import com.siuzu.magical_obsession.render.block.*;
+import com.siuzu.magical_obsession.sound.ModSounds;
 import com.siuzu.magical_obsession.world.feature.ModConfiguredFeatures;
 import com.siuzu.magical_obsession.world.feature.ModPlacedFeatures;
 import net.minecraftforge.client.event.EntityRenderersEvent;
@@ -35,9 +37,13 @@ public class MagicalObsession
         ModRecipes.register(eventBus);
         ModConfiguredFeatures.register(eventBus);
         ModPlacedFeatures.register(eventBus);
+        ModParticles.register(eventBus);
+        ModSounds.register(eventBus);
 
         MinecraftForge.EVENT_BUS.register(new ModEvents());
         MinecraftForge.EVENT_BUS.register(MyStaticClientOnlyEventHandler.class);
+        MinecraftForge.EVENT_BUS.register(this);
+
         MinecraftForge.EVENT_BUS.register(this);
     }
 

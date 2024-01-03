@@ -39,7 +39,7 @@ public class SpecialCauldronRenderer implements BlockEntityRenderer<SpecialCauld
         if (state.getValue(HorizontalDirectionalBlock.FACING).equals(Direction.EAST) || state.getValue(HorizontalDirectionalBlock.FACING).equals(Direction.WEST)){
             stack.pushPose();
             stack.translate(0.5d, 0.55d, 0.5d);
-            stack.scale(0.75f, 0.75f, 0.75f);
+            stack.scale(0.7f, 0.7f, 0.7f);
             stack.mulPose(Vector3f.YN.rotationDegrees(90 - entity.getProgress() / 2));
 
             item_renderer.renderStatic(Minecraft.getInstance().player, entity.inventory.getStackInSlot(0), ItemTransforms.TransformType.FIXED, false, stack, buffer,
@@ -48,7 +48,7 @@ public class SpecialCauldronRenderer implements BlockEntityRenderer<SpecialCauld
         } else {
             stack.pushPose();
             stack.translate(0.5d, 0.55d, 0.5d);
-            stack.scale(0.75f, 0.75f, 0.75f);
+            stack.scale(0.7f, 0.7f, 0.7f);
             stack.mulPose(Vector3f.YN.rotationDegrees(0 - entity.getProgress() / 2));
 
             item_renderer.renderStatic(Minecraft.getInstance().player, entity.inventory.getStackInSlot(0), ItemTransforms.TransformType.FIXED, false, stack, buffer,
@@ -58,15 +58,15 @@ public class SpecialCauldronRenderer implements BlockEntityRenderer<SpecialCauld
 
         // Render Crystal
 
-        if (!entity.inventory.getStackInSlot(0).is(ItemStack.EMPTY.getItem())) {
-            stack.pushPose();
-            stack.translate(0.65d, 2.07d + entity.getProgress() / 370d, 0.65d);
-            stack.scale(0.75f, 0.75f, 0.75f);
-            stack.mulPose(Vector3f.YN.rotation(0));
-            item_renderer.renderStatic(Minecraft.getInstance().player, ModItems.CRYSTAL_ITEM.get().getDefaultInstance(), ItemTransforms.TransformType.FIXED, false, stack, buffer,
-                    Minecraft.getInstance().level, coverlay, plight, plight);
-            stack.popPose();
-        }
+//        if (!entity.inventory.getStackInSlot(0).is(ItemStack.EMPTY.getItem())) {
+//            stack.pushPose();
+//            stack.translate(0.65d, 2.07d + entity.getProgress() / 370d, 0.65d);
+//            stack.scale(0.75f, 0.75f, 0.75f);
+//            stack.mulPose(Vector3f.YN.rotation(0));
+//            item_renderer.renderStatic(Minecraft.getInstance().player, ModItems.CRYSTAL_ITEM.get().getDefaultInstance(), ItemTransforms.TransformType.FIXED, false, stack, buffer,
+//                    Minecraft.getInstance().level, coverlay, plight, plight);
+//            stack.popPose();
+//        }
 
         /*stack.pushPose();
         stack.translate(0f, 0f, 0f);
