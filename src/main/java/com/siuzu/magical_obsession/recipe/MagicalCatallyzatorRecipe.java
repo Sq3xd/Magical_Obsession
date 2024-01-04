@@ -17,12 +17,16 @@ public class MagicalCatallyzatorRecipe implements Recipe<SimpleContainer> {
     private final ResourceLocation id;
     private final ItemStack output;
     private final NonNullList<Ingredient> recipeItems;
+    private final int sphere;
+    private final int time;
 
     public MagicalCatallyzatorRecipe(ResourceLocation id, ItemStack output,
-                                     NonNullList<Ingredient> recipeItems) {
+                                     NonNullList<Ingredient> recipeItems, int sphere, int time) {
         this.id = id;
         this.output = output;
         this.recipeItems = recipeItems;
+        this.sphere = sphere;
+        this.time = time;
     }
 
     @Override
@@ -59,6 +63,14 @@ public class MagicalCatallyzatorRecipe implements Recipe<SimpleContainer> {
         return id;
     }
 
+    public int getSphere() {
+        return sphere;
+    }
+
+    public int getTime() {
+        return time;
+    }
+
     @Override
     public RecipeSerializer<?> getSerializer() {
         return Serializer.INSTANCE;
@@ -85,6 +97,10 @@ public class MagicalCatallyzatorRecipe implements Recipe<SimpleContainer> {
         public MagicalCatallyzatorRecipe fromJson(ResourceLocation pRecipeId, JsonObject pSerializedRecipe) {
             ItemStack output = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(pSerializedRecipe, "output"));
 
+
+            int sphere = pSerializedRecipe.getAsJsonPrimitive("sphere").getAsInt();
+            int time = pSerializedRecipe.getAsJsonPrimitive("time").getAsInt();
+
             JsonArray ingredients = GsonHelper.getAsJsonArray(pSerializedRecipe, "ingredients");
             NonNullList<Ingredient> inputs = NonNullList.withSize(1, Ingredient.EMPTY);
 
@@ -92,11 +108,12 @@ public class MagicalCatallyzatorRecipe implements Recipe<SimpleContainer> {
                 inputs.set(i, Ingredient.fromJson(ingredients.get(i)));
             }
 
-            return new MagicalCatallyzatorRecipe(pRecipeId, output, inputs);
+            return new MagicalCatallyzatorRecipe(pRecipeId, output, inputs, sphere, time);
         }
 
         @Override
         public @Nullable MagicalCatallyzatorRecipe fromNetwork(ResourceLocation id, FriendlyByteBuf buf) {
+
             NonNullList<Ingredient> inputs = NonNullList.withSize(buf.readInt(), Ingredient.EMPTY);
 
             for (int i = 0; i < inputs.size(); i++) {
@@ -104,13 +121,14 @@ public class MagicalCatallyzatorRecipe implements Recipe<SimpleContainer> {
             }
 
             ItemStack output = buf.readItem();
-            return new MagicalCatallyzatorRecipe(id, output, inputs);
+            int sphere = buf.readInt();
+            int time = buf.readInt();
+            return new MagicalCatallyzatorRecipe(id, output, inputs, sphere, time);
         }
 
         @Override
         public void toNetwork(FriendlyByteBuf buf, MagicalCatallyzatorRecipe recipe) {
             buf.writeInt(recipe.getIngredients().size());
-
             for (Ingredient ing : recipe.getIngredients()) {
                 ing.toNetwork(buf);
             }

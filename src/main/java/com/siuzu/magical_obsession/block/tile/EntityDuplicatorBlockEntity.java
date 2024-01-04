@@ -3,6 +3,7 @@ package com.siuzu.magical_obsession.block.tile;
 import com.siuzu.magical_obsession.MagicalObsession;
 import com.siuzu.magical_obsession.init.ModBlockEntities;
 import com.siuzu.magical_obsession.item.SoulJarItem;
+import com.siuzu.magical_obsession.mixin.ParticlesMixin;
 import com.siuzu.magical_obsession.util.ItemCapabilityHandler;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -143,14 +144,14 @@ public class EntityDuplicatorBlockEntity extends BlockEntity {
                 if (entity.progress == random.nextInt(entity.progress, entity.progress + 50)){
                     level.playLocalSound(pos.getX() + random.nextInt(-3, 3), pos.getY() + random.nextInt(-3, 3), pos.getZ() + random.nextInt(-3, 3),
                             SoundEvents.ALLAY_AMBIENT_WITH_ITEM, SoundSource.BLOCKS, 1.5f, 0.9f, true);
-                    spawnParticles(level, pos);
+                    ParticlesMixin.cauldronParticles(level, pos);
                 }
                 
                 if (entity.progress >= entity.maxProgress) {
                     level.playLocalSound(pos.getX(), pos.getY(), pos.getZ(), SoundEvents.END_PORTAL_FRAME_FILL, SoundSource.BLOCKS, 1.0f, 1.0f, true);
                     entity.inventory.setStackInSlot(0, ItemStack.EMPTY);
                     level.playLocalSound(entity.getBlockPos().getX(), entity.getBlockPos().getY(), entity.getBlockPos().getZ(), SoundEvents.FIREWORK_ROCKET_BLAST, SoundSource.WEATHER, 1.1f, 1.1f, true);
-                    spawnSuperParticles(level, new BlockPos(entity.getBlockPos().getX() + 0.5f, entity.getBlockPos().getY() + 1.5f, entity.getBlockPos().getZ() + 0.5f));
+                    ParticlesMixin.spawnFlashParticles(level, new BlockPos(entity.getBlockPos().getX() + 0.5f, entity.getBlockPos().getY() + 1.5f, entity.getBlockPos().getZ() + 0.5f));
                     entity.resetProgress();
                 }
             } else
@@ -178,40 +179,6 @@ public class EntityDuplicatorBlockEntity extends BlockEntity {
                 }
             } else
                 entity.resetProgress();
-        }
-    }
-
-    public static void spawnParticles(Level level, BlockPos pos) {
-        double d0 = 0.5725D;
-        RandomSource randomsource = level.random;
-
-        for(Direction direction : Direction.values()) {
-            BlockPos blockpos = pos.relative(direction);
-            if (!level.getBlockState(blockpos).isSolidRender(level, blockpos)) {
-                Direction.Axis direction$axis = direction.getAxis();
-                double d1 = direction$axis == Direction.Axis.X ? 0.59D + 0.57551D * (double)direction.getStepX() : (double)randomsource.nextFloat();
-                double d2 = direction$axis == Direction.Axis.Y ? 0.55D + 0.57251D * (double)direction.getStepY() : (double)randomsource.nextFloat();
-                double d3 = direction$axis == Direction.Axis.Z ? 0.5D + 0.55155D * (double)direction.getStepZ() : (double)randomsource.nextFloat();
-                level.addParticle(ParticleTypes.DRAGON_BREATH, (double)pos.getX() + d1, (double)pos.getY() + d2 + 1.37D, (double)pos.getZ() + d3, 0.0D, 0.0D, 0.0D);
-                level.addParticle(ParticleTypes.ENCHANT, (double)pos.getX() + d1, (double)pos.getY() + d2 + 1.32D, (double)pos.getZ() + d3, 0.0D, 0.0D, 0.0D);
-                level.addParticle(ParticleTypes.SMOKE, (double)pos.getX() + d1, (double)pos.getY() + d2 + 1.29D, (double)pos.getZ() + d3, 0.0D, 0.0D, 0.0D);
-            }
-        }
-    }
-
-    public static void spawnSuperParticles(Level level, BlockPos pos) {
-        double d0 = 0.5725D;
-        RandomSource randomsource = level.random;
-
-        for (Direction direction : Direction.values()) {
-            BlockPos blockpos = pos.relative(direction);
-            if (!level.getBlockState(blockpos).isSolidRender(level, blockpos)) {
-                Direction.Axis direction$axis = direction.getAxis();
-                double d1 = direction$axis == Direction.Axis.X ? 0.5D + 0.5625D * (double) direction.getStepX() : (double) randomsource.nextFloat();
-                double d2 = direction$axis == Direction.Axis.Y ? 0.59D + 0.5625D * (double) direction.getStepY() : (double) randomsource.nextFloat();
-                double d3 = direction$axis == Direction.Axis.Z ? 0.5D + 0.5625D * (double) direction.getStepZ() : (double) randomsource.nextFloat();
-                level.addParticle(ParticleTypes.FLASH, (double) pos.getX() + d1, (double) pos.getY() + d2 + 1.11D, (double) pos.getZ() + d3, 0.0D, 0.0D, 0.0D);
-            }
         }
     }
 }

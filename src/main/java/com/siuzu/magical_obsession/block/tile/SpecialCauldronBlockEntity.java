@@ -1,6 +1,7 @@
 package com.siuzu.magical_obsession.block.tile;
 
 import com.siuzu.magical_obsession.init.ModBlockEntities;
+import com.siuzu.magical_obsession.mixin.ParticlesMixin;
 import com.siuzu.magical_obsession.recipe.SpecialCauldronCampfireRecipe;
 import com.siuzu.magical_obsession.recipe.SpecialCauldronRecipe;
 import com.siuzu.magical_obsession.util.ItemCapabilityHandler;
@@ -85,12 +86,12 @@ public class SpecialCauldronBlockEntity extends AbstractCauldronBlockEntity {
             if (!entity.inventory.getStackInSlot(0).is(ItemStack.EMPTY.getItem()) && hasRecipe(entity, level)) {
                 entity.progress++;
                 if (entity.progress == RandomSource.create().nextInt(entity.progress, entity.progress + 75)){
-                    spawnParticles(level, pos);
+                    ParticlesMixin.cauldronParticles(level, pos);
                 }
 
                 if (entity.progress >= entity.maxProgress + new Random().nextInt(1, 59)) {
                     craftItem(entity, level);
-                    crafted(level, pos);
+                    ParticlesMixin.cauldronCrafted(level, pos);
                     level.playLocalSound(pos.getX(), pos.getY(), pos.getZ(), SoundEvents.BREWING_STAND_BREW, SoundSource.BLOCKS, 1.0f, 1.0f, true);
                     entity.resetProgress();
                 }
@@ -105,12 +106,12 @@ public class SpecialCauldronBlockEntity extends AbstractCauldronBlockEntity {
             if (!entity.inventory.getStackInSlot(0).is(ItemStack.EMPTY.getItem()) && hasCampfireRecipe(entity, level) && level.getBlockState(pos.below()).is(Blocks.CAMPFIRE)) {
                 entity.progress++;
                 if (entity.progress == RandomSource.create().nextInt(entity.progress, entity.progress + 75)){
-                    spawnParticles(level, pos);
+                    ParticlesMixin.cauldronParticles(level, pos);
                 }
 
                 if (entity.progress >= entity.maxAdvancedProgress + new Random().nextInt(1, 59)) {
                     craftCampfireItem(entity, level);
-                    crafted(level, pos);
+                    ParticlesMixin.cauldronCrafted(level, pos);
                     level.playLocalSound(pos.getX(), pos.getY(), pos.getZ(), SoundEvents.BREWING_STAND_BREW, SoundSource.BLOCKS, 1.0f, 1.0f, true);
                     entity.resetProgress();
                 }
@@ -186,37 +187,5 @@ public class SpecialCauldronBlockEntity extends AbstractCauldronBlockEntity {
                 .getRecipeFor(SpecialCauldronCampfireRecipe.Type.INSTANCE, inventory, level);
 
         return recipe.isPresent();
-    }
-
-    public static void spawnParticles(Level level, BlockPos pos) {
-        double d0 = 0.5725D;
-        RandomSource randomsource = level.random;
-
-        for(Direction direction : Direction.values()) {
-            BlockPos blockpos = pos.relative(direction);
-            if (!level.getBlockState(blockpos).isSolidRender(level, blockpos)) {
-                Direction.Axis direction$axis = direction.getAxis();
-                double d1 = direction$axis == Direction.Axis.X ? 0.5D + 0.5625D * (double)direction.getStepX() : (double)randomsource.nextFloat();
-                double d2 = direction$axis == Direction.Axis.Y ? 0.59D + 0.5625D * (double)direction.getStepY() : (double)randomsource.nextFloat();
-                double d3 = direction$axis == Direction.Axis.Z ? 0.5D + 0.5625D * (double)direction.getStepZ() : (double)randomsource.nextFloat();
-                level.addParticle(ParticleTypes.SMOKE, (double)pos.getX() + d1, (double)pos.getY() + d2 + 1.29D, (double)pos.getZ() + d3, 0.0D, 0.0D, 0.0D);
-            }
-        }
-    }
-
-    public static void crafted(Level level, BlockPos pos) {
-        double d0 = 0.5725D;
-        RandomSource randomsource = level.random;
-
-        for(Direction direction : Direction.values()) {
-            BlockPos blockpos = pos.relative(direction);
-            if (!level.getBlockState(blockpos).isSolidRender(level, blockpos)) {
-                Direction.Axis direction$axis = direction.getAxis();
-                double d1 = direction$axis == Direction.Axis.X ? 0.512D + 0.5725D * (double)direction.getStepX() : (double)randomsource.nextFloat();
-                double d2 = direction$axis == Direction.Axis.Y ? 0.592D + 0.5725D * (double)direction.getStepY() : (double)randomsource.nextFloat();
-                double d3 = direction$axis == Direction.Axis.Z ? 0.512D + 0.56725D * (double)direction.getStepZ() : (double)randomsource.nextFloat();
-                level.addParticle(ParticleTypes.DRAGON_BREATH, (double)pos.getX() + d1, (double)pos.getY() + d2 + 1.27D, (double)pos.getZ() + d3, 0.011D, 0.011D, 0.011D);
-            }
-        }
     }
 }

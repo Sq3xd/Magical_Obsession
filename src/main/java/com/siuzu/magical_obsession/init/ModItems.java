@@ -1,10 +1,7 @@
 package com.siuzu.magical_obsession.init;
 
 import com.siuzu.magical_obsession.MagicalObsession;
-import com.siuzu.magical_obsession.item.ImmolationSwordItem;
-import com.siuzu.magical_obsession.item.MagicDustItem;
-import com.siuzu.magical_obsession.item.SoulJarItem;
-import com.siuzu.magical_obsession.item.SuspendedRedstoneItem;
+import com.siuzu.magical_obsession.item.*;
 import com.siuzu.magical_obsession.item.tab.ModTabs;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Rarity;
@@ -53,6 +50,9 @@ public class ModItems {
 
     public static RegistryObject<Item> SOUL_JAR = ITEMS.register("soul_jar", () ->
             new SoulJarItem(new Item.Properties().stacksTo(1).rarity(Rarity.RARE).tab(ModTabs.MAGICAL_OBSESSION_JARS)));
+
+    public static RegistryObject<Item> DEBUG = ITEMS.register("debug", () ->
+            new DebugItem(new Item.Properties().stacksTo(1).rarity(Rarity.RARE).tab(ModTabs.MAGICAL_OBSESSION_JARS)));
 
     // Tools
 

@@ -2,6 +2,7 @@ package com.siuzu.magical_obsession.block.tile;
 
 import com.siuzu.magical_obsession.init.ModBlockEntities;
 import com.siuzu.magical_obsession.init.ModItems;
+import com.siuzu.magical_obsession.mixin.ParticlesMixin;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
@@ -127,7 +128,7 @@ public class MagicalPentagramBlockEntity  extends BlockEntity {
 
             if (entity.itemStackHandler.getStackInSlot(0).is(ModItems.MAGIC_DUST.get())) {
                 entity.progress++;
-                spawnParticles(level, pos);
+                ParticlesMixin.cauldronParticles(level, pos);
                 if (entity.progress >= 125) {
                     entity.resetProgress();
                     entity.itemStackHandler.setStackInSlot(0, ItemStack.EMPTY);
@@ -136,7 +137,7 @@ public class MagicalPentagramBlockEntity  extends BlockEntity {
 
             if (entity.itemStackHandler.getStackInSlot(0).is(ModItems.SUSPENDED_REDSTONE.get())) {
                 entity.progress++;
-                spawnSuperParticles(level, pos);
+                ParticlesMixin.spawnFlashParticles(level, pos);
                 if (entity.progress >= 155) {
                     entity.resetProgress();
                     entity.itemStackHandler.setStackInSlot(0, ItemStack.EMPTY);
@@ -145,8 +146,8 @@ public class MagicalPentagramBlockEntity  extends BlockEntity {
 
             if (entity.itemStackHandler.getStackInSlot(0).is(ModItems.TERRA_NUGGET.get())) {
                 entity.progress++;
-                spawnParticles(level, pos);
-                spawnSuperParticles(level, pos);
+                ParticlesMixin.cauldronParticles(level, pos);
+                ParticlesMixin.spawnFlashParticles(level, pos);
 
                 if (entity.progress == 370) {
                     level.playLocalSound(pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ENDER_DRAGON_AMBIENT, SoundSource.BLOCKS, 0.85f, 0.85f, true);
@@ -234,41 +235,6 @@ public class MagicalPentagramBlockEntity  extends BlockEntity {
                     entity.resetProgress();
                     entity.itemStackHandler.setStackInSlot(0, ItemStack.EMPTY);
                 }
-            }
-        }
-    }
-
-    public static void spawnParticles(Level level, BlockPos pos) {
-        double d0 = 0.5725D;
-        RandomSource randomsource = level.random;
-
-        for(Direction direction : Direction.values()) {
-            BlockPos blockpos = pos.relative(direction);
-            if (!level.getBlockState(blockpos).isSolidRender(level, blockpos)) {
-                Direction.Axis direction$axis = direction.getAxis();
-                double d1 = direction$axis == Direction.Axis.X ? 0.5D + 0.5625D * (double)direction.getStepX() : (double)randomsource.nextFloat();
-                double d2 = direction$axis == Direction.Axis.Y ? 0.59D + 0.5625D * (double)direction.getStepY() : (double)randomsource.nextFloat();
-                double d3 = direction$axis == Direction.Axis.Z ? 0.5D + 0.5625D * (double)direction.getStepZ() : (double)randomsource.nextFloat();
-                level.addParticle(ParticleTypes.SMOKE, (double)pos.getX() + d1, (double)pos.getY() + d2 + 1.29D, (double)pos.getZ() + d3, 0.0D, 0.0D, 0.0D);
-                level.addParticle(ParticleTypes.ENCHANT, (double)pos.getX() + d1, (double)pos.getY() + d2 + 1.11D, (double)pos.getZ() + d3, 0.0D, 0.0D, 0.0D);
-            }
-        }
-    }
-
-    public static void spawnSuperParticles(Level level, BlockPos pos) {
-        double d0 = 0.5725D;
-        RandomSource randomsource = level.random;
-
-        for(Direction direction : Direction.values()) {
-            BlockPos blockpos = pos.relative(direction);
-            if (!level.getBlockState(blockpos).isSolidRender(level, blockpos)) {
-                Direction.Axis direction$axis = direction.getAxis();
-                double d1 = direction$axis == Direction.Axis.X ? 0.5D + 0.5625D * (double)direction.getStepX() : (double)randomsource.nextFloat();
-                double d2 = direction$axis == Direction.Axis.Y ? 0.59D + 0.5625D * (double)direction.getStepY() : (double)randomsource.nextFloat();
-                double d3 = direction$axis == Direction.Axis.Z ? 0.15D + 0.175D * (double)direction.getStepZ() : (double)randomsource.nextFloat();
-                level.addParticle(ParticleTypes.SMOKE, (double)pos.getX() + d1, (double)pos.getY() + d2 + 1.29D, (double)pos.getZ() + d3, 0.0D, 0.0D, 0.0D);
-                level.addParticle(ParticleTypes.ENCHANT, (double)pos.getX() + d1, (double)pos.getY() + d2 + 1.19D, (double)pos.getZ() + d3, 0.0D, 0.0D, 0.0D);
-                level.addParticle(ParticleTypes.AMBIENT_ENTITY_EFFECT, (double)pos.getX() + d1, (double)pos.getY() + d2 + 1.11D, (double)pos.getZ() + d3, 0.0D, 0.0D, 0.0D);
             }
         }
     }

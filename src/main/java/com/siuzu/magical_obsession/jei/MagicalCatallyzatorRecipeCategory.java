@@ -21,10 +21,12 @@ public class MagicalCatallyzatorRecipeCategory implements IRecipeCategory<Magica
             new ResourceLocation(MagicalObsession.MOD_ID, "textures/gui/magical_catallyzator_gui.png");
     private final IDrawable background;
     private final IDrawable icon;
+    //private final IDrawable text;
 
     public MagicalCatallyzatorRecipeCategory(IGuiHelper helper) {
         this.background = helper.createDrawable(BG, 0, 0, 176, 89);
         this.icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(ModBlocks.MAGICAL_CATALLYZATOR.get()));
+
     }
 
     @Override

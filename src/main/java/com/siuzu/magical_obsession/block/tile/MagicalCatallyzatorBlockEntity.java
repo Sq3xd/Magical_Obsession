@@ -2,6 +2,7 @@ package com.siuzu.magical_obsession.block.tile;
 
 import com.siuzu.magical_obsession.MagicalObsession;
 import com.siuzu.magical_obsession.init.ModBlockEntities;
+import com.siuzu.magical_obsession.mixin.ParticlesMixin;
 import com.siuzu.magical_obsession.recipe.MagicalCatallyzatorRecipe;
 import com.siuzu.magical_obsession.util.ItemCapabilityHandler;
 import net.minecraft.core.BlockPos;
@@ -142,22 +143,25 @@ public class MagicalCatallyzatorBlockEntity extends BlockEntity {
     public static void tick(Level level, BlockPos pos, BlockState state, MagicalCatallyzatorBlockEntity entity) {
         // Craft for client side
         if (level.isClientSide) {
+            int sphere = getSphereJson(level, entity);
+            int time = getTimeJson(level, entity);
+
             if (!entity.inventory.getStackInSlot(0).is(ItemStack.EMPTY.getItem()) && hasRecipe(entity, level)) {
                 entity.progress++;
-                entity.setSphere(59);
-                if (entity.progress == RandomSource.create().nextInt(entity.progress, entity.progress + 59)){
+                entity.setSphere(sphere);
+                if (entity.progress == RandomSource.create().nextInt(entity.progress, entity.progress + 50)){
                     Random random = new Random();
                     level.playLocalSound(pos.getX() + random.nextDouble(-3d, 3d), pos.getY() + random.nextDouble(-3d, 3d), pos.getZ() + random.nextDouble(-3d, 3d), SoundEvents.VEX_CHARGE, SoundSource.BLOCKS, 1.5f, 0.9f, true);
                     level.playLocalSound(pos.getX() + random.nextDouble(-3d, 3d), pos.getY() + random.nextDouble(-3d, 3d), pos.getZ() + random.nextDouble(-3d, 3d), SoundEvents.VEX_CHARGE, SoundSource.BLOCKS, 1.3f, 0.7f, true);
                     level.playLocalSound(pos.getX() + random.nextDouble(-3d, 3d), pos.getY() + random.nextDouble(-3d, 3d), pos.getZ() + random.nextDouble(-3d, 3d), SoundEvents.VEX_CHARGE, SoundSource.BLOCKS, 1.2f, 0.5f, true);
                     level.playLocalSound(pos.getX() + random.nextDouble(-3d, 3d), pos.getY() + random.nextDouble(-3d, 3d), pos.getZ() + random.nextDouble(-3d, 3d), SoundEvents.VEX_CHARGE, SoundSource.BLOCKS, 1.1f, 0.4f, true);
                     level.playLocalSound(pos.getX() + random.nextDouble(-3d, 3d), pos.getY() + random.nextDouble(-3d, 3d), pos.getZ() + random.nextDouble(-3d, 3d), SoundEvents.VEX_CHARGE, SoundSource.BLOCKS, 1.0f, 0.3f, true);
-                    spawnParticles(level, pos);
+                    ParticlesMixin.cauldronParticles(level, pos);
                 }
 
-                if (entity.progress >= entity.maxProgress + new Random().nextInt(1, 59)) {
+                if (entity.progress >= time + new Random().nextInt(1, 32)) {
                     craftItem(entity, level);
-                    crafted(level, pos);
+                    ParticlesMixin.cauldronCrafted(level, pos);
                     level.playLocalSound(pos.getX(), pos.getY(), pos.getZ(), SoundEvents.END_PORTAL_FRAME_FILL, SoundSource.BLOCKS, 1.0f, 1.0f, true);
                     entity.resetProgress();
                 }
@@ -167,10 +171,14 @@ public class MagicalCatallyzatorBlockEntity extends BlockEntity {
 
         // Craft for server side
         if (!level.isClientSide) {
+            int sphere = getSphereJson(level, entity);
+            int time = getTimeJson(level, entity);
+
             if (!entity.inventory.getStackInSlot(0).is(ItemStack.EMPTY.getItem()) && hasRecipe(entity, level)) {
                 entity.progress++;
-                entity.setSphere(59);
-                if (entity.progress >= entity.maxProgress + new Random().nextInt(1, 32)) {
+                System.out.println(time);
+                entity.setSphere(sphere);
+                if (entity.progress >= time + new Random().nextInt(1, 32)) {
                     craftItem(entity, level);
                     entity.resetProgress();
                 }
@@ -183,6 +191,36 @@ public class MagicalCatallyzatorBlockEntity extends BlockEntity {
             if (entity.getSphere() >= 17500) {
                 level.explode(null, DamageSource.MAGIC, null, pos.getX(), pos.getY(), pos.getZ(), 8.5f, false, Explosion.BlockInteraction.DESTROY);
             }
+        }
+    }
+
+    private static int getSphereJson(Level level, MagicalCatallyzatorBlockEntity entity) {
+        SimpleContainer inventory = new SimpleContainer(entity.inventory.getStackInSlot(0));
+
+        Optional<MagicalCatallyzatorRecipe> recipe = level.getRecipeManager()
+                .getRecipeFor(MagicalCatallyzatorRecipe.Type.INSTANCE, inventory, level);
+
+        if (recipe.isPresent()) {
+            int sphere = recipe.get().getSphere();
+            return sphere;
+        } else {
+            int sphere = 1;
+            return sphere;
+        }
+    }
+
+    private static int getTimeJson(Level level, MagicalCatallyzatorBlockEntity entity) {
+        SimpleContainer inventory = new SimpleContainer(entity.inventory.getStackInSlot(0));
+
+        Optional<MagicalCatallyzatorRecipe> recipe = level.getRecipeManager()
+                .getRecipeFor(MagicalCatallyzatorRecipe.Type.INSTANCE, inventory, level);
+
+        if (recipe.isPresent()) {
+            int time = recipe.get().getTime();
+            return time;
+        } else {
+            int time = 150;
+            return time;
         }
     }
 
@@ -204,39 +242,5 @@ public class MagicalCatallyzatorBlockEntity extends BlockEntity {
                 .getRecipeFor(MagicalCatallyzatorRecipe.Type.INSTANCE, inventory, level);
 
         return recipe.isPresent();
-    }
-
-    public static void spawnParticles(Level level, BlockPos pos) {
-        double d0 = 0.5725D;
-        RandomSource randomsource = level.random;
-
-        for(Direction direction : Direction.values()) {
-            BlockPos blockpos = pos.relative(direction);
-            if (!level.getBlockState(blockpos).isSolidRender(level, blockpos)) {
-                Direction.Axis direction$axis = direction.getAxis();
-                double d1 = direction$axis == Direction.Axis.X ? 0.59D + 0.57551D * (double)direction.getStepX() : (double)randomsource.nextFloat();
-                double d2 = direction$axis == Direction.Axis.Y ? 0.55D + 0.57251D * (double)direction.getStepY() : (double)randomsource.nextFloat();
-                double d3 = direction$axis == Direction.Axis.Z ? 0.5D + 0.55155D * (double)direction.getStepZ() : (double)randomsource.nextFloat();
-                level.addParticle(ParticleTypes.DRAGON_BREATH, (double)pos.getX() + d1, (double)pos.getY() + d2 + 1.37D, (double)pos.getZ() + d3, 0.0D, 0.0D, 0.0D);
-                level.addParticle(ParticleTypes.ENCHANT, (double)pos.getX() + d1, (double)pos.getY() + d2 + 1.32D, (double)pos.getZ() + d3, 0.0D, 0.0D, 0.0D);
-                level.addParticle(ParticleTypes.SMOKE, (double)pos.getX() + d1, (double)pos.getY() + d2 + 1.29D, (double)pos.getZ() + d3, 0.0D, 0.0D, 0.0D);
-            }
-        }
-    }
-
-    public static void crafted(Level level, BlockPos pos) {
-        double d0 = 0.5725D;
-        RandomSource randomsource = level.random;
-
-        for(Direction direction : Direction.values()) {
-            BlockPos blockpos = pos.relative(direction);
-            if (!level.getBlockState(blockpos).isSolidRender(level, blockpos)) {
-                Direction.Axis direction$axis = direction.getAxis();
-                double d1 = direction$axis == Direction.Axis.X ? 0.512D + 0.5725D * (double)direction.getStepX() : (double)randomsource.nextFloat();
-                double d2 = direction$axis == Direction.Axis.Y ? 0.592D + 0.5725D * (double)direction.getStepY() : (double)randomsource.nextFloat();
-                double d3 = direction$axis == Direction.Axis.Z ? 0.512D + 0.56725D * (double)direction.getStepZ() : (double)randomsource.nextFloat();
-                level.addParticle(ParticleTypes.DRAGON_BREATH, (double)pos.getX() + d1, (double)pos.getY() + d2 + 1.27D, (double)pos.getZ() + d3, 0.0155D, 0.0155D, 0.0155D);
-            }
-        }
     }
 }

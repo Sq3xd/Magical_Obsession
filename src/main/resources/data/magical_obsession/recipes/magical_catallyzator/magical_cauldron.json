@@ -1,5 +1,7 @@
 {
   "type": "magical_obsession:magical_catallyzator",
+  "sphere": 72,
+  "time": 920,
   "ingredients": [
     {
       "item": "magical_obsession:special_cauldron"
