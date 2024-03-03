@@ -30,7 +30,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
-public class EntityDuplicatorBlock extends Block implements EntityBlock {
+public class EntityDuplicatorBlock extends AbstractCauldronBlock implements EntityBlock {
     public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
     private static final VoxelShape BASE = Block.box(4.0D, 0.0D, 4.0D, 12.0D, 10.0D, 12.0D);
 
@@ -62,57 +62,6 @@ public class EntityDuplicatorBlock extends Block implements EntityBlock {
     @Override
     public RenderShape getRenderShape(BlockState p_60550_) {
         return RenderShape.MODEL;
-    }
-    
-    // Interaction
-
-    @Override
-    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult result) {
-        // Interaction - Server Side
-        if (!level.isClientSide) {
-            if (level.getBlockEntity(pos) instanceof EntityDuplicatorBlockEntity entity) {
-                if (entity.inventory.getStackInSlot(0).is(ItemStack.EMPTY.getItem()) && !player.getMainHandItem().is(ItemStack.EMPTY.getItem())) {
-                    ItemStack item = player.getItemInHand(hand).copy();
-                    item.setCount(1);
-                    entity.inventory.setStackInSlot(0, item);
-                    player.getMainHandItem().shrink(1);
-                } else {
-                    if (!entity.inventory.getStackInSlot(0).is(ItemStack.EMPTY.getItem())) {
-                        if (player.getItemInHand(InteractionHand.MAIN_HAND).is(ItemStack.EMPTY.getItem())) {
-                            player.setItemInHand(InteractionHand.MAIN_HAND, entity.inventory.getStackInSlot(0));
-                        } else {
-                            player.addItem(entity.inventory.getStackInSlot(0));
-                        }
-                        entity.inventory.setStackInSlot(0, ItemStack.EMPTY);
-                    }
-                }
-            }
-        }
-
-        // Interaction - Client Side
-        if (level.isClientSide) {
-            if (level.getBlockEntity(pos) instanceof EntityDuplicatorBlockEntity entity) {
-                if (entity.inventory.getStackInSlot(0).is(ItemStack.EMPTY.getItem()) && !player.getMainHandItem().is(ItemStack.EMPTY.getItem())) {
-                    ItemStack item = player.getItemInHand(hand).copy();
-                    item.setCount(1);
-
-                    entity.inventory.setStackInSlot(0, item);
-                } else {
-                    if (!entity.inventory.getStackInSlot(0).is(ItemStack.EMPTY.getItem())) {
-                        if (!entity.inventory.getStackInSlot(0).is(ItemStack.EMPTY.getItem())) {
-                            if (player.getItemInHand(InteractionHand.MAIN_HAND).is(ItemStack.EMPTY.getItem())) {
-                                player.setItemInHand(InteractionHand.MAIN_HAND, entity.inventory.getStackInSlot(0));
-                            } else {
-                                player.addItem(entity.inventory.getStackInSlot(0));
-                            }
-                        }
-                        level.playLocalSound(pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ITEM_PICKUP, SoundSource.BLOCKS, 0.75f, 1f, true);
-                        entity.inventory.setStackInSlot(0, ItemStack.EMPTY);
-                    }
-                }
-            }
-        }
-        return InteractionResult.SUCCESS;
     }
 
     // Entity

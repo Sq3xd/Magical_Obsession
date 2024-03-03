@@ -41,6 +41,7 @@ public class MagicalPentagramRenderer implements BlockEntityRenderer<MagicalPent
 
             item_renderer.renderStatic(Minecraft.getInstance().player, entity.itemStackHandler.getStackInSlot(0), ItemTransforms.TransformType.FIXED, false, stack, buffer,
                     Minecraft.getInstance().level, coverlay, plight, plight);
+
             stack.popPose();
 
             stack.pushPose();

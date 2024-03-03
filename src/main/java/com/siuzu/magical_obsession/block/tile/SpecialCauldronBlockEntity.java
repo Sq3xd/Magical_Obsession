@@ -1,6 +1,8 @@
 package com.siuzu.magical_obsession.block.tile;
 
 import com.siuzu.magical_obsession.init.ModBlockEntities;
+import com.siuzu.magical_obsession.init.ModItems;
+import com.siuzu.magical_obsession.item.MagicDustItem;
 import com.siuzu.magical_obsession.mixin.ParticlesMixin;
 import com.siuzu.magical_obsession.recipe.SpecialCauldronCampfireRecipe;
 import com.siuzu.magical_obsession.recipe.SpecialCauldronRecipe;
@@ -16,19 +18,25 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.inventory.ContainerData;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 
@@ -82,6 +90,7 @@ public class SpecialCauldronBlockEntity extends AbstractCauldronBlockEntity {
     // Tick
     public static void tick(Level level, BlockPos pos, BlockState state, SpecialCauldronBlockEntity entity) {
         // Craft for client side
+
         if (level.isClientSide) {
             if (!entity.inventory.getStackInSlot(0).is(ItemStack.EMPTY.getItem()) && hasRecipe(entity, level)) {
                 entity.progress++;

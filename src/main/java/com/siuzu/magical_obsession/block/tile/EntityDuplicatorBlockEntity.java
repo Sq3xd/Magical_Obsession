@@ -42,26 +42,9 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Random;
 
-public class EntityDuplicatorBlockEntity extends BlockEntity {
-    private int progress = 0;
-    private int maxProgress = 275;
-
+public class EntityDuplicatorBlockEntity extends AbstractCauldronBlockEntity {
     public static Direction direction;
     protected final ContainerData data;
-
-    public final ItemStackHandler inventory = new ItemCapabilityHandler(EntityDuplicatorBlockEntity.this, 1);
-    private final LazyOptional<ItemStackHandler> optional = LazyOptional.of(() -> this.inventory);
-
-    @Override
-    public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap) {
-        return cap == ForgeCapabilities.ITEM_HANDLER ? this.optional.cast() : super.getCapability(cap);
-    }
-
-    @Override
-    public void invalidateCaps() {
-        super.invalidateCaps();
-        this.optional.invalidate();
-    }
 
     public EntityDuplicatorBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.ENTITY_DUPLICATOR.get(), pos, state);
@@ -97,38 +80,6 @@ public class EntityDuplicatorBlockEntity extends BlockEntity {
     }
     private void resetProgress() {
         this.progress = 0;
-    }
-
-    @Override
-    protected void saveAdditional(CompoundTag nbt) {
-        super.saveAdditional(nbt);
-        nbt.putInt("progress", this.progress);
-        var modData = new CompoundTag();
-        modData.put("inventory", this.inventory.serializeNBT());
-        nbt.put(MagicalObsession.MOD_ID, modData);
-    }
-
-    @Override
-    public void load(CompoundTag nbt) {
-        super.load(nbt);
-        CompoundTag modData = nbt.getCompound(MagicalObsession.MOD_ID);
-        this.inventory.deserializeNBT(modData.getCompound("inventory"));
-        progress = nbt.getInt("progress");
-    }
-
-    // Packets
-
-    @Override
-    public void onDataPacket(Connection net, ClientboundBlockEntityDataPacket pkt) {
-        super.onDataPacket(net, pkt);
-    }
-    @Override
-    public ClientboundBlockEntityDataPacket getUpdatePacket() {
-        return ClientboundBlockEntityDataPacket.create(this);
-    }
-    @Override
-    public CompoundTag getUpdateTag() {
-        return this.saveWithoutMetadata();
     }
 
 
@@ -173,6 +124,7 @@ public class EntityDuplicatorBlockEntity extends BlockEntity {
                         livingEntity.addTag("respawned");
                         livingEntity.getAttribute(Attributes.MAX_HEALTH).setBaseValue(livingEntity.getMaxHealth() / 2);
                         level.addFreshEntity(livingEntity);
+
                         entity.inventory.setStackInSlot(0, ItemStack.EMPTY);
                         entity.resetProgress();
                     }

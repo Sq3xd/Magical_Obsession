@@ -52,14 +52,6 @@ public abstract class AbstractCauldronBlock extends Block {
     }
 
     public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult result) {
-        // Explode if placed on not correct block
-        if (!level.isClientSide){
-            if (level.getBlockEntity(pos) instanceof AbstractCauldronBlockEntity entity) {
-                if (level.getBlockState(pos.below()).is(ModTags.Blocks.SPECIAL_CAULDRON_EXPLODES)) {
-                    level.explode(null, DamageSource.MAGIC, null, pos.getX(), pos.getY(), pos.getZ(), 3.5f, false, Explosion.BlockInteraction.DESTROY);
-                }
-            }
-        }
 
         // Interaction - Server Side
         if (!level.isClientSide) {

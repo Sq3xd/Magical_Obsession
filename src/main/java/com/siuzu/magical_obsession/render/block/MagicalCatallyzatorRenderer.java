@@ -3,6 +3,7 @@ package com.siuzu.magical_obsession.render.block;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector3f;
 import com.siuzu.magical_obsession.block.tile.MagicalCatallyzatorBlockEntity;
+import com.siuzu.magical_obsession.block.tile.MagicalFieldShieldBlockEntity;
 import com.siuzu.magical_obsession.init.ModBlocks;
 import com.siuzu.magical_obsession.init.ModItems;
 import net.minecraft.client.Minecraft;
@@ -21,6 +22,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec3;
 
 public class MagicalCatallyzatorRenderer implements BlockEntityRenderer<MagicalCatallyzatorBlockEntity> {
     private final BlockEntityRendererProvider.Context context;
@@ -102,5 +104,20 @@ public class MagicalCatallyzatorRenderer implements BlockEntityRenderer<MagicalC
         stack.mulPose(Vector3f.YN.rotation(0));
         dispatcher.renderSingleBlock(Blocks.GLASS.defaultBlockState(), stack, buffer, coverlay, plight);
         stack.popPose();*/
+    }
+
+    @Override
+    public boolean shouldRender(MagicalCatallyzatorBlockEntity entity, Vec3 pCameraPos) {
+        return true;
+    }
+
+    @Override
+    public boolean shouldRenderOffScreen(MagicalCatallyzatorBlockEntity entity) {
+        return true;
+    }
+
+    @Override
+    public int getViewDistance() {
+        return 12;
     }
 }

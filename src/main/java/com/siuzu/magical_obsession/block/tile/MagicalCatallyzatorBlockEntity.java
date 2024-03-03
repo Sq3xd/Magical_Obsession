@@ -22,6 +22,8 @@ import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
@@ -132,6 +134,12 @@ public class MagicalCatallyzatorBlockEntity extends BlockEntity {
         return this.saveWithoutMetadata();
     }
 
+    @Override
+    public AABB getRenderBoundingBox() {
+        BlockPos pos = this.getBlockPos();
+        Vec3 d = new Vec3(pos.getX(), pos.getY(), pos.getZ());
+        return AABB.ofSize(d, 16, 16, 16);
+    }
 
     // Crafting
 
@@ -176,7 +184,6 @@ public class MagicalCatallyzatorBlockEntity extends BlockEntity {
 
             if (!entity.inventory.getStackInSlot(0).is(ItemStack.EMPTY.getItem()) && hasRecipe(entity, level)) {
                 entity.progress++;
-                System.out.println(time);
                 entity.setSphere(sphere);
                 if (entity.progress >= time + new Random().nextInt(1, 32)) {
                     craftItem(entity, level);

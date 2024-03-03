@@ -1,5 +1,6 @@
 package com.siuzu.magical_obsession.render.block;
 
+import com.mojang.blaze3d.vertex.BufferBuilder;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector3f;
 import com.siuzu.magical_obsession.block.tile.MagicalCauldronBlockEntity;
@@ -26,6 +27,7 @@ public class MagicalCauldronRenderer implements BlockEntityRenderer<MagicalCauld
     @Override
     public void render(MagicalCauldronBlockEntity entity, float pticks, PoseStack stack, MultiBufferSource buffer, int coverlay, int plight) {
         final BlockRenderDispatcher block_renderer = this.context.getBlockRenderDispatcher();
+
 
         //ItemStack item = Minecraft.getInstance().player.getMainHandItem();
         final ItemRenderer item_renderer = this.context.getItemRenderer();

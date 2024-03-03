@@ -13,9 +13,4 @@ public class ModTags {
         public static final TagKey<Block> SPECIAL_CAULDRON_EXPLODES
                 = BlockTags.create(new ResourceLocation(MagicalObsession.MOD_ID, "special_cauldron_explodes"));
     }
-
-    public static class Items {
-        public static final TagKey<Item> SPECIAL_CAULDRON_DANGEROUS_ITEMS
-                = ItemTags.create(new ResourceLocation(MagicalObsession.MOD_ID, "special_cauldron_dangerous_items"));
-    }
 }
