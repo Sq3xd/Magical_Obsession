@@ -65,8 +65,8 @@ public class MagicalPentagramBlock extends Block implements EntityBlock {
     }
 
     @Override
-    public boolean isCollisionShapeFullBlock(BlockState p_181242_, BlockGetter p_181243_, BlockPos p_181244_) {
-        if (p_181242_.isCollisionShapeFullBlock(p_181243_, p_181244_.below())){
+    public boolean isCollisionShapeFullBlock(BlockState state, BlockGetter getter, BlockPos pos) {
+        if (state.isCollisionShapeFullBlock(getter, pos.below())){
             return true;
         } else{
             return false;

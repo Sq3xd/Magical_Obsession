@@ -58,7 +58,7 @@ public class MagicDustItem extends Item {
                 }
 
                 if (entity.tickCount >= 148) {
-                    level.playLocalSound(pos.getX(), pos.getY(), pos.getZ(), ModSounds.MAGIC_DUST_ON_USE.get(), SoundSource.BLOCKS, 0.5f, 1f, true);
+                    level.playLocalSound(pos.getX(), pos.getY(), pos.getZ(), ModSounds.MAGIC_DUST_ON_USE.get(), SoundSource.BLOCKS, 0.35f, 5f, true);
                     spawnCreatedCauldron(level, pos);
                 }
             }

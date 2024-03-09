@@ -2,17 +2,11 @@ package com.siuzu.magical_obsession.block;
 
 import com.siuzu.magical_obsession.block.tile.SpecialCauldronBlockEntity;
 import com.siuzu.magical_obsession.init.ModBlockEntities;
-import com.siuzu.magical_obsession.tags.ModTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.*;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.*;
@@ -30,7 +24,7 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
-public class SpecialCauldronBlock extends AbstractCauldronBlock implements EntityBlock {
+public class SpecialCauldronBlock extends AbstractBaseBlock implements EntityBlock {
     private static final VoxelShape INSIDE = box(2.0D, 4.0D, 2.0D, 14.0D, 16.0D, 14.0D);
     protected static final VoxelShape SHAPE = Shapes.join(Shapes.block(), Shapes.or(box(0.0D, 0.0D, 4.0D, 16.0D, 3.0D, 12.0D),
             box(4.0D, 0.0D, 0.0D, 12.0D, 3.0D, 16.0D),
