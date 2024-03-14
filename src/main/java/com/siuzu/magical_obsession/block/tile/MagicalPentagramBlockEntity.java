@@ -35,7 +35,7 @@ public class MagicalPentagramBlockEntity  extends BlockEntity {
     public static Direction direction;
     protected final ContainerData data;
 
-    public final ItemStackHandler itemStackHandler = new ItemStackHandler(1){
+    public final ItemStackHandler inventory = new ItemStackHandler(1){
         @Override
         public void onContentsChanged(int slot) {
             setChanged();
@@ -83,7 +83,7 @@ public class MagicalPentagramBlockEntity  extends BlockEntity {
 
     @Override
     protected void saveAdditional(CompoundTag nbt) {
-        nbt.put("inventory", itemStackHandler.serializeNBT());
+        nbt.put("inventory", inventory.serializeNBT());
         nbt.putInt("progress", this.progress);
         super.saveAdditional(nbt);
     }
@@ -91,7 +91,7 @@ public class MagicalPentagramBlockEntity  extends BlockEntity {
     @Override
     public void load(CompoundTag nbt) {
         super.load(nbt);
-        itemStackHandler.deserializeNBT(nbt.getCompound("inventory"));
+        inventory.deserializeNBT(nbt.getCompound("inventory"));
         progress = nbt.getInt("progress");
     }
 
@@ -122,29 +122,29 @@ public class MagicalPentagramBlockEntity  extends BlockEntity {
     public static void tick(Level level, BlockPos pos, BlockState state, MagicalPentagramBlockEntity entity) {
         // Craft for client side
         if (level.isClientSide) {
-            if (entity.itemStackHandler.getStackInSlot(0).is(ItemStack.EMPTY.getItem())) {
+            if (entity.inventory.getStackInSlot(0).is(ItemStack.EMPTY.getItem())) {
                 entity.resetProgress();
             }
 
-            if (entity.itemStackHandler.getStackInSlot(0).is(ModItems.MAGIC_DUST.get())) {
+            if (entity.inventory.getStackInSlot(0).is(ModItems.MAGIC_DUST.get())) {
                 entity.progress++;
                 ParticlesMixin.cauldronParticles(level, pos);
                 if (entity.progress >= 125) {
                     entity.resetProgress();
-                    entity.itemStackHandler.setStackInSlot(0, ItemStack.EMPTY);
+                    entity.inventory.setStackInSlot(0, ItemStack.EMPTY);
                 }
             }
 
-            if (entity.itemStackHandler.getStackInSlot(0).is(ModItems.SUSPENDED_REDSTONE.get())) {
+            if (entity.inventory.getStackInSlot(0).is(ModItems.SUSPENDED_REDSTONE.get())) {
                 entity.progress++;
                 ParticlesMixin.spawnFlashParticles(level, pos);
                 if (entity.progress >= 155) {
                     entity.resetProgress();
-                    entity.itemStackHandler.setStackInSlot(0, ItemStack.EMPTY);
+                    entity.inventory.setStackInSlot(0, ItemStack.EMPTY);
                 }
             }
 
-            if (entity.itemStackHandler.getStackInSlot(0).is(ModItems.TERRA_NUGGET.get())) {
+            if (entity.inventory.getStackInSlot(0).is(ModItems.TERRA_NUGGET.get())) {
                 entity.progress++;
                 ParticlesMixin.cauldronParticles(level, pos);
                 ParticlesMixin.spawnFlashParticles(level, pos);
@@ -162,27 +162,27 @@ public class MagicalPentagramBlockEntity  extends BlockEntity {
                     LightningBolt lb = new LightningBolt(EntityType.LIGHTNING_BOLT, level);
                     lb.setPos(pos.getX(), pos.getY(), pos.getZ());
                     level.addFreshEntity(lb);
-                    entity.itemStackHandler.setStackInSlot(0, ItemStack.EMPTY);
+                    entity.inventory.setStackInSlot(0, ItemStack.EMPTY);
                 }
             }
         }
 
         // Craft for server side
         if (!level.isClientSide) {
-            if (entity.itemStackHandler.getStackInSlot(0).is(ItemStack.EMPTY.getItem())) {
+            if (entity.inventory.getStackInSlot(0).is(ItemStack.EMPTY.getItem())) {
                 entity.resetProgress();
             }
 
-            if (entity.itemStackHandler.getStackInSlot(0).is(ModItems.MAGIC_DUST.get())) {
+            if (entity.inventory.getStackInSlot(0).is(ModItems.MAGIC_DUST.get())) {
                 entity.progress++;
                 if (entity.progress >= 125) {
                     level.explode(null, DamageSource.MAGIC, null, pos.getX(), pos.getY(), pos.getZ(), 11.5f, true, Explosion.BlockInteraction.DESTROY);
                     entity.resetProgress();
-                    entity.itemStackHandler.setStackInSlot(0, ItemStack.EMPTY);
+                    entity.inventory.setStackInSlot(0, ItemStack.EMPTY);
                 }
             }
 
-            if (entity.itemStackHandler.getStackInSlot(0).is(ModItems.SUSPENDED_REDSTONE.get())) {
+            if (entity.inventory.getStackInSlot(0).is(ModItems.SUSPENDED_REDSTONE.get())) {
                 entity.progress++;
                 if (entity.progress >= 155) {
                     level.explode(null, DamageSource.MAGIC, null, pos.getX(), pos.getY(), pos.getZ(), 15.5f, true, Explosion.BlockInteraction.DESTROY);
@@ -199,11 +199,11 @@ public class MagicalPentagramBlockEntity  extends BlockEntity {
                     lb.setPos(pos.getX(), pos.getY(), pos.getZ());
                     level.addFreshEntity(lb);
                     entity.resetProgress();
-                    entity.itemStackHandler.setStackInSlot(0, ItemStack.EMPTY);
+                    entity.inventory.setStackInSlot(0, ItemStack.EMPTY);
                 }
             }
 
-            if (entity.itemStackHandler.getStackInSlot(0).is(ModItems.TERRA_NUGGET.get())) {
+            if (entity.inventory.getStackInSlot(0).is(ModItems.TERRA_NUGGET.get())) {
                 entity.progress++;
 
                 if (entity.progress == 370){
@@ -233,7 +233,7 @@ public class MagicalPentagramBlockEntity  extends BlockEntity {
                     level.addFreshEntity(enderman);
 
                     entity.resetProgress();
-                    entity.itemStackHandler.setStackInSlot(0, ItemStack.EMPTY);
+                    entity.inventory.setStackInSlot(0, ItemStack.EMPTY);
                 }
             }
         }

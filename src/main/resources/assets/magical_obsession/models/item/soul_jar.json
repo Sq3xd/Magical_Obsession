@@ -1,6 +1,7 @@
 {
 	"credit": "Made with Blockbench",
-	"parent": "soul_jar",
+	"parent": "forge:item/default",
+	"loader": "forge:obj",
 	"texture_size": [32, 32],
 	"textures": {
 		"1": "magical_obsession:item/soul_jar",

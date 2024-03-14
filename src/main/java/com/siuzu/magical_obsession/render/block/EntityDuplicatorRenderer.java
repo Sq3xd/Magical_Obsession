@@ -4,6 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector3f;
 import com.siuzu.magical_obsession.block.tile.EntityDuplicatorBlockEntity;
 import com.siuzu.magical_obsession.init.ModItems;
+import com.siuzu.magical_obsession.render.misc.RenderLightning;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.block.BlockRenderDispatcher;
@@ -35,25 +36,35 @@ public class EntityDuplicatorRenderer implements BlockEntityRenderer<EntityDupli
 
         // Render Item inside
 
-        if (state.getValue(HorizontalDirectionalBlock.FACING).equals(Direction.EAST) || state.getValue(HorizontalDirectionalBlock.FACING).equals(Direction.WEST)){
-            stack.pushPose();
-            stack.translate(0.5d, 1.25d + entity.getProgress() / 870f, 0.5d);
-            stack.scale(0.7f, 0.7f, 0.7f);
-            stack.mulPose(Vector3f.YN.rotationDegrees(90 - entity.getProgress() / 2));
+        int degress;
 
-            item_renderer.renderStatic(Minecraft.getInstance().player, entity.inventory.getStackInSlot(0), ItemTransforms.TransformType.FIXED, false, stack, buffer,
-                    Minecraft.getInstance().level, coverlay, plight, plight);
-            stack.popPose();
-        } else {
-            stack.pushPose();
-            stack.translate(0.5d, 1.25d + entity.getProgress() / 870f, 0.5d);
-            stack.scale(0.7f, 0.7f, 0.7f);
-            stack.mulPose(Vector3f.YN.rotationDegrees(0 - entity.getProgress() / 2));
-
-            item_renderer.renderStatic(Minecraft.getInstance().player, entity.inventory.getStackInSlot(0), ItemTransforms.TransformType.FIXED, false, stack, buffer,
-                    Minecraft.getInstance().level, coverlay, plight, plight);
-            stack.popPose();
+        switch (state.getValue(HorizontalDirectionalBlock.FACING)) {
+            case NORTH -> degress = 0;
+            case SOUTH -> degress = 180;
+            case EAST -> degress = 270;
+            case WEST -> degress = 90;
+            default -> degress = 90;
         }
+
+        stack.pushPose();
+        stack.translate(0.5d, 1.2d, 0.5d);
+        stack.scale(0.5f, 0.5f, 0.5f);
+
+        if (degress == 270) {
+            stack.mulPose(Vector3f.YN.rotationDegrees(degress + 270));
+        } else if (degress == 180) {
+            stack.mulPose(Vector3f.YN.rotationDegrees(degress + 180));
+        } else if (degress == 90) {
+            stack.mulPose(Vector3f.YN.rotationDegrees(degress + 90));
+        } else {
+            stack.mulPose(Vector3f.YN.rotationDegrees(degress));
+        }
+
+        stack.mulPose(Vector3f.YN.rotationDegrees(degress + entity.getProgress() / 2));
+
+        item_renderer.renderStatic(Minecraft.getInstance().player, entity.inventory.getStackInSlot(0), ItemTransforms.TransformType.FIXED, false, stack, buffer,
+                Minecraft.getInstance().level, coverlay, plight, plight);
+        stack.popPose();
 
         // Render Crystal
 

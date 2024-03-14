@@ -2,6 +2,7 @@ package com.siuzu.magical_obsession.item;
 
 import com.siuzu.magical_obsession.init.ModItems;
 import com.siuzu.magical_obsession.item.tab.ModTabs;
+import com.siuzu.magical_obsession.render.item.MyBEWLR;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
@@ -28,6 +29,7 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.client.extensions.common.IClientItemExtensions;
+import net.minecraftforge.common.util.NonNullLazy;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nullable;
@@ -36,10 +38,12 @@ import java.util.Set;
 import java.util.function.Consumer;
 
 public class SoulJarItem extends Item {
-
     public SoulJarItem(Properties properties) {
         super(properties);
     }
+
+
+
 
     @Override
     public void fillItemCategory(CreativeModeTab tab, NonNullList<ItemStack> items) {

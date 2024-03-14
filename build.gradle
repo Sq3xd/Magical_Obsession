@@ -1,9 +1,24 @@
+buildscript {
+    repositories {
+        mavenLocal()
+        jcenter()
+        maven { url = "https://maven.minecraftforge.net/" }
+        maven { url = "https://repo.spongepowered.org/maven" }
+    }
+    dependencies {
+        classpath 'net.minecraftforge.gradle:ForgeGradle:5.1.+'
+        classpath 'org.spongepowered:mixingradle:0.7-SNAPSHOT'
+    }
+}
+
 plugins {
     id 'eclipse'
     id 'maven-publish'
     id 'net.minecraftforge.gradle' version '5.1.+'
     id 'org.parchmentmc.librarian.forgegradle' version '1.+'
 }
+
+apply plugin: "org.spongepowered.mixin"
 
 version = '1.0.23a'
 group = 'com.siuzu.magical_obsession' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
@@ -79,6 +94,8 @@ dependencies {
 
     compileOnly(fg.deobf("mekanism:Mekanism:${mc_version}-${mekanism_version}:api")) // Mekanism
     runtimeOnly(fg.deobf("mekanism:Mekanism:${mc_version}-${mekanism_version}:all"))
+
+    implementation(fg.deobf("codechicken:CodeChickenLib:${mc_version}-${ccl_version}:universal")) // CCL
 
     compileOnly(fg.deobf("mezz.jei:jei-${mc_version}-common-api:${jei_version}")) // JEI
     compileOnly(fg.deobf("mezz.jei:jei-${mc_version}-forge-api:${jei_version}"))

@@ -37,36 +37,40 @@ public class MagicalCauldronRenderer implements BlockEntityRenderer<MagicalCauld
 
         // Render Item inside
 
-        if (state.getValue(HorizontalDirectionalBlock.FACING).equals(Direction.EAST) || state.getValue(HorizontalDirectionalBlock.FACING).equals(Direction.WEST)){
-            stack.pushPose();
-            stack.translate(0.5d, 0.55d, 0.5d);
-            stack.scale(0.7f, 0.7f, 0.7f);
-            stack.mulPose(Vector3f.YN.rotationDegrees(90 - entity.getProgress() / 2));
+        int degress;
 
-            item_renderer.renderStatic(Minecraft.getInstance().player, entity.inventory.getStackInSlot(0), ItemTransforms.TransformType.FIXED, false, stack, buffer,
-                    Minecraft.getInstance().level, coverlay, plight, plight);
-            stack.popPose();
-        } else {
-            stack.pushPose();
-            stack.translate(0.5d, 0.55d, 0.5d);
-            stack.scale(0.7f, 0.7f, 0.7f);
-            stack.mulPose(Vector3f.YN.rotationDegrees(0 - entity.getProgress() / 2));
-
-            item_renderer.renderStatic(Minecraft.getInstance().player, entity.inventory.getStackInSlot(0), ItemTransforms.TransformType.FIXED, false, stack, buffer,
-                    Minecraft.getInstance().level, coverlay, plight, plight);
-            stack.popPose();
+        switch (state.getValue(HorizontalDirectionalBlock.FACING)) {
+            case NORTH -> degress = 0;
+            case SOUTH -> degress = 180;
+            case EAST -> degress = 270;
+            case WEST -> degress = 90;
+            default -> degress = 90;
         }
 
-        // Render Crystal
+        stack.pushPose();
+        stack.translate(0.5d, 0.3d, 0.5d);
+        stack.scale(0.5f, 0.5f, 0.5f);
 
-//        if (!entity.inventory.getStackInSlot(0).is(ItemStack.EMPTY.getItem())) {
-//            stack.pushPose();
-//            stack.translate(0.65d, 2.07d + entity.getProgress() / 370d, 0.65d);
-//            stack.scale(0.75f, 0.75f, 0.75f);
-//            stack.mulPose(Vector3f.YN.rotation(0));
-//            item_renderer.renderStatic(Minecraft.getInstance().player, ModItems.CRYSTAL_ITEM.get().getDefaultInstance(), ItemTransforms.TransformType.FIXED, false, stack, buffer,
-//                    Minecraft.getInstance().level, coverlay, plight, plight);
-//            stack.popPose();
-//        }
+        if (degress == 270) {
+            stack.mulPose(Vector3f.YN.rotationDegrees(degress + 180));
+            stack.mulPose(Vector3f.XN.rotationDegrees(270));
+        } else if (degress == 180) {
+            stack.mulPose(Vector3f.YN.rotationDegrees(degress));
+            stack.mulPose(Vector3f.XN.rotationDegrees(270));
+        } else if (degress == 90) {
+            stack.mulPose(Vector3f.YN.rotationDegrees(degress+180));
+            stack.mulPose(Vector3f.XN.rotationDegrees(270));
+        } else {
+            stack.mulPose(Vector3f.YN.rotationDegrees(degress - 0));
+            stack.mulPose(Vector3f.XN.rotationDegrees(270));
+        }
+
+        //stack.mulPose(Vector3f.ZN.rotationDegrees(degress));
+        //stack.mulPose(Vector3f.YN.rotationDegrees(degress + entity.getProgress() / 2));
+        //stack.mulPose(Vector3f.XN.rotationDegrees(degress - entity.getProgress() / 2));
+
+        item_renderer.renderStatic(Minecraft.getInstance().player, entity.inventory.getStackInSlot(0), ItemTransforms.TransformType.FIXED, false, stack, buffer,
+                Minecraft.getInstance().level, coverlay, plight, plight);
+        stack.popPose();
     }
 }

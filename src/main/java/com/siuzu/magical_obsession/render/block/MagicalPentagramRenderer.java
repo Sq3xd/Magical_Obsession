@@ -58,27 +58,40 @@ public class MagicalPentagramRenderer implements BlockEntityRenderer<MagicalPent
         BlockPos pos = entity.getBlockPos();
         BlockState state = entity.getBlockState();
 
-        float degress;
+        int degress;
 
         switch (state.getValue(HorizontalDirectionalBlock.FACING)) {
-            case NORTH -> degress = 90;
-            case SOUTH -> degress = 270;
-            case EAST -> degress = 180;
-            case WEST -> degress = 0;
+            case NORTH -> degress = 0;
+            case SOUTH -> degress = 180;
+            case EAST -> degress = 90;
+            case WEST -> degress = 270;
             default -> degress = 90;
         }
 
         stack.pushPose();
         stack.translate(0.5d, 0.25d, 0.5d);
         stack.scale(0.5f, 0.5f, 0.5f);
-        stack.mulPose(Vector3f.YN.rotationDegrees(180 - entity.getProgress() / 2));
-        stack.mulPose(Vector3f.YN.rotationDegrees(degress));
-        stack.mulPose(Vector3f.XP.rotationDegrees(270));
-        //stack.mulPose(Vector3f.YN.rotationDegrees(180 - entity.getProgress() / 2));
-        //stack.mulPose(Vector3f.ZN.rotation(52));
-        //stack.mulPose(Vector3f.YN.rotationDegrees(degress));
 
-        item_renderer.renderStatic(Minecraft.getInstance().player, entity.itemStackHandler.getStackInSlot(0), ItemTransforms.TransformType.FIXED, false, stack, buffer,
+        if (degress==270) {
+            stack.mulPose(Vector3f.YN.rotationDegrees(degress+90));
+        } else if (degress==180) {
+            stack.mulPose(Vector3f.YN.rotationDegrees(degress+180));
+            stack.mulPose(Vector3f.XN.rotationDegrees(270));
+        }
+        else if (degress==90) {
+            stack.mulPose(Vector3f.YN.rotationDegrees(degress+90));
+            stack.mulPose(Vector3f.XN.rotationDegrees(180));
+        }
+        else {
+            stack.mulPose(Vector3f.YN.rotationDegrees(degress+360));
+            stack.mulPose(Vector3f.XN.rotationDegrees(270));
+        };
+
+        //stack.mulPose(Vector3f.ZN.rotationDegrees(degress));
+        stack.mulPose(Vector3f.YN.rotationDegrees(degress + entity.getProgress() / 2));
+        stack.mulPose(Vector3f.XN.rotationDegrees(degress - entity.getProgress() / 2));
+
+        item_renderer.renderStatic(Minecraft.getInstance().player, entity.inventory.getStackInSlot(0), ItemTransforms.TransformType.FIXED, false, stack, buffer,
                 Minecraft.getInstance().level, coverlay, plight, plight);
         stack.popPose();
 
@@ -88,8 +101,7 @@ public class MagicalPentagramRenderer implements BlockEntityRenderer<MagicalPent
         stack.translate(0.5, 0.5, 0.5);
         stack.scale(1.25f, 1.25f, 1.25f);
         //stack.mulPose(instance.gameRenderer.getMainCamera().rotation());
-        stack.mulPose(Vector3f.YN.rotationDegrees(entity.getProgress() / 2));
-        stack.mulPose(Vector3f.YN.rotationDegrees(degress-90));
+        stack.mulPose(Vector3f.YN.rotationDegrees(degress - entity.getProgress() / 2));
         stack.mulPose(Vector3f.XN.rotationDegrees(270));
         TextureAtlasSprite sprite = instance.getBlockRenderer().getBlockModelShaper().getParticleIcon(entity.getBlockState());
         VertexConsumer buffer1 = buffer.getBuffer(RenderType.cutout());
