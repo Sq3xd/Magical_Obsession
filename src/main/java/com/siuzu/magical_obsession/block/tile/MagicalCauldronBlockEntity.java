@@ -1,8 +1,8 @@
 package com.siuzu.magical_obsession.block.tile;
 
 import com.siuzu.magical_obsession.init.ModBlockEntities;
-import com.siuzu.magical_obsession.mixin.ParticlesMixin;
-import com.siuzu.magical_obsession.particle.ModParticles;
+import com.siuzu.magical_obsession.util.ParticlesHelper;
+import com.siuzu.magical_obsession.init.ModParticles;
 import com.siuzu.magical_obsession.recipe.MagicalCauldronRecipe;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -75,7 +75,7 @@ public class MagicalCauldronBlockEntity extends AbstractCauldronBlockEntity {
 
                 if (entity.progress >= entity.maxProgress + new Random().nextInt(1, 59)) {
                     craftItem(entity, level);
-                    ParticlesMixin.cauldronCrafted(level, pos);
+                    ParticlesHelper.cauldronCrafted(level, pos);
                     level.playLocalSound(pos.getX(), pos.getY(), pos.getZ(), SoundEvents.BREWING_STAND_BREW, SoundSource.BLOCKS, 1.0f, 1.0f, true);
                     entity.resetProgress();
                 }

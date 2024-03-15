@@ -1,4 +1,4 @@
-package com.siuzu.magical_obsession.world.feature;
+package com.siuzu.magical_obsession.init.world.feature;
 
 import com.google.common.base.Supplier;
 import com.google.common.base.Suppliers;

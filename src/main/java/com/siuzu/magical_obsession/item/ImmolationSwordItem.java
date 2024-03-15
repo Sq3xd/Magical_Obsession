@@ -41,7 +41,7 @@ public class ImmolationSwordItem extends SwordItem {
         spawnParticles(level, new BlockPos(entity.getX(), entity.getY(), entity.getZ()));
         player.setHealth(player.getHealth() + 1);
 
-        if (player.getItemInHand(InteractionHand.OFF_HAND).is(ModItems.SOUL_JAR.get())) {
+        if (player.getItemInHand(InteractionHand.OFF_HAND).is(ModItems.MOB_SOUL.get())) {
             ItemStack jar = player.getItemInHand(InteractionHand.OFF_HAND);
             System.out.println("yes5");
             if (jar.getTag() != null && !jar.getTag().contains("id")) {

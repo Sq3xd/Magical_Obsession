@@ -2,12 +2,11 @@ package com.siuzu.magical_obsession.block.tile;
 
 import com.siuzu.magical_obsession.MagicalObsession;
 import com.siuzu.magical_obsession.init.ModBlockEntities;
-import com.siuzu.magical_obsession.mixin.ParticlesMixin;
+import com.siuzu.magical_obsession.util.ParticlesHelper;
 import com.siuzu.magical_obsession.recipe.MagicalCatallyzatorRecipe;
 import com.siuzu.magical_obsession.util.ItemCapabilityHandler;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.Connection;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
@@ -164,12 +163,12 @@ public class MagicalCatallyzatorBlockEntity extends BlockEntity {
                     level.playLocalSound(pos.getX() + random.nextDouble(-3d, 3d), pos.getY() + random.nextDouble(-3d, 3d), pos.getZ() + random.nextDouble(-3d, 3d), SoundEvents.VEX_CHARGE, SoundSource.BLOCKS, 1.2f, 0.5f, true);
                     level.playLocalSound(pos.getX() + random.nextDouble(-3d, 3d), pos.getY() + random.nextDouble(-3d, 3d), pos.getZ() + random.nextDouble(-3d, 3d), SoundEvents.VEX_CHARGE, SoundSource.BLOCKS, 1.1f, 0.4f, true);
                     level.playLocalSound(pos.getX() + random.nextDouble(-3d, 3d), pos.getY() + random.nextDouble(-3d, 3d), pos.getZ() + random.nextDouble(-3d, 3d), SoundEvents.VEX_CHARGE, SoundSource.BLOCKS, 1.0f, 0.3f, true);
-                    ParticlesMixin.cauldronParticles(level, pos);
+                    ParticlesHelper.cauldronParticles(level, pos);
                 }
 
                 if (entity.progress >= time + new Random().nextInt(1, 32)) {
                     craftItem(entity, level);
-                    ParticlesMixin.cauldronCrafted(level, pos);
+                    ParticlesHelper.cauldronCrafted(level, pos);
                     level.playLocalSound(pos.getX(), pos.getY(), pos.getZ(), SoundEvents.END_PORTAL_FRAME_FILL, SoundSource.BLOCKS, 1.0f, 1.0f, true);
                     entity.resetProgress();
                 }

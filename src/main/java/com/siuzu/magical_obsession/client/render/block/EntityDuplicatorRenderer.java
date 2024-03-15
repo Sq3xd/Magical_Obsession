@@ -1,10 +1,9 @@
-package com.siuzu.magical_obsession.render.block;
+package com.siuzu.magical_obsession.client.render.block;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector3f;
 import com.siuzu.magical_obsession.block.tile.EntityDuplicatorBlockEntity;
 import com.siuzu.magical_obsession.init.ModItems;
-import com.siuzu.magical_obsession.render.misc.RenderLightning;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.block.BlockRenderDispatcher;
@@ -14,7 +13,6 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.state.BlockState;
 

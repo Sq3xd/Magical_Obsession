@@ -1,13 +1,13 @@
-package com.siuzu.magical_obsession.mixin;
+package com.siuzu.magical_obsession.util;
 
-import com.siuzu.magical_obsession.particle.ModParticles;
+import com.siuzu.magical_obsession.init.ModParticles;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
 
-public class ParticlesMixin {
+public class ParticlesHelper {
     public static void cauldronParticles(Level level, BlockPos pos) {
         double d0 = 0.5725D;
         RandomSource randomsource = level.random;

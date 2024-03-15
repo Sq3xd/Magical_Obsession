@@ -1,42 +1,23 @@
 package com.siuzu.magical_obsession.item;
 
 import com.siuzu.magical_obsession.init.ModBlocks;
-import com.siuzu.magical_obsession.particle.ModParticles;
-import com.siuzu.magical_obsession.sound.ModSounds;
-import net.minecraft.advancements.critereon.UsedEnderEyeTrigger;
+import com.siuzu.magical_obsession.init.ModSounds;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.util.RandomSource;
-import net.minecraft.world.InteractionResult;
-import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LightningBolt;
 import net.minecraft.world.entity.item.ItemEntity;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.item.context.UseOnContext;
-import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.AABB;
-import net.minecraft.world.phys.Vec3;
 
 import javax.annotation.Nullable;
 import java.util.List;
-import java.util.Random;
 
-import static com.siuzu.magical_obsession.mixin.ParticlesMixin.spawnCircle;
-import static com.siuzu.magical_obsession.mixin.ParticlesMixin.spawnCreatedCauldron;
+import static com.siuzu.magical_obsession.util.ParticlesHelper.spawnCircle;
+import static com.siuzu.magical_obsession.util.ParticlesHelper.spawnCreatedCauldron;
 
 public class MagicDustItem extends Item {
 

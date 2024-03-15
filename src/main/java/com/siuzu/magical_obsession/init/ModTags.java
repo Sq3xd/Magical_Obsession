@@ -1,4 +1,4 @@
-package com.siuzu.magical_obsession.tags;
+package com.siuzu.magical_obsession.init;
 
 import com.siuzu.magical_obsession.MagicalObsession;
 import net.minecraft.resources.ResourceLocation;

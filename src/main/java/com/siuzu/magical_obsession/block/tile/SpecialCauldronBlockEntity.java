@@ -1,42 +1,21 @@
 package com.siuzu.magical_obsession.block.tile;
 
 import com.siuzu.magical_obsession.init.ModBlockEntities;
-import com.siuzu.magical_obsession.init.ModItems;
-import com.siuzu.magical_obsession.item.MagicDustItem;
-import com.siuzu.magical_obsession.mixin.ParticlesMixin;
+import com.siuzu.magical_obsession.util.ParticlesHelper;
 import com.siuzu.magical_obsession.recipe.SpecialCauldronCampfireRecipe;
 import com.siuzu.magical_obsession.recipe.SpecialCauldronRecipe;
-import com.siuzu.magical_obsession.util.ItemCapabilityHandler;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.Connection;
-import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.SimpleContainer;
-import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.inventory.ContainerData;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.AABB;
-import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.items.ItemStackHandler;
-import org.jetbrains.annotations.NotNull;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 
@@ -95,12 +74,12 @@ public class SpecialCauldronBlockEntity extends AbstractCauldronBlockEntity {
             if (!entity.inventory.getStackInSlot(0).is(ItemStack.EMPTY.getItem()) && hasRecipe(entity, level)) {
                 entity.progress++;
                 if (entity.progress == RandomSource.create().nextInt(entity.progress, entity.progress + 75)){
-                    ParticlesMixin.cauldronParticles(level, pos);
+                    ParticlesHelper.cauldronParticles(level, pos);
                 }
 
                 if (entity.progress >= entity.maxProgress + new Random().nextInt(1, 59)) {
                     craftItem(entity, level);
-                    ParticlesMixin.cauldronCrafted(level, pos);
+                    ParticlesHelper.cauldronCrafted(level, pos);
                     level.playLocalSound(pos.getX(), pos.getY(), pos.getZ(), SoundEvents.BREWING_STAND_BREW, SoundSource.BLOCKS, 1.0f, 1.0f, true);
                     entity.resetProgress();
                 }
@@ -115,12 +94,12 @@ public class SpecialCauldronBlockEntity extends AbstractCauldronBlockEntity {
             if (!entity.inventory.getStackInSlot(0).is(ItemStack.EMPTY.getItem()) && hasCampfireRecipe(entity, level) && level.getBlockState(pos.below()).is(Blocks.CAMPFIRE)) {
                 entity.progress++;
                 if (entity.progress == RandomSource.create().nextInt(entity.progress, entity.progress + 75)){
-                    ParticlesMixin.cauldronParticles(level, pos);
+                    ParticlesHelper.cauldronParticles(level, pos);
                 }
 
                 if (entity.progress >= entity.maxAdvancedProgress + new Random().nextInt(1, 59)) {
                     craftCampfireItem(entity, level);
-                    ParticlesMixin.cauldronCrafted(level, pos);
+                    ParticlesHelper.cauldronCrafted(level, pos);
                     level.playLocalSound(pos.getX(), pos.getY(), pos.getZ(), SoundEvents.BREWING_STAND_BREW, SoundSource.BLOCKS, 1.0f, 1.0f, true);
                     entity.resetProgress();
                 }

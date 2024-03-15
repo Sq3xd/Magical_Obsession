@@ -1,4 +1,4 @@
-package com.siuzu.magical_obsession.particle;
+package com.siuzu.magical_obsession.init;
 
 import com.siuzu.magical_obsession.MagicalObsession;
 import net.minecraft.core.particles.ParticleType;

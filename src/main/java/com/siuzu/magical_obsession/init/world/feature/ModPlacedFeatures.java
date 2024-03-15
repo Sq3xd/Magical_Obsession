@@ -1,4 +1,4 @@
-package com.siuzu.magical_obsession.world.feature;
+package com.siuzu.magical_obsession.init.world.feature;
 
 import com.siuzu.magical_obsession.MagicalObsession;
 import net.minecraft.core.Registry;

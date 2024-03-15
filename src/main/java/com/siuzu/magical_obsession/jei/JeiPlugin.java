@@ -77,7 +77,7 @@ public class JeiPlugin implements IModPlugin {
         registration.addIngredientInfo(new ItemStack(ModItems.EMERALD_NUGGET.get()), VanillaTypes.ITEM_STACK, nugget);
         registration.addIngredientInfo(new ItemStack(ModItems.LAPIS_NUGGET.get()), VanillaTypes.ITEM_STACK, nugget);
         registration.addIngredientInfo(new ItemStack(ModItems.COAL_NUGGET.get()), VanillaTypes.ITEM_STACK, nugget);
-        registration.addIngredientInfo(new ItemStack(ModItems.SOUL_JAR.get()), VanillaTypes.ITEM_STACK, soul_jar);
+        registration.addIngredientInfo(new ItemStack(ModItems.MOB_SOUL.get()), VanillaTypes.ITEM_STACK, soul_jar);
         registration.addIngredientInfo(new ItemStack(ModItems.IMMOLATION_SWORD.get()), VanillaTypes.ITEM_STACK, immolation_sword);
 
         // Recipe Category

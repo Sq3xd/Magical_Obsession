@@ -2,7 +2,6 @@ package com.siuzu.magical_obsession.init;
 
 import com.siuzu.magical_obsession.MagicalObsession;
 import com.siuzu.magical_obsession.item.*;
-import com.siuzu.magical_obsession.item.tab.ModTabs;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Rarity;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -48,11 +47,11 @@ public class ModItems {
     public static RegistryObject<Item> COAL_NUGGET = ITEMS.register("coal_nugget", () ->
             new Item(new Item.Properties().tab(ModTabs.MAGICAL_OBSESSION)));
 
-    public static RegistryObject<Item> SOUL_JAR = ITEMS.register("soul_jar", () ->
-            new SoulJarItem(new Item.Properties().stacksTo(1).rarity(Rarity.RARE).tab(ModTabs.MAGICAL_OBSESSION_JARS)));
+    public static RegistryObject<Item> MOB_SOUL = ITEMS.register("mob_soul", () ->
+            new MobSoulItem(new Item.Properties().stacksTo(1).rarity(Rarity.RARE)));
 
     public static RegistryObject<Item> DEBUG = ITEMS.register("debug", () ->
-            new DebugItem(new Item.Properties().stacksTo(1).rarity(Rarity.RARE).tab(ModTabs.MAGICAL_OBSESSION_JARS)));
+            new DebugItem(new Item.Properties().stacksTo(1).rarity(Rarity.RARE).tab(ModTabs.MAGICAL_OBSESSION_SOULS)));
 
     // Tools
 

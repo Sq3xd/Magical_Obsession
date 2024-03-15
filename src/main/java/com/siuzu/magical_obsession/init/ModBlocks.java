@@ -2,7 +2,6 @@ package com.siuzu.magical_obsession.init;
 
 import com.siuzu.magical_obsession.MagicalObsession;
 import com.siuzu.magical_obsession.block.*;
-import com.siuzu.magical_obsession.item.tab.ModTabs;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Rarity;

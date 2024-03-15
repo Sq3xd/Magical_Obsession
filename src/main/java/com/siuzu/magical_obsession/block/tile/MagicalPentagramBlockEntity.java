@@ -2,17 +2,15 @@ package com.siuzu.magical_obsession.block.tile;
 
 import com.siuzu.magical_obsession.init.ModBlockEntities;
 import com.siuzu.magical_obsession.init.ModItems;
-import com.siuzu.magical_obsession.mixin.ParticlesMixin;
+import com.siuzu.magical_obsession.util.ParticlesHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.Connection;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -128,7 +126,7 @@ public class MagicalPentagramBlockEntity  extends BlockEntity {
 
             if (entity.inventory.getStackInSlot(0).is(ModItems.MAGIC_DUST.get())) {
                 entity.progress++;
-                ParticlesMixin.cauldronParticles(level, pos);
+                ParticlesHelper.cauldronParticles(level, pos);
                 if (entity.progress >= 125) {
                     entity.resetProgress();
                     entity.inventory.setStackInSlot(0, ItemStack.EMPTY);
@@ -137,7 +135,7 @@ public class MagicalPentagramBlockEntity  extends BlockEntity {
 
             if (entity.inventory.getStackInSlot(0).is(ModItems.SUSPENDED_REDSTONE.get())) {
                 entity.progress++;
-                ParticlesMixin.spawnFlashParticles(level, pos);
+                ParticlesHelper.spawnFlashParticles(level, pos);
                 if (entity.progress >= 155) {
                     entity.resetProgress();
                     entity.inventory.setStackInSlot(0, ItemStack.EMPTY);
@@ -146,8 +144,8 @@ public class MagicalPentagramBlockEntity  extends BlockEntity {
 
             if (entity.inventory.getStackInSlot(0).is(ModItems.TERRA_NUGGET.get())) {
                 entity.progress++;
-                ParticlesMixin.cauldronParticles(level, pos);
-                ParticlesMixin.spawnFlashParticles(level, pos);
+                ParticlesHelper.cauldronParticles(level, pos);
+                ParticlesHelper.spawnFlashParticles(level, pos);
 
                 if (entity.progress == 370) {
                     level.playLocalSound(pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ENDER_DRAGON_AMBIENT, SoundSource.BLOCKS, 0.85f, 0.85f, true);

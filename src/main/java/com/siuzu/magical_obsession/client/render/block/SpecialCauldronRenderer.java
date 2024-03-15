@@ -1,9 +1,8 @@
-package com.siuzu.magical_obsession.render.block;
+package com.siuzu.magical_obsession.client.render.block;
 
-import com.mojang.blaze3d.vertex.BufferBuilder;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector3f;
-import com.siuzu.magical_obsession.block.tile.MagicalCauldronBlockEntity;
+import com.siuzu.magical_obsession.block.tile.SpecialCauldronBlockEntity;
 import com.siuzu.magical_obsession.init.ModItems;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -18,18 +17,16 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.state.BlockState;
 
-public class MagicalCauldronRenderer implements BlockEntityRenderer<MagicalCauldronBlockEntity> {
+public class SpecialCauldronRenderer implements BlockEntityRenderer<SpecialCauldronBlockEntity> {
     private final BlockEntityRendererProvider.Context context;
-    public MagicalCauldronRenderer(BlockEntityRendererProvider.Context context) {
+    public SpecialCauldronRenderer(BlockEntityRendererProvider.Context context) {
         this.context = context;
     }
 
     @Override
-    public void render(MagicalCauldronBlockEntity entity, float pticks, PoseStack stack, MultiBufferSource buffer, int coverlay, int plight) {
+    public void render(SpecialCauldronBlockEntity entity, float pticks, PoseStack stack, MultiBufferSource buffer, int coverlay, int plight) {
         final BlockRenderDispatcher block_renderer = this.context.getBlockRenderDispatcher();
 
-
-        //ItemStack item = Minecraft.getInstance().player.getMainHandItem();
         final ItemRenderer item_renderer = this.context.getItemRenderer();
 
         BlockPos pos = entity.getBlockPos();
@@ -61,7 +58,7 @@ public class MagicalCauldronRenderer implements BlockEntityRenderer<MagicalCauld
             stack.mulPose(Vector3f.YN.rotationDegrees(degress+180));
             stack.mulPose(Vector3f.XN.rotationDegrees(270));
         } else {
-            stack.mulPose(Vector3f.YN.rotationDegrees(degress - 0));
+            stack.mulPose(Vector3f.YN.rotationDegrees(degress));
             stack.mulPose(Vector3f.XN.rotationDegrees(270));
         }
 
