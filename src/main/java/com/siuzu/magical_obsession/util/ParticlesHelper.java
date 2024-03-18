@@ -81,4 +81,22 @@ public class ParticlesHelper {
                     0, -1, 0);
         }
     }
+
+    public static void spawnHeartParticles(Level level, BlockPos pos, int times) {
+        double d0 = 0.5725D;
+        RandomSource randomsource = level.random;
+
+        for (int i = 0; i <= times; i++) {
+            for(Direction direction : Direction.values()) {
+                BlockPos blockpos = pos.relative(direction);
+                if (!level.getBlockState(blockpos).isSolidRender(level, blockpos)) {
+                    Direction.Axis direction$axis = direction.getAxis();
+                    double d1 = direction$axis == Direction.Axis.X ? 0.5D + 0.5625D * (double)direction.getStepX() : (double)randomsource.nextFloat();
+                    double d2 = direction$axis == Direction.Axis.Y ? 0.59D + 0.5625D * (double)direction.getStepY() : (double)randomsource.nextFloat();
+                    double d3 = direction$axis == Direction.Axis.Z ? 0.5D + 0.5625D * (double)direction.getStepZ() : (double)randomsource.nextFloat();
+                    level.addParticle(ParticleTypes.ENCHANTED_HIT, (double)pos.getX() + d1, (double)pos.getY() + d2 + 1.29D, (double)pos.getZ() + d3, 0.0D, 0.0D, 0.0D);
+                }
+            }
+        }
+    }
 }

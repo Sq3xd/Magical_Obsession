@@ -15,9 +15,11 @@ import com.siuzu.magical_obsession.particle.custom.MagicDustParticles;
 import com.siuzu.magical_obsession.init.ModSounds;
 import com.siuzu.magical_obsession.init.world.feature.ModConfiguredFeatures;
 import com.siuzu.magical_obsession.init.world.feature.ModPlacedFeatures;
+import com.siuzu.magical_obsession.util.ModelLoader;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraftforge.client.event.EntityRenderersEvent;
+import net.minecraftforge.client.event.ModelEvent;
 import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -101,6 +103,13 @@ public class MagicalObsession
         public static void registerParticleFactories(final RegisterParticleProvidersEvent event) {
             Minecraft.getInstance().particleEngine.register(ModParticles.MAGIC_DUST_PARTICLES.get(),
                     MagicDustParticles.Provider::new);
+        }
+
+        @SubscribeEvent
+        public static void specialModels(ModelEvent.RegisterAdditional event)
+        {
+            // Ensures that the OBJ models used by the book GUI background, and all referenced textures, are loaded
+            event.register(ModelLoader.MODEL_HELPER);
         }
     }
 }

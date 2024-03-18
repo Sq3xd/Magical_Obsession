@@ -34,11 +34,17 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.animal.Chicken;
 import net.minecraft.world.entity.monster.Skeleton;
 import net.minecraft.world.entity.monster.Zombie;
+import net.minecraft.world.inventory.InventoryMenu;
+import net.minecraft.world.level.BlockAndTintGetter;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.client.extensions.common.IClientFluidTypeExtensions;
 import net.minecraftforge.common.capabilities.CapabilityProvider;
+import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.registries.ForgeRegistries;
+import org.jetbrains.annotations.NotNull;
 import org.lwjgl.opengl.GL11;
 
 import java.awt.*;
@@ -72,20 +78,18 @@ public class MagicalPentagramRenderer implements BlockEntityRenderer<MagicalPent
         stack.translate(0.5d, 0.25d, 0.5d);
         stack.scale(0.5f, 0.5f, 0.5f);
 
-        if (degress==270) {
-            stack.mulPose(Vector3f.YN.rotationDegrees(degress+90));
-        } else if (degress==180) {
-            stack.mulPose(Vector3f.YN.rotationDegrees(degress+180));
+        if (degress == 270) {
+            stack.mulPose(Vector3f.YN.rotationDegrees(degress + 90));
+        } else if (degress == 180) {
+            stack.mulPose(Vector3f.YN.rotationDegrees(degress + 180));
             stack.mulPose(Vector3f.XN.rotationDegrees(270));
-        }
-        else if (degress==90) {
-            stack.mulPose(Vector3f.YN.rotationDegrees(degress+90));
+        } else if (degress == 90) {
+            stack.mulPose(Vector3f.YN.rotationDegrees(degress + 90));
             stack.mulPose(Vector3f.XN.rotationDegrees(180));
-        }
-        else {
-            stack.mulPose(Vector3f.YN.rotationDegrees(degress+360));
+        } else {
+            stack.mulPose(Vector3f.YN.rotationDegrees(degress + 360));
             stack.mulPose(Vector3f.XN.rotationDegrees(270));
-        };
+        }
 
         //stack.mulPose(Vector3f.ZN.rotationDegrees(degress));
         stack.mulPose(Vector3f.YN.rotationDegrees(degress + entity.getProgress() / 2));
@@ -94,7 +98,6 @@ public class MagicalPentagramRenderer implements BlockEntityRenderer<MagicalPent
         item_renderer.renderStatic(Minecraft.getInstance().player, entity.inventory.getStackInSlot(0), ItemTransforms.TransformType.FIXED, false, stack, buffer,
                 Minecraft.getInstance().level, coverlay, plight, plight);
         stack.popPose();
-
 
 
         stack.pushPose();

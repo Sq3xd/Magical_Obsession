@@ -33,7 +33,7 @@ public class JeiPlugin implements IModPlugin {
     Component magic_dust = Component.translatable("gui.jei.description.magic_dust");
     Component suspended_redstone = Component.translatable("gui.jei.description.suspended_redstone");
     Component nugget = Component.translatable("gui.jei.description.nugget");
-    Component soul_jar = Component.translatable("gui.jei.description.soul_jar");
+    Component mob_soul = Component.translatable("gui.jei.description.mob_soul");
     Component immolation_sword = Component.translatable("gui.jei.description.immolation_sword");
 
     @Override
@@ -77,7 +77,7 @@ public class JeiPlugin implements IModPlugin {
         registration.addIngredientInfo(new ItemStack(ModItems.EMERALD_NUGGET.get()), VanillaTypes.ITEM_STACK, nugget);
         registration.addIngredientInfo(new ItemStack(ModItems.LAPIS_NUGGET.get()), VanillaTypes.ITEM_STACK, nugget);
         registration.addIngredientInfo(new ItemStack(ModItems.COAL_NUGGET.get()), VanillaTypes.ITEM_STACK, nugget);
-        registration.addIngredientInfo(new ItemStack(ModItems.MOB_SOUL.get()), VanillaTypes.ITEM_STACK, soul_jar);
+        registration.addIngredientInfo(new ItemStack(ModItems.MOB_SOUL.get()), VanillaTypes.ITEM_STACK, mob_soul);
         registration.addIngredientInfo(new ItemStack(ModItems.IMMOLATION_SWORD.get()), VanillaTypes.ITEM_STACK, immolation_sword);
 
         // Recipe Category

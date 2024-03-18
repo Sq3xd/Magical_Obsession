@@ -1,5 +1,6 @@
 package com.siuzu.magical_obsession.item;
 
+import com.siuzu.magical_obsession.block.tile.MagicalPentagramBlockEntity;
 import com.siuzu.magical_obsession.init.ModItems;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.ItemOverrides;
@@ -18,6 +19,8 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.SwordItem;
 import net.minecraft.world.item.Tier;
@@ -28,6 +31,8 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
+import static com.siuzu.magical_obsession.util.ParticlesHelper.spawnHeartParticles;
+
 public class ImmolationSwordItem extends SwordItem {
     public ImmolationSwordItem(Tier tier, int damage, float speed, Properties properties) {
         super(tier, damage, speed, properties);
@@ -36,27 +41,12 @@ public class ImmolationSwordItem extends SwordItem {
     @Override
     public boolean hurtEnemy(ItemStack stack, LivingEntity entity, LivingEntity player) {
         Level level = player.getLevel();
+        RandomSource rs = level.random;
 
-        spawnParticles(level, new BlockPos(entity.getX(), entity.getY(), entity.getZ()));
-        spawnParticles(level, new BlockPos(entity.getX(), entity.getY(), entity.getZ()));
+        spawnHeartParticles(level, new BlockPos(entity.getX(), entity.getY(), entity.getZ()), rs.nextInt(3));
         player.setHealth(player.getHealth() + 1);
 
-        if (player.getItemInHand(InteractionHand.OFF_HAND).is(ModItems.MOB_SOUL.get())) {
-            ItemStack jar = player.getItemInHand(InteractionHand.OFF_HAND);
-            System.out.println("yes5");
-            if (jar.getTag() != null && !jar.getTag().contains("id")) {
-
-            } else {
-                if (!entity.getTags().contains("respawned")) {
-                    if (entity.getHealth() <= 0 && entity.getMaxHealth() <= 50) {
-                        CompoundTag nbt = new CompoundTag();
-                        nbt.putString("id", ForgeRegistries.ENTITY_TYPES.getKey(entity.getType()).toString());
-                        player.getItemInHand(InteractionHand.OFF_HAND).setTag(nbt);
-                        System.out.println("yes");
-                    }
-                }
-            }
-        } else if (entity.getHealth() <= 0) {
+        if (entity.getHealth() <= 0) {
             if (!player.getLevel().isClientSide) {
                 if (!player.getTags().contains("get_immolation_sword_tip")){
                     player.sendSystemMessage(Component.translatable("message.magical_obsession.player.immolation_sword"));
@@ -65,22 +55,21 @@ public class ImmolationSwordItem extends SwordItem {
             }
         }
 
-        return super.hurtEnemy(stack, entity, player);
-    }
+        if (!entity.getTags().contains("respawned")) {
+            if (entity.getHealth() <= 0 && entity.getMaxHealth() <= 50) {
+                if (level.getBlockEntity(new BlockPos(entity.getX(), entity.getY(), entity.getZ())) instanceof MagicalPentagramBlockEntity blockEntity) {
+                    ItemEntity mob_soul = new ItemEntity(level, entity.getX(), entity.getY(), entity.getZ(), ModItems.MOB_SOUL.get().getDefaultInstance());
 
-    public static void spawnParticles(Level level, BlockPos pos) {
-        double d0 = 0.5725D;
-        RandomSource randomsource = level.random;
+                    CompoundTag nbt = new CompoundTag();
+                    nbt.putString("id", ForgeRegistries.ENTITY_TYPES.getKey(entity.getType()).toString());
 
-        for(Direction direction : Direction.values()) {
-            BlockPos blockpos = pos.relative(direction);
-            if (!level.getBlockState(blockpos).isSolidRender(level, blockpos)) {
-                Direction.Axis direction$axis = direction.getAxis();
-                double d1 = direction$axis == Direction.Axis.X ? 0.5D + 0.5625D * (double)direction.getStepX() : (double)randomsource.nextFloat();
-                double d2 = direction$axis == Direction.Axis.Y ? 0.59D + 0.5625D * (double)direction.getStepY() : (double)randomsource.nextFloat();
-                double d3 = direction$axis == Direction.Axis.Z ? 0.5D + 0.5625D * (double)direction.getStepZ() : (double)randomsource.nextFloat();
-                level.addParticle(ParticleTypes.ENCHANTED_HIT, (double)pos.getX() + d1, (double)pos.getY() + d2 + 1.29D, (double)pos.getZ() + d3, 0.0D, 0.0D, 0.0D);
+
+                    mob_soul.getItem().setTag(nbt);
+                    level.addFreshEntity(mob_soul);
+                }
             }
         }
+
+        return super.hurtEnemy(stack, entity, player);
     }
 }

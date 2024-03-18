@@ -1,16 +1,19 @@
 package com.siuzu.magical_obsession.client.render.block;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Vector3f;
 import com.siuzu.magical_obsession.block.tile.EntityDuplicatorBlockEntity;
 import com.siuzu.magical_obsession.init.ModItems;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.block.BlockRenderDispatcher;
 import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.entity.ItemRenderer;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
@@ -78,10 +81,21 @@ public class EntityDuplicatorRenderer implements BlockEntityRenderer<EntityDupli
 
         // Render Sphere
 
+        stack.pushPose();
+        stack.translate(entity.getBlockPos().getX() + 0.5, entity.getBlockPos().getY() + 0.5, entity.getBlockPos().getZ() + 0.5); // Adjust position as needed
 
+        // Define vertices for the cube (assuming unit size)
+        float halfWidth = 0.5f;
+        Minecraft instance = Minecraft.getInstance();
+        TextureAtlasSprite sprite = instance.getBlockRenderer().getBlockModelShaper().getParticleIcon(entity.getBlockState());
+        VertexConsumer vertexConsumer = buffer.getBuffer(RenderType.solid());
+        vertexConsumer.vertex(stack.last().pose(), -halfWidth, -halfWidth, -halfWidth).uv(sprite.getU1(), sprite.getV1());
+        // ... (add vertices for all 6 faces of the cube)
+
+        stack.popPose();
         // Render Particle
 
-        if (state.getValue(HorizontalDirectionalBlock.FACING).equals(Direction.EAST) || state.getValue(HorizontalDirectionalBlock.FACING).equals(Direction.WEST)) {
+        /*if (state.getValue(HorizontalDirectionalBlock.FACING).equals(Direction.EAST) || state.getValue(HorizontalDirectionalBlock.FACING).equals(Direction.WEST)) {
             stack.pushPose();
             stack.translate(0.5d, 0.52d + entity.getProgress() / 570f, 0.8d);
             stack.scale(0.75f, 1.15f, 0.75f);
@@ -113,6 +127,6 @@ public class EntityDuplicatorRenderer implements BlockEntityRenderer<EntityDupli
             item_renderer.renderStatic(Minecraft.getInstance().player, ModItems.ENTITY_DUPLICATOR_PARTICLE.get().getDefaultInstance(), ItemTransforms.TransformType.FIXED, false, stack, buffer,
                     Minecraft.getInstance().level, coverlay, plight, plight);
             stack.popPose();
-        }
+        }*/
     }
 }

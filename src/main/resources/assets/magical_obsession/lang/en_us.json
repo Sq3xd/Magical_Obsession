@@ -37,7 +37,7 @@
   "gui.jei.description.suspended_redstone": "Probably was obtained from ancient redstone ores, but is there's any of those? This thing doesn't work as redstone.",
   "gui.jei.description.nugget": "Nuggets can be obtained by destroying Terra Ore.",
   "gui.jei.description.mob_soul": "Mob Souls are used to duplicate entities on duplicator.",
-  "gui.jei.description.immolation_sword": "Sacrifice an mob, but don't forget to hold a soul jar.",
+  "gui.jei.description.immolation_sword": "Use it to sacrifice a mob, and duplicate it's soul.",
 
   "advancements.magical_obsession.magical_obsession.title": "Magical Obsession",
   "advancements.magical_obsession.collectioner.title": "Collectioner",
